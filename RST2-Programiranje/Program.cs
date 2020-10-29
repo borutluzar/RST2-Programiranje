@@ -24,6 +24,11 @@ namespace RST2_Programiranje
             //int numbeOfLines = MyStaticFunctions.ReadFile("PrvaPredavanja.txt");
             //Console.WriteLine($"Datoteka vsebuje {numbeOfLines} vrstic!");
 
+            //FileData fd = MyStaticFunctions.ReadFile2("PrvaPredavanja.txt");
+            //Console.WriteLine($"Datoteka vsebuje {fd.NumberOfLines} vrstic in {(fd.ContainsSensitiveInfo ? "vsebuje moje ime!" : "ne vsebuje mojega imena!")}");
+
+            //CreateStudents();
+
             Console.Read();
         }
 
@@ -52,6 +57,17 @@ namespace RST2_Programiranje
             Console.WriteLine("Zamiki pri interpolaciji");
             Console.WriteLine($"|{"Ime in priimek",-20}|{"Ocena",6}|");
             Console.WriteLine($"|{"Borut Lužar",-20}|{"6",6}|");
+        }
+
+        static void CreateStudents()
+        {
+            Student marko = new Student("Marko", "Markantni")
+            {
+                BirthDate = new DateTime(1980, 1, 1),
+                Subjects = new System.Collections.Generic.List<Subject>() { Subject.DiskretnaMatematika }
+            };
+            Console.WriteLine($"{marko.FirstName} je rojen {marko.BirthDate.Day}. {marko.BirthDate.Month}. {marko.BirthDate.Year}");
+            Console.WriteLine($"{marko.FirstName} je star {marko.GetAge()} let.");
         }
     }
 }

@@ -122,6 +122,33 @@ namespace RST2_Programiranje
             srData.Close();
 
             return countLines;
-        }        
+        }
+
+        public static FileData ReadFile2(string fileName)
+        {
+            StreamReader srData = new StreamReader(fileName);
+                        
+            int countLines = 0;
+
+            // Dodaten podatek, za katerega želimo, da ga funkcija vrne
+            bool checkContainsMyName = default;
+            while (!srData.EndOfStream)
+            {
+                string line = srData.ReadLine();
+                countLines++;
+
+                if (line.Contains("Borut"))
+                    checkContainsMyName = true;
+            }
+            srData.Close();
+
+            FileData fd = new FileData(checkContainsMyName)
+            {
+                NumberOfLines = countLines,
+                //ContainsSensitiveInfo = checkContainsMyName
+            };
+
+            return fd;
+        }
     }
 }
