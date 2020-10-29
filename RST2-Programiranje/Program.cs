@@ -2,6 +2,12 @@
 
 namespace RST2_Programiranje
 {
+
+
+    /// <summary>
+    /// Za več in bolj podrobna navodila si oglejte stran
+    /// https://docs.microsoft.com/en-us/dotnet/csharp/tour-of-csharp/
+    /// </summary>
     class Program
     {
         static void Main(string[] args)
@@ -9,11 +15,21 @@ namespace RST2_Programiranje
             Console.WriteLine("Hello World!");
 
             //PrepareOutputs();
-            MyStaticFunctions.MakeRandomList(10, out int odds, true);
-            Console.WriteLine($"Število lihih vnosov: {odds}");
+
+            //MyStaticFunctions.MakeRandomList(10, out int odds, true);
+            //Console.WriteLine($"Število lihih vnosov: {odds}");
+
+            MyStaticFunctions.WriteFile("PrvaPredavanja.txt");
+
+            //int numbeOfLines = MyStaticFunctions.ReadFile("PrvaPredavanja.txt");
+            //Console.WriteLine($"Datoteka vsebuje {numbeOfLines} vrstic!");
+
             Console.Read();
         }
 
+        /// <summary>
+        /// Malo o pripravi nizov za izpis
+        /// </summary>
         static void PrepareOutputs()
         {
             int n = 22;

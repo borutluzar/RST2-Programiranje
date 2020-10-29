@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace RST2_Programiranje
@@ -81,5 +82,46 @@ namespace RST2_Programiranje
 
             return lstRandoms;
         }
+
+        /// <summary>
+        /// Creates a new file with some dummy entries
+        /// </summary>
+        /// <param name="fileName">Name of the file</param>
+        public static void WriteFile(string fileName)
+        {
+            StreamWriter swData = new StreamWriter(fileName);
+
+            swData.WriteLine("Moje ime je Borut.");
+            swData.WriteLine("Rad delam na FIŠ.");
+            swData.WriteLine("Ali pa tudi ne.");
+            swData.WriteLine("Odvisno od dela.");
+
+            swData.Close();
+        }
+
+        /// <summary>
+        /// Reads the given file and counts its lines.
+        /// </summary>
+        /// <param name="fileName">Name of the file</param>
+        public static int ReadFile(string fileName)
+        {
+            StreamReader srData = new StreamReader(fileName);
+
+            int countLines = 0;
+            
+            // Dodaten podatek, za katerega želimo, da ga funkcija vrne
+            bool checkContainsMyName;
+            while (!srData.EndOfStream)
+            {
+                string line = srData.ReadLine();
+                countLines++;
+
+                if (line.Contains("Borut"))
+                    checkContainsMyName = true;
+            }
+            srData.Close();
+
+            return countLines;
+        }        
     }
 }
