@@ -1,31 +1,35 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace RST2_Programiranje
 {
-
-
     /// <summary>
     /// Za več in bolj podrobna navodila si oglejte stran
     /// https://docs.microsoft.com/en-us/dotnet/csharp/tour-of-csharp/
+    /// 
+    /// Dodatno o posebnostih zadnjih verzij jezika najdete tudi tukaj:
+    /// https://www.dotnetcurry.com/csharp/1489/csharp-8-visual-studio-2019
     /// </summary>
     class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
-
+            //Console.WriteLine("Hello World!");
             //PrepareOutputs();
 
-            //MyStaticFunctions.MakeRandomList(10, out int odds, true);
+            //List<int> lstRnd = MyStaticFunctions.MakeRandomList(13, out int odds);
             //Console.WriteLine($"Število lihih vnosov: {odds}");
+            
+            // Če ne potrebujemo out spremenljivke, uporabimo podčrtaj
+            //MyStaticFunctions.MakeRandomList(13, out _);
 
-            MyStaticFunctions.WriteFile("PrvaPredavanja.txt");
+            //MyStaticFunctions.WriteFile("PrvaPredavanjaTest.txt");
 
-            //int numbeOfLines = MyStaticFunctions.ReadFile("PrvaPredavanja.txt");
-            //Console.WriteLine($"Datoteka vsebuje {numbeOfLines} vrstic!");
+            /*int numbeOfLines = MyStaticFunctions.ReadFile("PrvaPredavanjaTest.txt");
+            Console.WriteLine($"Datoteka vsebuje {numbeOfLines} vrstic!");*/
 
-            //FileData fd = MyStaticFunctions.ReadFile2("PrvaPredavanja.txt");
-            //Console.WriteLine($"Datoteka vsebuje {fd.NumberOfLines} vrstic in {(fd.ContainsSensitiveInfo ? "vsebuje moje ime!" : "ne vsebuje mojega imena!")}");
+            FileData fd = MyStaticFunctions.ReadFile2("PrvaPredavanja.txt");
+            Console.WriteLine($"Datoteka vsebuje {fd.NumberOfLines} vrstic in {(fd.ContainsSensitiveInfo ? "vsebuje moje ime!" : "ne vsebuje mojega imena!")}");
 
             //CreateStudents();
 
@@ -44,7 +48,7 @@ namespace RST2_Programiranje
             // Običajen izpis
             Console.WriteLine();
             Console.WriteLine("Običajen izpis");
-            Console.WriteLine("Število praštevil med 1 in "+ n +" je " + primes + ".");
+            Console.WriteLine("Število praštevil med 1 in " + n + " je " + primes + ".");
             Console.WriteLine("Število praštevil med 1 in {0} je {1}.", n, primes);
 
             // Interpolacija nizov - https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/tokens/interpolated

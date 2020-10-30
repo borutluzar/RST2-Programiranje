@@ -18,11 +18,11 @@ namespace RST2_Programiranje
             int countPrimes = 0;
 
             // For each i between 1 and n check if it is a prime number
-            for(int i=2; i<=n; i++)
+            for (int i = 2; i <= n; i++)
             {
                 // Count number of divisors of the current number i
                 int countDivisors = 0;
-                for(int j=2; j <= Math.Sqrt(i); j++)
+                for (int j = 2; j <= Math.Sqrt(i); j++)
                 {
                     if (i % j == 0)
                         countDivisors++;
@@ -50,7 +50,7 @@ namespace RST2_Programiranje
             Random rnd = new Random(0);
 
             List<int> lstRandoms = new List<int>();
-            for(int i=0; i < capacity; i++)
+            for (int i = 0; i < capacity; i++)
             {
                 lstRandoms.Add(rnd.Next(0, 101));
             }
@@ -74,7 +74,12 @@ namespace RST2_Programiranje
 
             // Preverimo, koliko vnosov je lihih
             int tmpOdd = default;
-            lstRandoms.ForEach(x => tmpOdd += x % 2 == 1 ? 1 : 0);
+            //lstRandoms.ForEach(x => tmpOdd += x % 2 == 1 ? 1 : 0);
+            lstRandoms.ForEach(x =>
+                {
+                    if (x % 2 == 1)
+                        tmpOdd++;
+                });
             numOdd = tmpOdd;
 
             if (debug)
@@ -108,7 +113,7 @@ namespace RST2_Programiranje
             StreamReader srData = new StreamReader(fileName);
 
             int countLines = 0;
-            
+
             // Dodaten podatek, za katerega želimo, da ga funkcija vrne
             bool checkContainsMyName;
             while (!srData.EndOfStream)
@@ -127,7 +132,7 @@ namespace RST2_Programiranje
         public static FileData ReadFile2(string fileName)
         {
             StreamReader srData = new StreamReader(fileName);
-                        
+
             int countLines = 0;
 
             // Dodaten podatek, za katerega želimo, da ga funkcija vrne
@@ -141,7 +146,7 @@ namespace RST2_Programiranje
                     checkContainsMyName = true;
             }
             srData.Close();
-
+            
             FileData fd = new FileData(checkContainsMyName)
             {
                 NumberOfLines = countLines,
