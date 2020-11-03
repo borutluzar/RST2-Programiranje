@@ -11,12 +11,15 @@ namespace ObjektniKoncepti
             BoxingUnboxing,
             Inheritance,
             Inheritance2,
-            Inheritance3
+            Inheritance3,
+            InheritancePolymorphism,
+            Interfaces,
+            Abstraction
         }
 
         static void Main(string[] args)
         {
-            Section section = Section.Inheritance3;
+            Section section = Section.Properties;
 
             switch (section)
             {
@@ -97,6 +100,85 @@ namespace ObjektniKoncepti
                         // Vedno se kliče metode iz dejanskega razreda instance
                         Console.WriteLine($"ToString za rook = {rook.ToString()}");
                         Console.WriteLine($"ToString za piece = {piece.ToString()}");
+                    }
+                    break;
+                case Section.InheritancePolymorphism:
+                    {
+                        Inheritance.Player player = new Inheritance.Player();
+                        player.MyPieces.Add(new Inheritance.Rook());
+                        player.MyPieces.Add(new Inheritance.Rook());
+                        player.MyPieces.Add(new Inheritance.King());
+
+                        // Izpišimo figure iz seznama
+                        Console.WriteLine($"Figure igralca player so:");
+                        player.MyPieces.ForEach(f => Console.WriteLine($"{f}"));
+                        Console.WriteLine();
+                    }
+                    break;
+                case Section.Interfaces:
+                    {
+                        // Ustvarimo dve polji na plošči
+                        Interfaces.ChessBoardField fieldStart = new Interfaces.ChessBoardField() { X = 1, Y = 1 };
+                        Interfaces.ChessBoardField fieldEnd = new Interfaces.ChessBoardField() { X = 2, Y = 2 };
+
+                        Interfaces.ChessPiece piece = new Interfaces.ChessPiece(fieldStart);
+                        Console.WriteLine($"Trenutna pozicija figure piece je {piece.Position}");
+                        Console.WriteLine();
+
+                        // Premaknimo figuro
+                        piece.Move(fieldEnd);
+                        Console.WriteLine("Premaknemo...");
+                        Console.WriteLine($"Trenutna pozicija figure piece je {piece.Position}");
+
+
+                        /*
+                        // Premaknimo trdnjavo
+                        InterfacesAndAbstraction.Rook rook = new InterfacesAndAbstraction.Rook(fieldStart);
+                        Console.WriteLine($"Trenutna pozicija figure rook je {rook.Position}");
+                        Console.WriteLine();
+
+                        // Premaknimo figuro
+                        try
+                        {
+                            rook.Move(fieldEnd);
+                            Console.WriteLine("Premaknemo...");
+                            Console.WriteLine($"Trenutna pozicija figure piece je {rook.Position}");
+                        }
+                        catch(Exception ex)
+                        {
+                            Console.WriteLine($"Prišlo je do napake pri premiku figure {nameof(rook)}");
+                            Console.WriteLine(ex.Message);
+                        }
+
+                        //Console.WriteLine($"Figure igralca player so:");
+                        //player.MyPieces.ForEach(f => Console.WriteLine($"{f}"));
+                        Console.WriteLine();*/
+                    }
+                    break;
+                case Section.Abstraction:
+                    {
+                        Abstraction.ChessBoardField fieldStart = new Abstraction.ChessBoardField() { X = 1, Y = 1 };
+                        Abstraction.ChessBoardField fieldEnd = new Abstraction.ChessBoardField() { X = 2, Y = 2 };
+
+                        // Spodnja koda se ne prevede
+                        //Abstraction.ChessPiece piece = new Abstraction.ChessPiece(fieldStart);
+
+                        Abstraction.ChessPiece rook = new Abstraction.Rook(fieldStart);
+                        Console.WriteLine($"Trenutna pozicija figure rook je {rook.Position}");
+                        Console.WriteLine();
+
+                        // Premaknimo figuro
+                        try
+                        {
+                            rook.Move(fieldEnd);
+                            Console.WriteLine("Premaknemo...");
+                            Console.WriteLine($"Trenutna pozicija figure piece je {rook.Position}");
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine($"Prišlo je do napake pri premiku figure {nameof(rook)}");
+                            Console.WriteLine(ex.Message);
+                        }
                     }
                     break;
             }

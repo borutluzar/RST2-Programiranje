@@ -97,4 +97,32 @@ namespace ObjektniKoncepti.Inheritance
             return base.ToString() + $"\nMoje ime je {this.GetType()}";
         }
     }
+
+    /// <summary>
+    /// Ustvarimo razred za še eno figuro
+    /// </summary>
+    public class King : ChessPiece
+    {
+        public King()
+        {
+            this.ChessWeight = double.PositiveInfinity;
+        }
+
+        public override string ToString()
+        {
+            return base.ToString() + $"\nMoje ime je {this.GetType()}";
+        }
+    }
+
+    /// <summary>
+    /// Arh, Q22
+    /// Na tem primeru si bomo ogledali koncept polimorfizma
+    /// </summary>
+    public class Player
+    {
+        /// <summary>
+        /// Lastnost, ki vsebuje trenutne figure igralca
+        /// </summary>
+        public List<ChessPiece> MyPieces { get; }  = new List<ChessPiece>();
+    }
 }
