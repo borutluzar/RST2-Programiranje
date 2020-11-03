@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace RST2_Programiranje
+namespace Uvod
 {
     public class FileData
     {

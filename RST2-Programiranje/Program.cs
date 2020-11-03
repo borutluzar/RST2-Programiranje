@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace RST2_Programiranje
+namespace Uvod
 {
     /// <summary>
     /// Za več in bolj podrobna navodila si oglejte stran
