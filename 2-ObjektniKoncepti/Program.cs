@@ -23,7 +23,7 @@ namespace ObjektniKoncepti
 
         static void Main(string[] args)
         {
-            Section section = Section.Interfaces;
+            Section section = Section.Extensions;
 
             switch (section)
             {
@@ -131,9 +131,10 @@ namespace ObjektniKoncepti
                     {
                         // Ustvarimo dve polji na plošči
                         Interfaces.ChessBoardField fieldStart = new Interfaces.ChessBoardField() { X = 1, Y = 1 };
-                        Interfaces.ChessBoardField fieldEnd = new Interfaces.ChessBoardField() { X = 2, Y = 2 };
+                        Interfaces.ChessBoardField fieldEnd = new Interfaces.ChessBoardField() { X = 2, Y = 1 };
 
                         Interfaces.ChessPiece piece = new Interfaces.ChessPiece(fieldStart);
+
                         Console.WriteLine($"Trenutna pozicija figure piece je {piece.Position}");
                         Console.WriteLine();
 
@@ -142,10 +143,9 @@ namespace ObjektniKoncepti
                         Console.WriteLine("Premaknemo...");
                         Console.WriteLine($"Trenutna pozicija figure piece je {piece.Position}");
 
-
-                        /*
+                        
                         // Premaknimo trdnjavo
-                        InterfacesAndAbstraction.Rook rook = new InterfacesAndAbstraction.Rook(fieldStart);
+                        Interfaces.Rook rook = new Interfaces.Rook(fieldStart);
                         Console.WriteLine($"Trenutna pozicija figure rook je {rook.Position}");
                         Console.WriteLine();
 
@@ -154,7 +154,7 @@ namespace ObjektniKoncepti
                         {
                             rook.Move(fieldEnd);
                             Console.WriteLine("Premaknemo...");
-                            Console.WriteLine($"Trenutna pozicija figure piece je {rook.Position}");
+                            Console.WriteLine($"Trenutna pozicija figure rook je {rook.Position}");
                         }
                         catch(Exception ex)
                         {
@@ -164,13 +164,13 @@ namespace ObjektniKoncepti
 
                         //Console.WriteLine($"Figure igralca player so:");
                         //player.MyPieces.ForEach(f => Console.WriteLine($"{f}"));
-                        Console.WriteLine();*/
+                        Console.WriteLine();
                     }
                     break;
                 case Section.Abstraction:
                     {
                         Abstraction.ChessBoardField fieldStart = new Abstraction.ChessBoardField() { X = 1, Y = 1 };
-                        Abstraction.ChessBoardField fieldEnd = new Abstraction.ChessBoardField() { X = 2, Y = 2 };
+                        Abstraction.ChessBoardField fieldEnd = new Abstraction.ChessBoardField() { X = 1, Y = 2 };
 
                         // Spodnja koda se ne prevede
                         //Abstraction.ChessPiece piece = new Abstraction.ChessPiece(fieldStart);
@@ -185,7 +185,7 @@ namespace ObjektniKoncepti
                         {
                             rook.Move(fieldEnd);
                             Console.WriteLine("Premaknemo...");
-                            Console.WriteLine($"Trenutna pozicija figure piece je {rook.Position}");
+                            Console.WriteLine($"Trenutna pozicija figure rook je {rook.Position}");
                         }
                         catch (Exception ex)
                         {
@@ -203,30 +203,34 @@ namespace ObjektniKoncepti
                         Console.WriteLine();
                         Console.WriteLine($"Trenutna pozicija figure rook je {rook.Position}");
 
-                        /*
+                        
                         InterfacesImplicitExplicit.IPiece rook2 = rook as InterfacesImplicitExplicit.IPiece;
                         Console.WriteLine();
                         Console.WriteLine("Eksplicitna implementacija metode Promote iz IPiece");
                         rook2.Promote(new InterfacesImplicitExplicit.Rook(rook.Position));
-
+                        
                         Console.WriteLine();
                         Console.WriteLine("Implementacija metode Promote iz razreda");
                         Console.WriteLine();
                         Console.WriteLine("Klic na objektu rook: ");
                         rook.Promote(new InterfacesImplicitExplicit.Rook(rook.Position));
+                        
                         Console.WriteLine();
                         Console.WriteLine("Klic na objektu rook2: ");
                         rook2.Promote(new InterfacesImplicitExplicit.Rook(rook.Position));
+                        
                         Console.WriteLine();
                         Console.WriteLine("Klic na objektu tipa ICareerObject: ");
                         ((InterfacesImplicitExplicit.ICareerObject)rook).Promote(new InterfacesImplicitExplicit.Rook(rook.Position));
-                        */
-
+                        
                         Console.WriteLine();
                     }
                     break;
                 case Section.Extensions:
                     {
+                        string denis = "Denis";
+                        Console.WriteLine($"Denis vsebuje? {denis.ContainsVowels()}");
+
                         Extensions.ChessBoardField field = new Extensions.ChessBoardField() 
                         { 
                             X = 4,

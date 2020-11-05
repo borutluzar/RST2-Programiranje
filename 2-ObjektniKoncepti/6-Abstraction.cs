@@ -22,7 +22,7 @@ namespace ObjektniKoncepti.Abstraction
         /// Vendar moramo lastnosti vmesnika dejansko implementirati v razredu.
         /// </summary>
         bool IsAlive { get; set; }
-
+        
         ChessBoardField Position { get; }
     }
 
@@ -124,7 +124,7 @@ namespace ObjektniKoncepti.Abstraction
         {
             if (this.Position.X != field.X && this.Position.Y != field.Y)
                 throw new Exception("Nedovoljen premik!");
-            
+
             // Če je metoda v nadrazredu označena za abstraktno, 
             // moramo njeno implementacijo dokončati v podrazredu.
             // Pri tem moramo vedno dobro razmisliti, 
@@ -132,6 +132,7 @@ namespace ObjektniKoncepti.Abstraction
             // ki se naj izvede v vseh podrazredih. 
             // V tem primeru je metoda v nadrazredu virtualna.
             //base.Move(field);
+            Console.WriteLine("Premik je dovoljen, ampak nimam dostopa do this.Position! :(");
         }
     }    
 

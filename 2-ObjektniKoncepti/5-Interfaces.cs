@@ -28,6 +28,8 @@ namespace ObjektniKoncepti.Interfaces
         /// </summary>
         bool IsAlive { get; set; }
 
+        double ChessWeight { get; }
+
         ChessBoardField Position { get; }
     }
 
@@ -125,8 +127,10 @@ namespace ObjektniKoncepti.Interfaces
         /// <param name="field">Polje na plošči</param>
         public override void Move(ChessBoardField field)
         {
+            // Pravilo za premik trdnjave
             if (this.Position.X != field.X && this.Position.Y != field.Y)
                 throw new Exception("Nedovoljen premik!");
+
             base.Move(field);
         }
     }    

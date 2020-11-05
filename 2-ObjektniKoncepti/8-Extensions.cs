@@ -11,6 +11,13 @@ namespace ObjektniKoncepti.Extensions
     /// </summary>
     public static class ExtensionsClass
     {
+        public static bool ContainsVowels(this string str)
+        {
+            if (str.Contains('a') || str.Contains('e') || str.Contains('i') || str.Contains('o') || str.Contains('u'))
+                return true;
+            return false;
+        }
+
         /// <summary>
         /// Dodamo razširitveno metode za naše (lokalne) potrebe
         /// </summary>
