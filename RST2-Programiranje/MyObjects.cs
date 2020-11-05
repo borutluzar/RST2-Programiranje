@@ -24,10 +24,11 @@ namespace Uvod
 
     public class Student
     {
-        public Student(string fn, string ln)
+        public Student(string fn, string ln, DateTime birthDate)
         {
             this.FirstName = fn;
             this.LastName = ln;
+            this.BirthDate = birthDate;
             this.Subjects = new List<Subject>();
         }
 
@@ -35,7 +36,7 @@ namespace Uvod
 
         public string LastName { get; private set; }
 
-        public DateTime BirthDate { get; set; }
+        private DateTime BirthDate { get; set; }
 
         public List<Subject> Subjects { get; set; }
 
@@ -52,9 +53,9 @@ namespace Uvod
 
     public enum Subject
     {
-        Programiranje = 0,
-        DiskretnaMatematika = 1,
-        RazvojNaprednihSpletnihUporabniškihVmesnikov = 3,
-        Algoritmi = 4
+        Programiranje,
+        DiskretnaMatematika,
+        RazvojNaprednihSpletnihUporabniškihVmesnikov,
+        Algoritmi
     }
 }

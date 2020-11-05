@@ -127,7 +127,10 @@ namespace ObjektniKoncepti.Abstraction
             
             // Če je metoda v nadrazredu označena za abstraktno, 
             // moramo njeno implementacijo dokončati v podrazredu.
-            // Pri tem moramo vedno dobro razmisliti...
+            // Pri tem moramo vedno dobro razmisliti, 
+            // če lahko že v nadrazredu v metodi izvedemo nek košček kode, 
+            // ki se naj izvede v vseh podrazredih. 
+            // V tem primeru je metoda v nadrazredu virtualna.
             //base.Move(field);
         }
     }    

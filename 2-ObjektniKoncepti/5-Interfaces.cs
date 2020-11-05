@@ -122,7 +122,7 @@ namespace ObjektniKoncepti.Interfaces
         /// <summary>
         /// Trdnjava se premika samo po linijah in vrstah
         /// </summary>
-        /// <param name="field"></param>
+        /// <param name="field">Polje na plošči</param>
         public override void Move(ChessBoardField field)
         {
             if (this.Position.X != field.X && this.Position.Y != field.Y)

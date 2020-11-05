@@ -28,10 +28,11 @@ namespace Uvod
             /*int numbeOfLines = MyStaticFunctions.ReadFile("PrvaPredavanjaTest.txt");
             Console.WriteLine($"Datoteka vsebuje {numbeOfLines} vrstic!");*/
 
-            FileData fd = MyStaticFunctions.ReadFile2("PrvaPredavanja.txt");
-            Console.WriteLine($"Datoteka vsebuje {fd.NumberOfLines} vrstic in {(fd.ContainsSensitiveInfo ? "vsebuje moje ime!" : "ne vsebuje mojega imena!")}");
+            /*FileData fd = MyStaticFunctions.ReadFile2("PrvaPredavanja.txt");
+            Console.WriteLine($"Datoteka vsebuje {fd.NumberOfLines} vrstic in " +
+                    $"{(fd.ContainsSensitiveInfo ? "vsebuje moje ime!" : "ne vsebuje mojega imena!")}");*/
 
-            //CreateStudents();
+            CreateStudents();
 
             Console.Read();
         }
@@ -65,12 +66,12 @@ namespace Uvod
 
         static void CreateStudents()
         {
-            Student marko = new Student("Marko", "Markantni")
+            Student marko = new Student("Marko", "Markantni", new DateTime(1980, 1, 1))
             {
-                BirthDate = new DateTime(1980, 1, 1),
                 Subjects = new System.Collections.Generic.List<Subject>() { Subject.DiskretnaMatematika }
             };
-            Console.WriteLine($"{marko.FirstName} je rojen {marko.BirthDate.Day}. {marko.BirthDate.Month}. {marko.BirthDate.Year}");
+            //Console.WriteLine($"{marko.FirstName} je rojen {marko.BirthDate.Day}. {marko.BirthDate.Month}. {marko.BirthDate.Year}");
+            Console.WriteLine($"{marko.FirstName} je rojen.");
             Console.WriteLine($"{marko.FirstName} je star {marko.GetAge()} let.");
         }
     }

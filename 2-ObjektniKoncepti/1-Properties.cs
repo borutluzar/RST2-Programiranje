@@ -6,7 +6,7 @@ namespace ObjektniKoncepti
 {
     /// <summary>
     /// Arh, Q34
-    /// Zakaj uporabljati lastnosti namesto javnih spremenljivk.
+    /// Zakaj uporabljati lastnosti namesto javnih spremenljivk?
     /// </summary>
     public class PropertiesExample
     {
@@ -41,7 +41,7 @@ namespace ObjektniKoncepti
         /// Pri tovrstnih lastnostih ne moremo dodati logike ob izvajanju. Če se takšna potreba
         /// izkaže, lastnost lahko naknadno spremenimo v široko obliko.
         /// 
-        /// Če omejimo vidnost nastavljanja na private, imamo dve možnosti: 
+        /// Če omejimo vidnost nastavljanja na private, imamo tri možnosti: 
         /// - neposredno nastavitev vrednosti za lastnostjo
         /// - nastavitev v konstruktorju
         /// - nastavitev v lokalni metodi
@@ -51,12 +51,12 @@ namespace ObjektniKoncepti
         public PropertiesExample()
         {
             //this.AutoImplementedProperty = 44;
-            //this.ReadOnlyAutoImplementedProperty = 12;
+            this.ReadOnlyAutoImplementedProperty = 12;
         }
 
         public void MethodExample()
         {
-            this.AutoImplementedProperty = 56;
+            //this.AutoImplementedProperty = 56;
             //this.ReadOnlyAutoImplementedProperty = 67;
         }
 

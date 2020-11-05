@@ -6,7 +6,7 @@ namespace ObjektniKoncepti
 {
     /// <summary>
     /// Arh, Q34
-    /// Indeksatorji (Indexers) so podobni običajnim lastnostim,
+    /// Indekserji ("Indexers") so podobni običajnim lastnostim,
     /// le da prejmejo dodaten parameter
     /// </summary>
     internal class IndexerExample
@@ -17,7 +17,7 @@ namespace ObjektniKoncepti
         private Dictionary<string, double> dicPrice = new Dictionary<string, double>();
 
         /// <summary>
-        /// Indeksatorji neposredno vzamejo vrednosti iz slovarja
+        /// Indekserji neposredno vzamejo vrednosti iz slovarja
         /// </summary>
         /// <param name="article">Parameter, ki predstavlja indeks v slovarju</param>
         /// <returns>Vrednost na danem indeksu</returns>
@@ -29,8 +29,10 @@ namespace ObjektniKoncepti
             }
             set
             {
+                // Popravljanje vnosa
                 if (this.dicPrice.ContainsKey(article))
                     this.dicPrice[article] = (double)value;
+                // Dodajanje novega vnosa
                 else
                     this.dicPrice.Add(article, (double)value);
             }

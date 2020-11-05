@@ -1,0 +1,136 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace ObjektniKoncepti.InterfacesImplicitExplicit
+{
+    /// <summary>
+    /// Arh, Q25
+    /// V tem primeru si bomo ogledali možnost eksplicitne implementacije metode vmesnika
+    /// </summary>
+    interface IPiece
+    {
+        void Move(ChessBoardField field);
+
+        void Promote(ChessPiece toPiece);
+
+        bool IsAlive { get; set; }
+
+        ChessBoardField Position { get; }
+    }
+
+    public abstract class ChessPiece : IPiece, ICareerObject
+    {
+        public ChessPiece(ChessBoardField start)
+        {
+            this.position = start;
+        }
+
+        public virtual double ChessWeight { get; protected set; }
+
+        public override string ToString()
+        {
+            return $"Sem šahovska figura z vrednostjo {this.ChessWeight}.";
+        }
+
+        /// <summary>
+        /// Implicitna implementacija metode
+        /// </summary>
+        public virtual void Move(ChessBoardField field)
+        {
+            this.position = field;
+        }
+
+        /// <summary>
+        /// Eksplicitna implementacija metode iz IPiece
+        /// Ne moremo je implementirati kot abstraktno. (Ni (še) jasno zakaj...)
+        /// </summary>
+        void IPiece.Promote(ChessPiece toPiece)
+        {
+            Console.WriteLine($"(EKSPLICITNO iz IPiece) Jaz, figura kmet, se želim promovirati v figuro:\n {toPiece.GetType()}");
+        }
+
+        /// <summary>
+        /// Implementacija metode z istim imenom v razredu
+        /// </summary>
+        /// <param name="toPiece"></param>
+        public void Promote(ChessPiece toPiece)
+        {
+            Console.WriteLine($"(Metoda iz ChessPiece) Jaz, figura kmet, se želim promovirati v figuro:\n {toPiece.GetType()}");
+        }
+
+        void ICareerObject.Promote(ChessPiece toPiece)
+        {
+            Console.WriteLine($"(EKSPLICITNO iz ICareerObject) Jaz, figura kmet, se želim promovirati v figuro:\n {toPiece.GetType()}");
+        }
+
+        public bool IsAlive { get; set; }
+
+        private ChessBoardField position;
+        public ChessBoardField Position 
+        {
+            get
+            {
+                return position;
+            } 
+        }
+    }
+
+    /// <summary>
+    /// Drugi vmesnik z metodo, ki nosi enako ime kot metoda v vmesniku IPiece
+    /// </summary>
+    interface ICareerObject
+    {
+        void Promote(ChessPiece toPiece);
+    }
+
+    public class Rook : ChessPiece
+    {
+        public Rook(ChessBoardField start) : base(start)
+        {
+            this.ChessWeight = 4.9;
+        }
+
+        public override string ToString()
+        {
+            return base.ToString() + $"\nMoje ime je {this.GetType()}";
+        }
+
+        public override void Move(ChessBoardField field)
+        {
+            if (this.Position.X != field.X && this.Position.Y != field.Y)
+                throw new Exception("Nedovoljen premik!");
+
+            base.Move(field);
+        }
+    }    
+
+    public class Player
+    {
+        /// <summary>
+        /// Lastnost, ki vsebuje trenutne figure igralca
+        /// </summary>
+        public List<ChessPiece> MyPieces { get; } = new List<ChessPiece>();
+    }
+
+    /// <summary>
+    /// Definiramo si struct za shranjevanje koordinat na šahovski plošči
+    /// </summary>
+    public struct ChessBoardField
+    {
+        /// <summary>
+        /// Vodoravna koordinata
+        /// </summary>
+        public int X { get; set; }
+
+        /// <summary>
+        /// Navpična koordinata
+        /// </summary>
+        public int Y { get; set; }
+
+        public override string ToString()
+        {
+            return $"({this.X},{this.Y})";
+        }
+    }
+}

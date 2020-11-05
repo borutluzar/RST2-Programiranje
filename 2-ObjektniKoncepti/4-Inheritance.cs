@@ -50,12 +50,15 @@ namespace ObjektniKoncepti.Inheritance
             this.field2 = (int)g;
         }
 
-        private readonly int field2;
+        public readonly int field2;
 
         /// <summary>
         /// Lastnost Property1 je že definirana v nadrazredu, 
         /// zato eksplicitno navedemo, da jo želimo predefinirati
         /// z rezervirano besedo 'new' (koda se prevede tudi brez nje)
+        /// 
+        /// Z določilom new zagotovimo, da se med izvajanjem kliče metoda iz razreda, 
+        /// katerega tip je določen ob prevajanju kode
         /// </summary>
         new public int Property1 { get; set; }
 
@@ -67,6 +70,7 @@ namespace ObjektniKoncepti.Inheritance
             return base.SquareField() * this.field2;
         }
     }
+
 
     /// <summary>
     /// Še en primer nadrazreda
@@ -87,9 +91,11 @@ namespace ObjektniKoncepti.Inheritance
     /// </summary>
     public class Rook : ChessPiece
     {
+        private const double chessWeight = 4.9;
+
         public Rook()
         {
-            this.ChessWeight = 4.9;
+            this.ChessWeight = chessWeight;
         }
 
         public override string ToString()
@@ -103,9 +109,11 @@ namespace ObjektniKoncepti.Inheritance
     /// </summary>
     public class King : ChessPiece
     {
+        private const double chessWeight = double.PositiveInfinity;
+
         public King()
         {
-            this.ChessWeight = double.PositiveInfinity;
+            this.ChessWeight = chessWeight;
         }
 
         public override string ToString()

@@ -23,12 +23,12 @@ namespace ObjektniKoncepti
 
             Console.WriteLine($"1. valType={valType}, refType={refType}");
             Console.WriteLine();
-
+                        
             // Ob predelavi se ustvari kopija vrednosti
             valType = 2;
             Console.WriteLine($"2. valType={valType}, refType={refType}");
             Console.WriteLine();
-
+                        
             // Unboxing - tip moramo povedati eksplicitno
             valType = (int)refType;
 
@@ -41,6 +41,8 @@ namespace ObjektniKoncepti
 
             Console.WriteLine($"4. valType={l}, refType={refType2}");
             Console.WriteLine();
+            
+            // PRIMER??
         }
     }
 }
