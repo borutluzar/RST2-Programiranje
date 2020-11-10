@@ -15,7 +15,7 @@ namespace NacrtovalskiVzorci
 
         static void Main(string[] args)
         {
-            Section section = Section.FactoryGood;
+            Section section = Section.Singleton;
 
             Console.WriteLine(); // Za prostor okoli okvirja
             switch (section)

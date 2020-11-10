@@ -44,12 +44,6 @@ namespace PodatkovneStrukture
             {
                 Console.WriteLine($"{structure.GetType().Name}: \t {Insert(structure)}");
             }
-            
-            /*Console.WriteLine($"Vrsto: {Insert(vrsta)}");
-            Console.WriteLine($"Tabelarični seznam: {Insert(seznam)}");
-            Console.WriteLine($"Povezan seznam: {Insert(povezanSeznam)}");
-            Console.WriteLine($"Urejena množica: {Insert(urejenaMnozica)}");
-            Console.WriteLine($"Zgoščena tabela: {Insert(zgoscenaTabela)}");*/
         }
 
         private static double Insert(IEnumerable<int> dataStructure)
