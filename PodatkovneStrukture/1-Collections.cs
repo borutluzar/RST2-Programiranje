@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace PodatkovneStrukture
@@ -59,7 +60,7 @@ namespace PodatkovneStrukture
                         Console.WriteLine($"Element " +
                             $"{(isInserted ? "je bil dodan." : "ni bil dodan")}");
                         Console.WriteLine($"Število elementov v množici: {mnozica.Count}");
-                        
+
                         // Metodo add iz vmesnika ICollection lahko kličemo le eksplicitno
                         //((ICollection<string>)mnozica).Add("Borut");
                     }
@@ -94,115 +95,99 @@ namespace PodatkovneStrukture
                         Console.WriteLine($"Elementi v dnevi: {dnevi.Count}");
 
                         // Seznama vseh ključev in vrednosti sta na voljo preko spodnjih lastnosti
-                        var kljuci = dnevi.Keys;
+                        var kljuci = dnevi.Keys.ToList();
+                        Console.WriteLine($"Tretji index: {kljuci[2]}");
                         var vrednosti = dnevi.Values;
                         Console.WriteLine($"Število ključev: {kljuci.Count}");
                         Console.WriteLine($"Število vrednosti: {vrednosti.Count}");
                     }
                     break;
             }
-
         }
     }
 
     /// <summary>
     /// Implementirajmo svojo strukturo.
     /// </summary>
-    public class MySet<T> : ISet<T>
+    public class MyList<T> : IList<T>
     {
-        public int Count => throw new NotImplementedException();
+        private readonly IList<T> myList;
 
-        public bool IsReadOnly => throw new NotImplementedException();
+        public MyList()
+        {
+            myList = new List<T>();
+        }
 
-        public bool Add(T item)
+        T IList<T>.this[int index] { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
+        int ICollection<T>.Count => myList.Count;
+
+        bool ICollection<T>.IsReadOnly => throw new NotImplementedException();
+
+        public void Add(T item)
+        {
+            if (item is string)
+            {
+                string name = "Borut";
+                if (name.Equals(item))
+                {
+                    return;
+                }
+            }
+
+            this.myList.Add(item);
+        }
+
+        void ICollection<T>.Clear()
         {
             throw new NotImplementedException();
         }
 
-        public void Clear()
+        bool ICollection<T>.Contains(T item)
         {
-            throw new NotImplementedException();
+            foreach(var x in ((IEnumerable)this))
+            {
+                if (x.Equals(item))
+                    return true;
+            }
+            return false;
         }
 
-        public bool Contains(T item)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void CopyTo(T[] array, int arrayIndex)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void ExceptWith(IEnumerable<T> other)
+        void ICollection<T>.CopyTo(T[] array, int arrayIndex)
         {
             throw new NotImplementedException();
         }
 
         public IEnumerator<T> GetEnumerator()
         {
-            throw new NotImplementedException();
-        }
-
-        public void IntersectWith(IEnumerable<T> other)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool IsProperSubsetOf(IEnumerable<T> other)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool IsProperSupersetOf(IEnumerable<T> other)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool IsSubsetOf(IEnumerable<T> other)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool IsSupersetOf(IEnumerable<T> other)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool Overlaps(IEnumerable<T> other)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool Remove(T item)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool SetEquals(IEnumerable<T> other)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void SymmetricExceptWith(IEnumerable<T> other)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void UnionWith(IEnumerable<T> other)
-        {
-            throw new NotImplementedException();
-        }
-
-        void ICollection<T>.Add(T item)
-        {
-            throw new NotImplementedException();
+            return myList.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
+            return GetEnumerator();
+        }
+
+        int IList<T>.IndexOf(T item)
+        {
             throw new NotImplementedException();
         }
+
+        void IList<T>.Insert(int index, T item)
+        {
+            throw new NotImplementedException();
+        }
+
+        bool ICollection<T>.Remove(T item)
+        {
+            throw new NotImplementedException();
+        }
+
+        void IList<T>.RemoveAt(int index)
+        {
+            throw new NotImplementedException();
+        }
+
     }
 
 }

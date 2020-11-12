@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Net.Http.Headers;
 
 namespace PodatkovneStrukture
@@ -9,6 +11,7 @@ namespace PodatkovneStrukture
         IList,
         ISet,
         IDictionary,
+        ITest,
         TestSpeed,
         HanoiExample,
     }
@@ -17,7 +20,7 @@ namespace PodatkovneStrukture
     {
         static void Main(string[] args)
         {
-            Section section = Section.HanoiExample;
+            Section section = Section.ITest;
 
             Console.WriteLine();
             switch (section)
@@ -30,15 +33,26 @@ namespace PodatkovneStrukture
                         ICollectionTest.MethodsOfICollection(section);
                     }
                     break;
+                case Section.ITest:
+                    {
+                        IList<string> testList = new MyList<string>();
+                        testList.Add("Luka");
+                        testList.Add("Jernej");
+                        testList.Add("Borut");
+                        Console.WriteLine($"Imamo {testList.Count} elementov!");
+                    }
+                    break;
                 case Section.TestSpeed:
                     {
                         TestAction action = TestAction.Find;
 
                         TestSpeed.NUMBERS_UP_TO = 101;
                         TestSpeed.TestDataStructures(action);
+                        Console.WriteLine();
 
                         TestSpeed.NUMBERS_UP_TO = 1001;
                         TestSpeed.TestDataStructures(action);
+                        Console.WriteLine();
 
                         TestSpeed.NUMBERS_UP_TO = 10001;
                         TestSpeed.TestDataStructures(action);
