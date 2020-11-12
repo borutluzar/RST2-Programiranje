@@ -37,6 +37,7 @@ namespace NacrtovalskiVzorci
                 case Section.SingletonLog:
                     {
                         EventLog log = EventLog.Instance();
+                        
                         log.WriteEvent("Kreiramo nov dogodek.");
                         Thread.Sleep(1000);
                         log.WriteEvent("Kreiramo še enega.");
@@ -49,7 +50,7 @@ namespace NacrtovalskiVzorci
                 case Section.FactoryBad:
                     {
                         // Tip kartice se izbere v GUI-ju
-                        CreditCardType type = CreditCardType.Silver;
+                        CreditCardType type = CreditCardType.Gold;
 
                         // Pripravimo si novo spremenljivko
                         ICreditCard card = null;
@@ -84,7 +85,7 @@ namespace NacrtovalskiVzorci
                 case Section.FactoryGood:
                     {
                         // V uporabniškem vmesniku ohranimo samo logiko, ki se tiče uporabnika
-                        CreditCardType type = CreditCardType.Silver;
+                        CreditCardType type = CreditCardType.Student;
                         ICreditCard card = CreditCardFactory.GetCreditCard(type);
 
                         // Izpišemo podatke

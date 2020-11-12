@@ -26,7 +26,8 @@ namespace NacrtovalskiVzorci
     {
         Silver,
         Gold,
-        Platinum
+        Platinum,
+        Student
     }
 
     class Silver : ICreditCard
@@ -110,6 +111,33 @@ namespace NacrtovalskiVzorci
         }
     }
 
+    class Student : ICreditCard
+    {
+        public CreditCardType CreditCardType
+        {
+            get
+            {
+                return CreditCardType.Student;
+            }
+        }
+
+        public double Limit
+        {
+            get
+            {
+                return 200;
+            }
+        }
+
+        public double AnnualCharge
+        {
+            get
+            {
+                return 5;
+            }
+        }
+    }
+
     #endregion
 
 
@@ -129,6 +157,9 @@ namespace NacrtovalskiVzorci
             // Ustvarimo instanco glede na izbrani tip
             switch (type)
             {
+                case CreditCardType.Student:
+                    card = new Student();
+                    break;
                 case CreditCardType.Silver:
                     card = new Silver();
                     break;
