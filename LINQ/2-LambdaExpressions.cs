@@ -37,11 +37,12 @@ namespace LINQ
             Console.WriteLine($"\nObičajni lambda izraz:");
             queryLambda.ReadEnumerable();
 
-            var queryDelegate = LINQDataSet.animals.Where(delegate(Animal x) { return x.NumberOfLegs < 4; });
+            var queryDelegate = LINQDataSet.animals
+                .Where(delegate (Animal x) { return x.NumberOfLegs < 4; });
             Console.WriteLine($"\nAnonimna metoda:");
             queryDelegate.ReadEnumerable();
 
-            var queryFunction = LINQDataSet.animals.Where(LessThan4);
+            var queryFunction = LINQDataSet.animals.Where(LessThan4Long);
             Console.WriteLine($"\nPosebej definirana funkcija:");
             queryFunction.ReadEnumerable();
 
@@ -67,5 +68,10 @@ namespace LINQ
         /// posebno skrajšano sintakso za funkcije, ki imajo samo return stavek.
         /// </summary>
         private static bool LessThan4(Animal animal) => animal.NumberOfLegs < 4;
+
+        private static bool LessThan4Long(Animal animal)
+        {
+            return animal.NumberOfLegs < 4;
+        }
     }
 }

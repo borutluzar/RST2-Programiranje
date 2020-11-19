@@ -31,7 +31,7 @@ namespace LINQ
             // Izberemo lahko le nekatere lastnosti
             // in jih postavimo v nov (anonimen) objekt
             var queryGeneral2 = from animal in LINQDataSet.animals
-                                select new { animal.Species, animal.HasTail };
+                                select new { animal.Species, animal.HasTail }; // Pripravimo anonimen objekt
             Console.WriteLine("\nSplošna poizvedba z izbranimi lastnostmi");
             // Izpis anonimnega objekta zraven pripiše tudi imena lastnosti!
             queryGeneral2.ReadEnumerable();
@@ -39,7 +39,7 @@ namespace LINQ
 
             // Elemente lahko uredimo - uporabimo spremenljivko animal
             var queryOrdered = from animal in LINQDataSet.animals
-                               orderby animal.Species
+                               orderby animal.NumberOfLegs descending
                                select animal;
             Console.WriteLine("\nSplošna urejena poizvedba");
             queryOrdered.ReadEnumerable();
@@ -48,10 +48,12 @@ namespace LINQ
             // Ali filtriramo - spet uporabimo spremenljivko animal
             var queryFiltered = from animal in LINQDataSet.animals
                                 orderby animal.Species
-                                where animal.HasTail
+                                where animal.HasTail && animal.NumberOfLegs <= 4 // Filtriranje
                                 select animal;
             Console.WriteLine("\nSplošna filtrirana poizvedba");
             queryFiltered.ReadEnumerable();
+
+            // Več o sintaksi z uporabo join in group by v Arh, Q51 in Arh, Q54.
         }
 
         /// <summary>
@@ -75,7 +77,8 @@ namespace LINQ
 
             /*var queryGeneral2 = from animal in LINQDataSet.animals
                                 select new { animal.Species, animal.HasTail };*/
-            var queryGeneral2 = LINQDataSet.animals.Select(animal => new { animal.Species, animal.HasTail });
+            var queryGeneral2 = LINQDataSet.animals
+                .Select(animal => new { animal.Species, animal.HasTail });
             Console.WriteLine("\nSplošna poizvedba z izbranimi lastnostmi");
             // Izpis anonimnega objekta zraven pripiše tudi imena lastnosti!
             queryGeneral2.ReadEnumerable();
@@ -85,7 +88,8 @@ namespace LINQ
                                orderby animal.Species
                                select animal;*/
             var queryOrdered = LINQDataSet.animals
-                                    .OrderBy(animal => animal.Species)
+                                    .OrderByDescending(animal => animal.NumberOfLegs)
+                                    .ThenBy(animal => animal.Species)
                                     .Select(animal => animal);
             Console.WriteLine("\nSplošna urejena poizvedba");
             queryOrdered.ReadEnumerable();
@@ -112,7 +116,7 @@ namespace LINQ
             var querySelectFirst = LINQDataSet.animals
                                     .Select(animal => animal.Species)
                                     //.OrderBy(animal => animal.Species)  // se ne prevede, ker smo izbrali le Species
-                                    .OrderBy(sp => sp);
+                                    .OrderBy(species => species);
             //.Where(animal => animal.HasTail); // se ne prevede, ker smo izbrali le Species
             Console.WriteLine("\nPoizvedba samo z vrsto živali");
             querySelectFirst.ReadEnumerable();
@@ -165,7 +169,8 @@ namespace LINQ
             var queryAgg = LINQDataSet.animals
                             .Aggregate<Animal, Animal, string>(
                                     seed: null, // Določitev začetne vrednosti iskane instance
-                                    (minLegs, animal) => (minLegs == null || minLegs.NumberOfLegs > animal.NumberOfLegs) ? animal : minLegs, // Prehod po vseh instancah z upoštevanjem pogoja
+                                    // Prehod po vseh instancah z upoštevanjem pogoja
+                                    (minLegs, animal) => (minLegs == null || minLegs.NumberOfLegs > animal.NumberOfLegs) ? animal : minLegs, 
                                     minLegs => minLegs?.Species // Rezultat, ki ni nujno instanca, ampak le kakšna izmed lastnosti
                                 );
             Console.WriteLine($"\nNajmanj nog ima {queryAgg}!");

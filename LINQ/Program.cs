@@ -14,7 +14,7 @@ namespace LINQ
     {
         static void Main(string[] args)
         {
-            Section section = Section.Basics;
+            Section section = Section.LambdaExpressions;
 
             Console.WriteLine();
             switch (section)

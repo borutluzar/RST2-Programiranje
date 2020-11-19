@@ -25,7 +25,7 @@ namespace LINQ
 
         public override string ToString()
         {
-            return $"{this.Species}"; /*{(this.HasTail ? "ima rep" : "nima repa")}  in " +
+            return $"{this.Species} ({this.NumberOfLegs})"; /*{(this.HasTail ? "ima rep" : "nima repa")}  in " +
                 $"{(this.NumberOfLegs == 2 ? "dve nogi" : (this.NumberOfLegs == 4 ? "štiri noge" : this.NumberOfLegs + " nog"))}";*/
         }
     }

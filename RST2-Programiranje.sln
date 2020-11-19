@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "4-PodatkovneStrukture", "Po
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "5-LINQ", "LINQ\5-LINQ.csproj", "{55BCD2F0-4184-4C3F-89D6-5ECEF02DF921}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "6-ParallelAndAsync", "ParallelAndAsync\6-ParallelAndAsync.csproj", "{F65098F4-A3BE-4A91-BF56-04D5BBADE0DD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{55BCD2F0-4184-4C3F-89D6-5ECEF02DF921}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{55BCD2F0-4184-4C3F-89D6-5ECEF02DF921}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{55BCD2F0-4184-4C3F-89D6-5ECEF02DF921}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F65098F4-A3BE-4A91-BF56-04D5BBADE0DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F65098F4-A3BE-4A91-BF56-04D5BBADE0DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F65098F4-A3BE-4A91-BF56-04D5BBADE0DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F65098F4-A3BE-4A91-BF56-04D5BBADE0DD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
