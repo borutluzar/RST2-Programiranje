@@ -10,13 +10,15 @@ namespace ParallelAndAsync
         Timers,
         PLINQ,
         PLINQOrdered,
+        Async,
+        AsyncSeveral
     }
 
     class Program
     {
         static void Main(string[] args)
         {
-            Section section = Section.PLINQOrdered;
+            Section section = Section.AsyncSeveral;
 
             Console.WriteLine();
             switch (section)
@@ -49,6 +51,16 @@ namespace ParallelAndAsync
                 case Section.PLINQOrdered:
                     {
                         ParallelLINQ.PLINQExampleOrdered();
+                    }
+                    break;
+                case Section.Async:
+                    {
+                        Asynchronous.AsyncTest();
+                    }
+                    break;
+                case Section.AsyncSeveral:
+                    {
+                        Asynchronous.AsyncTestSeveral();
                     }
                     break;
             }

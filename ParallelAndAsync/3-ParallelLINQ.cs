@@ -22,7 +22,7 @@ namespace ParallelAndAsync
             DateTime dtStart = DateTime.Now;
             DataForParallel.Instance().ForEach(i =>
                     {
-                        if (IsPrime(i))
+                        if (CommonFunctions.IsPrime(i))
                             primes.Add(i);
                     });
             DateTime dtEnd = DateTime.Now;
@@ -39,7 +39,7 @@ namespace ParallelAndAsync
             // le da uporabi več paralelnih niti.
             DataForParallel.Instance().AsParallel().ForAll(i =>
             {
-                if (IsPrime(i))
+                if (CommonFunctions.IsPrime(i))
                 {
                     // Ker vzoredno dodajamo elemente v seznam (niti si ga delijo),
                     // ga moramo ob vsakem dodajanju 'zakleniti', 
@@ -60,7 +60,7 @@ namespace ParallelAndAsync
             dtStart = DateTime.Now;
             DataForParallel.Instance().AsParallel().ForAll(i =>
             {
-                if (IsPrime(i))
+                if (CommonFunctions.IsPrime(i))
                 {
                     primes.Add(i);
                 }
@@ -82,7 +82,7 @@ namespace ParallelAndAsync
                     .WithDegreeOfParallelism(3)
                     .ForAll(i =>
                         {
-                            if (IsPrime(i))
+                            if (CommonFunctions.IsPrime(i))
                             {
                                 // Ker vzoredno dodajamo elemente v seznam,
                                 // ga moramo ob vsakem dodajanju 'zakleniti', 
@@ -97,17 +97,6 @@ namespace ParallelAndAsync
             ts = dtEnd - dtStart;
             Console.WriteLine($"Čas vzporednega iskanja s tremi jedri: {ts.TotalSeconds}, našli smo {primes.Count} praštevil.");
         }
-
-        public static bool IsPrime(int i)
-        {
-            for (int j = 2; j <= (int)Math.Sqrt(i); j++)
-            {
-                if (i % j == 0)
-                    return false;
-            }
-            return true;
-        }
-
 
         /// <summary>
         /// V tem primeru si bomo ogledali še, kako se problema lotimo, 
@@ -127,7 +116,7 @@ namespace ParallelAndAsync
             // Ta klic na metodo ForAll nima vpliva, ker ne vrača rezultata.
             DataForParallel.Instance().AsParallel().AsOrdered().ForAll(i =>
             {
-                if (IsPrime(i))
+                if (CommonFunctions.IsPrime(i))
                 {
                     // Ker vzoredno dodajamo elemente v seznam,
                     // ga moramo ob vsakem dodajanju 'zakleniti', 
@@ -144,7 +133,7 @@ namespace ParallelAndAsync
             primes.Clear();
             DataForParallel.Instance().AsParallel().ForAll(i =>
             {
-                if (IsPrime(i))
+                if (CommonFunctions.IsPrime(i))
                 {
                     // Ker vzoredno dodajamo elemente v seznam,
                     // ga moramo ob vsakem dodajanju 'zakleniti', 
@@ -174,51 +163,9 @@ namespace ParallelAndAsync
 
         private static (int i, bool @is) ReturnIfPrime(int i)
         {
-            if (IsPrime(i))
+            if (CommonFunctions.IsPrime(i))
                 return (i, true);
             return (i, false);
-        }
-    }
-
-    class DataForParallel
-    {
-        private List<int> primeCandidates;
-        private const int BOUND = 5000000;
-        //private const int BOUND = 10000000;
-        //private const int BOUND = 15000000;
-
-        private DataForParallel()
-        {
-            this.primeCandidates = new List<int>() { 2 };
-
-            for (int i = 3; i < BOUND; i += 2)
-            {
-                primeCandidates.Add(i);
-            }
-        }
-
-        private static List<int> instance = null;
-        public static List<int> Instance()
-        {
-            if (instance == null)
-                instance = new DataForParallel().primeCandidates;
-
-            return instance;
-        }
-    }
-
-    public static class Extensions
-    {
-        public static void ReadEnumerable<T>(this IEnumerable<T> list)
-        {
-            Console.Write("Elementi seznama so: ");
-            int count = 0;
-            foreach (var item in list)
-            {
-                count++;
-                Console.Write(item.ToString() + $"{(count == list.Count() ? "" : ",")} ");
-            }
-            Console.WriteLine();
         }
     }
 }
