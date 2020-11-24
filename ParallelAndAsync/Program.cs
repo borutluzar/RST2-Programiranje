@@ -11,14 +11,19 @@ namespace ParallelAndAsync
         PLINQ,
         PLINQOrdered,
         Async,
-        AsyncSeveral
+        AsyncSeveral,
+        AsyncFiles,
+        AsyncFilesCancel,
+        AsyncFilesProgress,
+        Lock,
+        Monitor
     }
 
     class Program
     {
         static void Main(string[] args)
         {
-            Section section = Section.AsyncSeveral;
+            Section section = Section.Async;
 
             Console.WriteLine();
             switch (section)
@@ -60,7 +65,33 @@ namespace ParallelAndAsync
                     break;
                 case Section.AsyncSeveral:
                     {
-                        Asynchronous.AsyncTestSeveral();
+                        string keyword = "Janez";
+                        Asynchronous.AsyncTestSeveral(keyword);
+                    }
+                    break;
+                case Section.AsyncFiles:
+                    {
+                        AsyncFiles.AsyncFilesTest();
+                    }
+                    break;
+                case Section.AsyncFilesCancel:
+                    {
+                        AsyncFiles.AsyncFilesTestWithCancel();
+                    }
+                    break;
+                case Section.AsyncFilesProgress:
+                    {
+                        AsyncFiles.AsyncFilesTestWithCancelAndProgress();
+                    }
+                    break;
+                case Section.Lock:
+                    {
+                        LockAndMonitor.LockExample();
+                    }
+                    break;
+                case Section.Monitor:
+                    {
+                        LockAndMonitor.LockExample();
                     }
                     break;
             }

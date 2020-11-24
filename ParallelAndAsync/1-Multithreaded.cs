@@ -61,22 +61,30 @@ namespace ParallelAndAsync
             Console.WriteLine("\nPočakamo še 2 sekundi.");
             Thread.Sleep(2000); // Zamrznemo izvajanje programa v naši trenutni niti.
             Console.WriteLine("\nZačenjamo s tretjo nitjo:");
-            // Funkciji Start podamo še pričakovani parameter
+            // Funkciji Start podamo še pričakovani parameter za funkcijo ComputeLongWithIncrement
             thread3.Start(1000);
 
             Console.WriteLine("\nV trenutni niti še vedno lahko izvajamo svoje operacije.");
 
+            /*
             // Z metodo Join pa ustavimo (blokiramo) trenutno nit, dokler thread1 ne konča z izvajanjem.
             thread1.Join();
             Console.WriteLine("\nProgram se zaključi zdaj");
+            */
 
             // Druga možnost je, da metodi Join povemo,
             // koliko časa smo pripravljeni čakati, ona pa pove, če se je v tem času proces zaključil
-            /*bool isDone = thread1.Join(10000);
-            if(isDone)
-                Console.WriteLine("\nVsi procesi so se zaključili!");
+            bool isDone = thread1.Join(10000);
+            if (isDone)
+                Console.WriteLine("\nProces 1 se je zaključil!");
             else
-                Console.WriteLine("\nNaveličali smo se čakati.");*/
+            {
+                Console.WriteLine("\nNaveličali smo se čakati.");
+                // Bom še preveril in izveste v torek!
+                thread1.Suspend();
+                thread2.Suspend();
+                thread3.Suspend();
+            }
         }
 
         private static void ComputeLong()
@@ -96,7 +104,7 @@ namespace ParallelAndAsync
         /// <summary>
         /// Uporaba knjižnice Threading se ne priporoča več.
         /// Obstaja nekaj drugih knjižnic za upravljanje z nitmi.
-        /// Najbolj se priporoča knjižnica Task Parallel Library (spada pod Threading.Tasks).
+        /// Najbolj se priporoča knjižnica Task Parallel Library (spada pod System.Threading.Tasks).
         /// </summary>
         public static void Tasks()
         {
@@ -136,9 +144,11 @@ namespace ParallelAndAsync
         {
             Console.WriteLine("\nZaženimo task vzporedno.");
             //var task = Task.Run(ComputeLongAndReturn); // Poglejmo si razliko v tipu, če funkcija ne vrača ničesar
-            
+
             // Drug način klica funkcije je lambda izraz, kjer funkciji lahko damo tudi parameter
             var task = Task.Run(() => ComputeLongWithIncrementAndReturn(2));
+
+            Console.WriteLine("\nMoj program teče vzporedno.");
 
             // Če funkcija, ki jo task izvaja vrača rezultat, ga dobimo z lastnostjo Result.
             var result = task.Result;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading;
@@ -31,13 +32,13 @@ namespace ParallelAndAsync
             DateTime dtStart = DateTime.Now;
             var backgroundTask = Task.Run(() => CountPrimes());
 
-            
+
             Console.WriteLine($"Task smo zagnali, zdaj čakamo na rezultat.");
             // Ko dostopimo do rezultata, bo trenutna nit počakala na rezultat (enako kot pri metodi Wait).
             var result = backgroundTask.Result;
             DateTime dtEnd = DateTime.Now;
-            Console.WriteLine($"Našli smo {result} praštevil v {(dtEnd-dtStart).TotalSeconds} sekundah.");
-            
+            Console.WriteLine($"Našli smo {result} praštevil v {(dtEnd - dtStart).TotalSeconds} sekundah.");
+
 
             // Namesto čakanja lahko uporabimo rezervirano besedo await - vendar nam v funkciji to ne spremeni obnašanja.
             // Se pa bo sprostila trenutna nit za ostale aktivnosti                        
@@ -76,16 +77,16 @@ namespace ParallelAndAsync
         private static int CountPrimes()
         {
             Int32 count = 0;
-            
+
             // Neparalelno
-            //DataForParallel.Instance().ForEach(i => { if (CommonFunctions.IsPrime(i)) Interlocked.Increment(ref count); });
-            
+            DataForParallel.Instance().ForEach(i => { if (CommonFunctions.IsPrime(i)) count++; });
+
             // Paralelno, vendar narobe
             //DataForParallel.Instance().AsParallel().ForAll(i => { if (CommonFunctions.IsPrime(i)) count++; });
-            
+
             // Pravilno paralelno
             // Vrednostnih tipov ne moremo zakleniti, zato uporabimo Increment v razredu Interlocked
-            DataForParallel.Instance().AsParallel().ForAll(i => { if (CommonFunctions.IsPrime(i)) Interlocked.Increment(ref count); });
+            //DataForParallel.Instance().AsParallel().ForAll(i => { if (CommonFunctions.IsPrime(i)) Interlocked.Increment(ref count); });
             return count;
         }
 
@@ -94,34 +95,37 @@ namespace ParallelAndAsync
         /// Včasih želimo na delo poslati več opravil, 
         /// nato pa čakamo na rezultat zgolj enega ali vseh.
         /// </summary>
-        public static async void AsyncTestSeveral()
+        public static async void AsyncTestSeveral(string keyword)
         {
-             var backgroundTasks = new[] 
-            { 
-                Task.Run(() => OccurencesOnPage("Janez", "https://sl.wikipedia.org/wiki/Deseti_brat")),
-                Task.Run(() => OccurencesOnPage("Borut", "https://sl.wikipedia.org/wiki/Deseti_brat")),
-                Task.Run(() => OccurencesOnPage("Jakob", "https://sl.wikipedia.org/wiki/Deseti_brat"))
+            var backgroundTasks = new[]
+            {
+                Task.Run(() => OccurencesOnPage(keyword.ToLower(), "https://www.researchgate.net/profile/Borut_Luar")),
+                Task.Run(() => OccurencesOnPage(keyword.ToLower(), "https://sl.wikipedia.org/wiki/Deseti_brat")),
+                Task.Run(() => OccurencesOnPage(keyword.ToLower(), "https://www.delo.si/novice/slovenija/vecni-vandrovec-v-bitki-proti-dolgcasu/")),
+                Task.Run(() => OccurencesOnPage(keyword.ToLower(), "https://www.fis.unm.si/si/o-fakulteti/nasa-zgodba/"))                
             };
-                        
+
             Console.WriteLine($"Taske smo zagnali, zdaj čakamo na rezultat.");
-            int whichIsCompleted = Task.WaitAny(backgroundTasks);
-            Console.WriteLine($"Prvi je končal task številka {whichIsCompleted}.");
+            var firstCompleted = await Task.WhenAny(backgroundTasks);
+            var whichIsCompleted = await Task.WhenAll(backgroundTasks);
+            Console.WriteLine($"\nPrvi je končal task (ID: {firstCompleted.Id}) z rezultatom {firstCompleted.Result}.\n");
         }
 
         private static int OccurencesOnPage(string keyword, string url)
         {
-            var myClient = new WebClient();
-            Stream response = myClient.OpenRead(url);
+            using var myClient = new HttpClient();
+            var response = myClient.GetStreamAsync(url);
 
             int counter = 0;
-            StreamReader sr = new StreamReader(response);
+            StreamReader sr = new StreamReader(response.Result);
             while (!sr.EndOfStream)
             {
                 var words = sr.ReadLine().Split();
-                words.ToList().ForEach(w => { if (w.Contains(keyword)) counter++; }) ;
+                words.ToList().ForEach(w => { if (w.ToLower().Contains(keyword.ToLower())) counter++; });
             }
+            response.Dispose();
 
-            response.Close();
+            Console.WriteLine($"\nPoročam o številu pojavov besede {keyword} na strani {url}: {counter}");
             return counter;
         }
     }

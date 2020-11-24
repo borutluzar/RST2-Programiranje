@@ -27,7 +27,7 @@ namespace ParallelAndAsync
             // POZOR! Timer razredov je več, zato določimo natančno mesto.
             var timer = new System.Threading.Timer(
                 state => {
-                    Console.WriteLine($"Uporabnik {state} kliče kodo v timerju!"); // Dejanska koda, ki se izvede
+                    Console.WriteLine($"{DateTime.Now.ToString("HH:mm:ss")}: Uporabnik {state} kliče kodo v timerju!"); // Dejanska koda, ki se izvede
                 }, 
                 stateObject, // Objekt, ki ga uporabimo v spremenljivki state v zgornjem lambda izrazu
                 1000,   // Zamik pred prvim klicem timerja
@@ -39,11 +39,12 @@ namespace ParallelAndAsync
             Console.WriteLine("In to je izpis po kodi, ki določa timer.");
 
             // Spremenimo še intervale z metodo Change
-            //Console.WriteLine("Sprememba intervalov v timerju.");
-            //timer.Change(5000, 1000);
+            Console.WriteLine("Sprememba intervalov v timerju.");
+            timer.Change(5000, 1000);
 
             // Kaj naredi spodnja koda?
-            //var stopper = new System.Threading.Timer(state => { timer.Change(1000, Timeout.Infinite); }, null, 10000, Timeout.Infinite);
+            var stopper = new System.Threading.Timer(
+                state => { timer.Change(1000, Timeout.Infinite); }, null, 10000, Timeout.Infinite);
 
             // Za zaustavitev izvajanja timerja lahko uporabimo tudi klic timer.Dispose() na ustreznem mestu.
         }

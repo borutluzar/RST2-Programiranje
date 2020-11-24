@@ -41,7 +41,7 @@ namespace ParallelAndAsync
             {
                 if (CommonFunctions.IsPrime(i))
                 {
-                    // Ker vzoredno dodajamo elemente v seznam (niti si ga delijo),
+                    // Ker vzporedno dodajamo elemente v seznam (niti si ga delijo),
                     // ga moramo ob vsakem dodajanju 'zakleniti', 
                     // da ga ne uporabi hkrati druga nit in ne pride do manjkajočih vnosov
                     lock (primes)
@@ -75,27 +75,30 @@ namespace ParallelAndAsync
 
             // V zgornjih primerih smo uporabili vsa jedra procesorja, kar ni vedno dobrodošlo.
             // Število uporabljenih jeder lahko tudi omejimo z metodo WithDegreeOfParallelism.
-            // Preverimo paralelno samo s tremi jedri.
-            primes.Clear();
-            dtStart = DateTime.Now;
-            DataForParallel.Instance().AsParallel()
-                    .WithDegreeOfParallelism(3)
-                    .ForAll(i =>
-                        {
-                            if (CommonFunctions.IsPrime(i))
+            // Preverimo paralelno samo s tremi jedri.            
+            for (int i = 1; i < Environment.ProcessorCount; i++)
+            {
+                primes.Clear();
+                dtStart = DateTime.Now;
+                DataForParallel.Instance().AsParallel()
+                        .WithDegreeOfParallelism(i)
+                        .ForAll(i =>
                             {
+                                if (CommonFunctions.IsPrime(i))
+                                {
                                 // Ker vzoredno dodajamo elemente v seznam,
                                 // ga moramo ob vsakem dodajanju 'zakleniti', 
                                 // da ga ne uporabi hkrati druga nit in ne pride do manjkajočih vnosov
                                 lock (primes)
-                                {
-                                    primes.Add(i);
+                                    {
+                                        primes.Add(i);
+                                    }
                                 }
-                            }
-                        });
-            dtEnd = DateTime.Now;
-            ts = dtEnd - dtStart;
-            Console.WriteLine($"Čas vzporednega iskanja s tremi jedri: {ts.TotalSeconds}, našli smo {primes.Count} praštevil.");
+                            });
+                dtEnd = DateTime.Now;
+                ts = dtEnd - dtStart;
+                Console.WriteLine($"Čas vzporednega iskanja z {i} jedri od {Environment.ProcessorCount}: {ts.TotalSeconds}, našli smo {primes.Count} praštevil.");
+            }
         }
 
         /// <summary>
