@@ -80,10 +80,10 @@ namespace ParallelAndAsync
             else
             {
                 Console.WriteLine("\nNaveličali smo se čakati.");
-                // Bom še preveril in izveste v torek!
-                thread1.Suspend();
-                thread2.Suspend();
-                thread3.Suspend();
+                // Včasih se je uporabljala funkcija Abort, 
+                // vendar je v .Net Core ogrodju onemogočena, 
+                // zaradi različnih težav, ki jih lahko njena uporaba povzroči.
+                thread1.Abort();
             }
         }
 

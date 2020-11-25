@@ -16,14 +16,15 @@ namespace ParallelAndAsync
         AsyncFilesCancel,
         AsyncFilesProgress,
         Lock,
-        Monitor
+        Monitor,
+        ComputePI
     }
 
     class Program
     {
         static void Main(string[] args)
         {
-            Section section = Section.Async;
+            Section section = Section.ComputePI;
 
             Console.WriteLine();
             switch (section)
@@ -65,7 +66,7 @@ namespace ParallelAndAsync
                     break;
                 case Section.AsyncSeveral:
                     {
-                        string keyword = "Janez";
+                        string keyword = "fiš";
                         Asynchronous.AsyncTestSeveral(keyword);
                     }
                     break;
@@ -92,6 +93,11 @@ namespace ParallelAndAsync
                 case Section.Monitor:
                     {
                         LockAndMonitor.LockExample();
+                    }
+                    break;
+                case Section.ComputePI:
+                    {
+                        ComputePI.ComputePITests();
                     }
                     break;
             }

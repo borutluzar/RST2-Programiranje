@@ -27,34 +27,34 @@ namespace ParallelAndAsync
                 @"C:\Graph-Files\max3con2\max3con2num18.g6",
                 @"C:\Graph-Files\max3con2\max3con2num19_g5.g6",
                 @"C:\Graph-Files\max3con2\max3con2num19.g6",
-                @"C:\Graph-Files\max3con2\max3con2num20.g6"
+                //@"C:\Graph-Files\max3con2\max3con2num20.g6"
             };
 
+            /*
             // Pri branju velikih datotek, se ob uporabi zgolj sinhrone kode, naša aplikacija ustavi in čaka.
             foreach (var filePath in filePaths)
             {
                 Console.WriteLine($"\nBeremo datoteko {Path.GetFileName(filePath)}.");
                 double time = MeasureTime(ReadTextSync, filePath, out string text);
-                double time2 = MeasureTime(ReadTextSimpleSync, filePath, out string text2);
+                //double time2 = MeasureTime(ReadTextSimpleSync, filePath, out string text2);
                 Console.WriteLine($"Branje datoteke {Path.GetFileName(filePath)} nam je vzelo {time} sekund.");
-                Console.WriteLine($"Branje datoteke {Path.GetFileName(filePath)} s Streamreaderjem nam je vzelo {time2} sekund.");
+                //Console.WriteLine($"Branje datoteke {Path.GetFileName(filePath)} s Streamreaderjem nam je vzelo {time2} sekund.");
                 Console.WriteLine($"Prvih nekaj znakov v datoteki: {text.Substring(0, Math.Min(40, text.Length))}.");
-                Console.WriteLine($"Prvih nekaj znakov v datoteki: {text2.Substring(0, Math.Min(40, text2.Length))}.");
+                //Console.WriteLine($"Prvih nekaj znakov v datoteki: {text2.Substring(0, Math.Min(40, text2.Length))}.");
             }
-
             Console.WriteLine($"\nIn sedaj se je aplikacija 'odmrznila'.");
+            */
 
             // Preverimo sedaj asinhrone klice
-            /*foreach (var filePath in filePaths)
+            foreach (var filePath in filePaths)
             {
                 Console.WriteLine($"\nBeremo datoteko {Path.GetFileName(filePath)}.");
                 double time = MeasureTime(ReadTextAsync, filePath, out Task<string> text);
                 Console.WriteLine($"Branje datoteke {Path.GetFileName(filePath)} nam je vzelo {time} sekund.");
-              //  Console.WriteLine($"Prvih nekaj znakov v datoteki: {text.Result.Substring(0, Math.Min(40, text.Result.Length))}.");
+                Console.WriteLine($"Prvih nekaj znakov v datoteki: {text.Result.Substring(0, Math.Min(40, text.Result.Length))}.");
             }
 
             Console.WriteLine($"\nIn sedaj se je aplikacija 'odmrznila'."); // Lahko zaključimo s programom, čeprav se vzporedno še izvajajo operacije (glejte RAM :))
-            */
         }
 
         /// <summary>
@@ -74,7 +74,7 @@ namespace ParallelAndAsync
         /// </summary>
         private static string ReadTextSync(string fileName)
         {
-            int bufferLength = 100000; // Zakaj prihaja do razlik v času branja, ko spreminjamo dolžino bufferja? Kaj je optimalna dolžina?
+            int bufferLength = 300000; // Zakaj prihaja do razlik v času branja, ko spreminjamo dolžino bufferja? Kaj je optimalna dolžina?
             var buffer = new byte[bufferLength];
             var strBuilder = new StringBuilder();
 
@@ -107,9 +107,9 @@ namespace ParallelAndAsync
             StringBuilder strBuilder = new StringBuilder();
             while (!streamReader.EndOfStream)
             {
-                //streamReader.Read(buffer, 0, bufferLength);
-                //strBuilder.Append(buffer);
-                strBuilder.Append(streamReader.ReadLine());
+                streamReader.Read(buffer, 0, bufferLength);
+                strBuilder.Append(buffer);
+                //strBuilder.Append(streamReader.ReadLine());
             }
             try
             {

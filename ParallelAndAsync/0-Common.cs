@@ -8,9 +8,9 @@ namespace ParallelAndAsync
     sealed class DataForParallel
     {
         private List<int> primeCandidates;
-        private const int BOUND = 5000000;
-        //private const int BOUND = 10000000;
-        //private const int BOUND = 15000000;
+        //private const int BOUND = 5000000;
+        private const int BOUND = 10000000;
+        //private const int BOUND = 20000000;
 
         private DataForParallel()
         {

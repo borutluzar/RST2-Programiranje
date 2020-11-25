@@ -32,26 +32,26 @@ namespace ParallelAndAsync
             DateTime dtStart = DateTime.Now;
             var backgroundTask = Task.Run(() => CountPrimes());
 
-
+            
             Console.WriteLine($"Task smo zagnali, zdaj čakamo na rezultat.");
             // Ko dostopimo do rezultata, bo trenutna nit počakala na rezultat (enako kot pri metodi Wait).
+            /*
             var result = backgroundTask.Result;
             DateTime dtEnd = DateTime.Now;
             Console.WriteLine($"Našli smo {result} praštevil v {(dtEnd - dtStart).TotalSeconds} sekundah.");
+            */
 
-
-            // Namesto čakanja lahko uporabimo rezervirano besedo await - vendar nam v funkciji to ne spremeni obnašanja.
-            // Se pa bo sprostila trenutna nit za ostale aktivnosti                        
+            // Namesto čakanja lahko uporabimo rezervirano besedo await, 
+            // vendar nam v funkciji to ne spremeni obnašanja.
+            // Se pa bo sprostila trenutna nit za ostale aktivnosti
             /*
-            Console.WriteLine($"Task smo zagnali, zdaj čakamo na rezultat.");
+            Console.WriteLine($"Task smo zagnali, zdaj čakamo na rezultat.");            
             var result = await backgroundTask;
             DateTime dtEnd = DateTime.Now;
             Console.WriteLine($"Našli smo {result} praštevil v {(dtEnd-dtStart).TotalSeconds} sekundah.");
             */
 
-
             // Implementirajmo našo logiko v ločeni metodi
-            /*
             Console.WriteLine($"Task smo zagnali, zdaj čakamo na rezultat.");
             DateTime dtStart3 = DateTime.Now;
             var result = ResultAsync();
@@ -61,7 +61,6 @@ namespace ParallelAndAsync
             Console.WriteLine($"Našli smo {result.Result} praštevil.");
             DateTime dtEnd3 = DateTime.Now;
             Console.WriteLine($"V {(dtEnd3-dtStart3).TotalSeconds} sekundah.");
-            */
 
 
             // Za konec velja pripomniti, da lahko z enim taskom opravimo več zaporednih opravil,
@@ -79,14 +78,19 @@ namespace ParallelAndAsync
             Int32 count = 0;
 
             // Neparalelno
-            DataForParallel.Instance().ForEach(i => { if (CommonFunctions.IsPrime(i)) count++; });
+            //DataForParallel.Instance().ForEach(i => { if (CommonFunctions.IsPrime(i)) count++; });
 
             // Paralelno, vendar narobe
-            //DataForParallel.Instance().AsParallel().ForAll(i => { if (CommonFunctions.IsPrime(i)) count++; });
+            /*DataForParallel.Instance().AsParallel()
+                .WithDegreeOfParallelism(3)
+                .ForAll(i => { if (CommonFunctions.IsPrime(i)) count++; });*/
 
             // Pravilno paralelno
             // Vrednostnih tipov ne moremo zakleniti, zato uporabimo Increment v razredu Interlocked
-            //DataForParallel.Instance().AsParallel().ForAll(i => { if (CommonFunctions.IsPrime(i)) Interlocked.Increment(ref count); });
+            DataForParallel.Instance()
+                .AsParallel()
+                .ForAll(i => { if (CommonFunctions.IsPrime(i)) 
+                        Interlocked.Increment(ref count); });
             return count;
         }
 
@@ -107,8 +111,8 @@ namespace ParallelAndAsync
 
             Console.WriteLine($"Taske smo zagnali, zdaj čakamo na rezultat.");
             var firstCompleted = await Task.WhenAny(backgroundTasks);
-            var whichIsCompleted = await Task.WhenAll(backgroundTasks);
-            Console.WriteLine($"\nPrvi je končal task (ID: {firstCompleted.Id}) z rezultatom {firstCompleted.Result}.\n");
+            //var whichIsCompleted = await Task.WhenAll(backgroundTasks);
+            //Console.WriteLine($"\nPrvi je končal task (ID: {firstCompleted.Id}) z rezultatom {firstCompleted.Result}.\n");
         }
 
         private static int OccurencesOnPage(string keyword, string url)
