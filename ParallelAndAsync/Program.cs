@@ -17,14 +17,16 @@ namespace ParallelAndAsync
         AsyncFilesProgress,
         Lock,
         Monitor,
-        ComputePI
+        ComputePI,
+        BreakfastBad,
+        BreakfastGood
     }
 
     class Program
     {
         static void Main(string[] args)
         {
-            Section section = Section.ComputePI;
+            Section section = Section.BreakfastGood;
 
             Console.WriteLine();
             switch (section)
@@ -98,6 +100,17 @@ namespace ParallelAndAsync
                 case Section.ComputePI:
                     {
                         ComputePI.ComputePITests();
+                    }
+                    break;
+                case Section.BreakfastBad:
+                    {
+                        PrepareBreakfastAsync.BreakfastBadExample();
+                    }
+                    break;
+                case Section.BreakfastGood:
+                    {
+                        //PrepareBreakfastAsync.BreakfastBadExample();
+                        PrepareBreakfastAsync.BreakfastGoodExample();
                     }
                     break;
             }

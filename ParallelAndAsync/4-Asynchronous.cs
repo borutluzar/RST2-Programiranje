@@ -13,6 +13,7 @@ namespace ParallelAndAsync
 {
     /// <summary>
     /// Arh, Q63
+    /// Tudi: https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/async/
     /// Posvetimo se sedaj asinhronemu programiranju.
     /// Priporočeni vzorec asinhronega programiranja je trenutno
     /// task-based asynchronous programming (TAP).
