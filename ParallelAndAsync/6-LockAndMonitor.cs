@@ -25,21 +25,21 @@ namespace ParallelAndAsync
             }
 
             // Če objekt zaklenemo, bo rezultat pravilen, kljub hkratnemu brisanju z računa
-            amounts.AsParallel().ForAll(a => myAccount.WithdrawWithLock(a));
+            //amounts.AsParallel().ForAll(a => myAccount.WithdrawWithLock(a));
 
             // Brez lock-a tega ne moremo zagotoviti
             //amounts.AsParallel().ForAll(a => myAccount.WithdrawNoLock(a));
 
-            /*for (int i = 0; i < 20; i++)
+            for (int i = 0; i < 20; i++)
             {
                 amounts.AsParallel().ForAll(a => myAccount.WithdrawNoLock(a));
                 Console.WriteLine($"Stanje na računu je: {myAccount.Balance}");
                 myAccount.Balance = 20000;
-            }*/
+            }
 
             Console.WriteLine($"Stanje na računu je: {myAccount.Balance}");
 
-            // Daljša oblika sintakse lock je uporaba objekta Monitor.
+            // Daljša oblika sintakse lock je uporaba razreda Monitor.
             // V osnovi stori enako kot lock, zato ga ni smiselno uporabiti, 
             // če ne nameravamo uporabljati drugih funkcionalnosti, ki jih
             // omogoča. Npr. spremljanje, kako dolgo je objekt zaklenjen.

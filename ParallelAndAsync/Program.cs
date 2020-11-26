@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace ParallelAndAsync
 {
@@ -16,7 +17,6 @@ namespace ParallelAndAsync
         AsyncFilesCancel,
         AsyncFilesProgress,
         Lock,
-        Monitor,
         ComputePI,
         BreakfastBad,
         BreakfastGood
@@ -24,7 +24,7 @@ namespace ParallelAndAsync
 
     class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             Section section = Section.BreakfastGood;
 
@@ -92,11 +92,6 @@ namespace ParallelAndAsync
                         LockAndMonitor.LockExample();
                     }
                     break;
-                case Section.Monitor:
-                    {
-                        LockAndMonitor.LockExample();
-                    }
-                    break;
                 case Section.ComputePI:
                     {
                         ComputePI.ComputePITests();
@@ -110,7 +105,7 @@ namespace ParallelAndAsync
                 case Section.BreakfastGood:
                     {
                         //PrepareBreakfastAsync.BreakfastBadExample();
-                        PrepareBreakfastAsync.BreakfastGoodExample();
+                        await PrepareBreakfastAsync.BreakfastGoodExample();
                     }
                     break;
             }

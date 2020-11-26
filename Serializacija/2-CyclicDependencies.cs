@@ -12,24 +12,28 @@ namespace Serializacija
             // Ustvarimo tri vozlišča drevesa
             Node<string> root = new Node<string>() { Value = "startek" };
             Node<string> leftSon = new Node<string>() { Value = "levi sinek" };
+            Node<string> leftleftSon = new Node<string>() { Value = "levi levi sinek" };
             Node<string> rightSon = new Node<string>() { Value = "desni sinek" };
 
             // Ciklična odvisnost po tipih ni problematična.
             root.Left = leftSon;
             root.Right = rightSon;
+            leftSon.Left = leftleftSon;
             
             // Če pa dodamo ciklično odvisnost po instancah, naletimo na težavo.
             // Klicu serializacije moramo povedati, naj vodi reference na posamezne instance
-            /*leftSon.Parent = root;
+            leftSon.Parent = root;
             rightSon.Parent = root;
+            leftleftSon.Parent = leftSon;
 
             // S spodnjo nastavitvijo vsak objekt dobi svoj ID, po katerem ga serializator prepozna
             var serSettings = new DataContractSerializerSettings()
             {
                 PreserveObjectReferences = true
-            };*/
+            };
 
-            SerializationBasics.SerializeObject<Node<string>>(root, "root.xml");
+            SerializationBasics.SerializeObject<Node<string>>(root, "root.xml", serSettings);
+            SerializationBasics.SerializeObject<Node<string>>(leftSon, "leftSon.xml", serSettings);
 
             Console.WriteLine("Objekt je uspešno serializiran.");
 
