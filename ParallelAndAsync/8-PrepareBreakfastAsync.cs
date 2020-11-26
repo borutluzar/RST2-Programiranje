@@ -129,6 +129,7 @@ namespace ParallelAndAsync
             var baconTask = FryBaconAsync(3);
             var toastTask = MakeToastWithButterAndJamAsync(2);
 
+            // Bodimo pozorni še na lepo uporabo metode WhenAny
             var breakfastTasks = new List<Task> { eggsTask, baconTask, toastTask };
             while (breakfastTasks.Count > 0)
             {
