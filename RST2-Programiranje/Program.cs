@@ -14,7 +14,7 @@ namespace Uvod
     {
         static void Main(string[] args)
         {
-            //Console.WriteLine("Hello World!");
+            Console.WriteLine("Hello World!");
             //PrepareOutputs();
 
             //List<int> lstRnd = MyStaticFunctions.MakeRandomList(13, out int odds);
@@ -32,7 +32,7 @@ namespace Uvod
             Console.WriteLine($"Datoteka vsebuje {fd.NumberOfLines} vrstic in " +
                     $"{(fd.ContainsSensitiveInfo ? "vsebuje moje ime!" : "ne vsebuje mojega imena!")}");*/
 
-            CreateStudents();
+            //CreateStudents();
 
             Console.Read();
         }

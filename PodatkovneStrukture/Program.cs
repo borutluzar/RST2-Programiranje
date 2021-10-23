@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net.Http.Headers;
 
 namespace PodatkovneStrukture
@@ -20,7 +21,7 @@ namespace PodatkovneStrukture
     {
         static void Main(string[] args)
         {
-            Section section = Section.ITest;
+            Section section = Section.HanoiExample;
 
             Console.WriteLine();
             switch (section)
@@ -70,11 +71,12 @@ namespace PodatkovneStrukture
 
                         int numPegs = 4; // Delali bodo samo s štirimi stolpi
 
+                        Stopwatch sw = Stopwatch.StartNew();
                         Hanoi hanBasic = new Hanoi(k, numPegs, type);
                         int length = hanBasic.ShortestPathForSmallDimension(0, out _);
 
                         Console.WriteLine();
-                        Console.WriteLine("\n\nDimension: " + k + "; Steps: " + length);
+                        Console.WriteLine($"\n\nDimension: {k}; Steps: {length}; Time: {sw.Elapsed.TotalSeconds}");
                         Console.WriteLine();
                     }
                     break;

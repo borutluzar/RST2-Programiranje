@@ -37,7 +37,7 @@ namespace PodatkovneStrukture
         private Queue<long> setNew;
         private byte[] stateArray;
         private bool[] canMoveArray;
-        byte[] tmpState;
+
         private byte[] newState;
         private long currentState;
         private short currentDistance;
@@ -181,7 +181,6 @@ namespace PodatkovneStrukture
             setCurrent.Add(initialState);
 
             path = "";
-            tmpState = new byte[this.numDiscs];
 
             if (searchMode == 0)
             {
@@ -189,52 +188,78 @@ namespace PodatkovneStrukture
                 long maxMemory = 0;
                 InitIgnoredStates(type);
 
-                while (true)
+                while (true) // Analiza posameznega koraka (i-tega premika)
                 {
                     if (maxCardinality < setCurrent.Count)
                         maxCardinality = setCurrent.Count;
 
-                    foreach (long num in setCurrent)
+                    switch (type)
                     {
-                        if (num == finalState)
-                        {
-                            return currentDistance;
-                        }
+                        case HanoiType.K13e_01:
+                            {
+                                bool @break = false;
+                                setCurrent.AsParallel().WithDegreeOfParallelism(5).ForAll(num =>
+                                {
+                                    if (num == finalState)
+                                       @break = true;
 
-                        if (setIgnore.Contains(num))
-                            continue;
+                                    byte[] tmpState = LongToState(num);
+                                    switch (type)
+                                    {
+                                        case HanoiType.K13e_30:
+                                            MakeMoveForSmallDimension_K13e(tmpState);
+                                            break;
+                                    }
+                                });
+                                if (@break) return currentDistance;
+                            }
+                            break;
+                        default:
+                            {
+                                foreach (long num in setCurrent) // Znotraj i-tega premika preveri vsa možna stanja in se premakne v vse možne pozicije
+                                {
+                                    if (num == finalState)
+                                    {
+                                        return currentDistance;
+                                    }
 
-                        LongToState(num);
-                        switch (type)
-                        {
-                            case HanoiType.K13_01:
-                                MakeMoveForSmallDimension_K13_01_Fast(tmpState);
-                                break;
-                            case HanoiType.K13_12:
-                                MakeMoveForSmallDimension_K13(tmpState);
-                                break;
-                            case HanoiType.K13e_01:
-                            case HanoiType.K13e_12:
-                            case HanoiType.K13e_23:
-                            case HanoiType.K13e_30:
-                                MakeMoveForSmallDimension_K13e(tmpState);
-                                break;
-                            case HanoiType.K4e_01:
-                            case HanoiType.K4e_12:
-                            case HanoiType.K4e_23:
-                                MakeMoveForSmallDimension_K4e(tmpState);
-                                break;
-                            case HanoiType.C4_01:
-                            case HanoiType.C4_12:
-                                MakeMoveForSmallDimension_C4(tmpState);
-                                break;
-                            case HanoiType.P4_01:
-                            case HanoiType.P4_12:
-                            case HanoiType.P4_23:
-                            case HanoiType.P4_31:
-                                MakeMoveForSmallDimension_P4(tmpState);
-                                break;
-                        }
+                                    if (setIgnore.Contains(num))
+                                        continue;
+
+                                    byte[] tmpState = LongToState(num);
+                                    switch (type)
+                                    {
+                                        case HanoiType.K13_01:
+                                            MakeMoveForSmallDimension_K13_01_Fast(tmpState);
+                                            break;
+                                        case HanoiType.K13_12:
+                                            MakeMoveForSmallDimension_K13(tmpState);
+                                            break;
+                                        case HanoiType.K13e_01:
+                                        case HanoiType.K13e_12:
+                                        case HanoiType.K13e_23:
+                                        case HanoiType.K13e_30:
+                                            MakeMoveForSmallDimension_K13e(tmpState);
+                                            break;
+                                        case HanoiType.K4e_01:
+                                        case HanoiType.K4e_12:
+                                        case HanoiType.K4e_23:
+                                            MakeMoveForSmallDimension_K4e(tmpState);
+                                            break;
+                                        case HanoiType.C4_01:
+                                        case HanoiType.C4_12:
+                                            MakeMoveForSmallDimension_C4(tmpState);
+                                            break;
+                                        case HanoiType.P4_01:
+                                        case HanoiType.P4_12:
+                                        case HanoiType.P4_23:
+                                        case HanoiType.P4_31:
+                                            MakeMoveForSmallDimension_P4(tmpState);
+                                            break;
+                                    }
+                                }
+                            }
+                            break;
                     }
 
                     long mem = GC.GetTotalMemory(false);
@@ -416,43 +441,51 @@ namespace PodatkovneStrukture
 
         private void MakeMoveForSmallDimension_K13e(byte[] state)
         {
-            ResetArray(canMoveArray);
+            bool[] innerCanMoveArray = new bool[this.numPegs];
+            ResetArray(innerCanMoveArray);
+            byte[] innerNewState;
 
             for (int i = 0; i < numDiscs; i++)
             {
-                if (canMoveArray[state[i]])
+                if (innerCanMoveArray[state[i]])
                 {
                     if (state[i] == 0)
                     {
                         for (byte j = 1; j < numPegs; j++)
                         {
-                            if (canMoveArray[j])
+                            if (innerCanMoveArray[j])
                             {
-                                newState = new byte[state.Length];
+                                innerNewState = new byte[state.Length];
                                 for (int x = 0; x < state.Length; x++)
-                                    newState[x] = state[x];
-                                newState[i] = j;
-                                currentState = StateToLong(newState);
+                                    innerNewState[x] = state[x];
+                                innerNewState[i] = j;
+                                long innerCurrentState = StateToLong(innerNewState);
                                 // Zaradi takih preverjanj potrebujemo hitro iskanje!
-                                if (!setPrev.Contains(currentState))
+                                if (!setPrev.Contains(innerCurrentState))
                                 {
-                                    setNew.Enqueue(currentState);
+                                    lock (setNew)
+                                    {
+                                        setNew.Enqueue(innerCurrentState);
+                                    }
                                 }
                             }
                         }
                     }
                     else if (state[i] == 1)
                     {
-                        if (canMoveArray[0])
+                        if (innerCanMoveArray[0])
                         {
-                            newState = new byte[state.Length];
+                            innerNewState = new byte[state.Length];
                             for (int x = 0; x < state.Length; x++)
-                                newState[x] = state[x];
-                            newState[i] = 0;
-                            currentState = StateToLong(newState);
-                            if (!setPrev.Contains(currentState))
+                                innerNewState[x] = state[x];
+                            innerNewState[i] = 0;
+                            long innerCurrentState = StateToLong(innerNewState);
+                            if (!setPrev.Contains(innerCurrentState))
                             {
-                                setNew.Enqueue(currentState);
+                                lock (setNew)
+                                {
+                                    setNew.Enqueue(innerCurrentState);
+                                }
                             }
                         }
                     }
@@ -460,16 +493,19 @@ namespace PodatkovneStrukture
                     {
                         foreach (byte j in new byte[] { 0, 3 })
                         {
-                            if (canMoveArray[j])
+                            if (innerCanMoveArray[j])
                             {
-                                newState = new byte[state.Length];
+                                innerNewState = new byte[state.Length];
                                 for (int x = 0; x < state.Length; x++)
-                                    newState[x] = state[x];
-                                newState[i] = j;
-                                currentState = StateToLong(newState);
-                                if (!setPrev.Contains(currentState))
+                                    innerNewState[x] = state[x];
+                                innerNewState[i] = j;
+                                long innerCurrentState = StateToLong(innerNewState);
+                                if (!setPrev.Contains(innerCurrentState))
                                 {
-                                    setNew.Enqueue(currentState);
+                                    lock (setNew)
+                                    {
+                                        setNew.Enqueue(innerCurrentState);
+                                    }
                                 }
                             }
                         }
@@ -478,22 +514,25 @@ namespace PodatkovneStrukture
                     {
                         foreach (byte j in new byte[] { 0, 2 })
                         {
-                            if (canMoveArray[j])
+                            if (innerCanMoveArray[j])
                             {
-                                newState = new byte[state.Length];
+                                innerNewState = new byte[state.Length];
                                 for (int x = 0; x < state.Length; x++)
-                                    newState[x] = state[x];
-                                newState[i] = j;
-                                currentState = StateToLong(newState);
-                                if (!setPrev.Contains(currentState))
+                                    innerNewState[x] = state[x];
+                                innerNewState[i] = j;
+                                long innerCurrentState = StateToLong(innerNewState);
+                                if (!setPrev.Contains(innerCurrentState))
                                 {
-                                    setNew.Enqueue(currentState);
+                                    lock (setNew)
+                                    {
+                                        setNew.Enqueue(innerCurrentState);
+                                    }
                                 }
                             }
                         }
                     }
                 }
-                canMoveArray[state[i]] = false;
+                innerCanMoveArray[state[i]] = false;
             }
         }
 
@@ -776,13 +815,15 @@ namespace PodatkovneStrukture
             return num;
         }
 
-        private void LongToState(long num)
+        private byte[] LongToState(long num)
         {
+            byte[] tmpState = new byte[this.numDiscs];
             for (int i = numDiscs - 1; i >= 0; i--)
             {
                 tmpState[i] = (byte)(num % this.numPegs);
-                num = num / this.numPegs;
+                num /= this.numPegs;
             }
+            return tmpState;
         }
 
         private string LongToStateString(long num)
