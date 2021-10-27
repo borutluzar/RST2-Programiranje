@@ -7,12 +7,15 @@ namespace Uvod
 {
     public class MyStaticFunctions
     {
+        // Z določilom const definiramo spremenljivke,
+        // ki jim ne bomo spreminjali vrednosti.
         private const string DEBUG = "Deb>";
 
         /// <summary>
         /// Counts all prime numbers up to n
         /// </summary>
         /// <param name="n">An integer up to which we count primes</param>
+        /// <returns>Number of primes up to integer n</returns>
         public static int CountPrimes(int n)
         {
             int countPrimes = 0;
@@ -39,16 +42,86 @@ namespace Uvod
         }
 
         /// <summary>
+        /// Counts all prime numbers up to n
+        /// </summary>
+        /// <param name="n">An integer up to which we count primes</param>
+        /// <returns>Number of primes up to integer n</returns>
+        public static int CountPrimes(int n, out int largest)
+        {
+            int countPrimes = 0;
+            largest = 0; // Nastavimo privzeto vrednost out parametra
+
+            // For each i between 1 and n check if it is a prime number
+            for (int i = 2; i <= n; i++)
+            {
+                // Count number of divisors of the current number i
+                int countDivisors = 0;
+                for (int j = 2; j <= Math.Sqrt(i); j++)
+                {
+                    if (i % j == 0)
+                        countDivisors++;
+
+                    if (countDivisors > 0)
+                        break;
+                }
+
+                if (countDivisors == 0)
+                {
+                    countPrimes++;
+                    largest = i;
+                }
+            }
+
+            return countPrimes;
+        }
+
+        /// <summary>
+        /// Counts all prime numbers up to n
+        /// </summary>
+        /// <param name="n">An integer up to which we count primes</param>
+        /// <returns>Number of primes up to integer n and the largest among them</returns>
+        public static (int, int) CountPrimesAndFindLargest(int n)
+        {
+            int countPrimes = 0;
+            int max = 0;
+
+            // For each i between 1 and n check if it is a prime number
+            for (int i = 2; i <= n; i++)
+            {
+                // Count number of divisors of the current number i
+                int countDivisors = 0;
+                for (int j = 2; j <= Math.Sqrt(i); j++)
+                {
+                    if (i % j == 0)
+                        countDivisors++;
+
+                    if (countDivisors > 0)
+                        break;
+                }
+
+                if (countDivisors == 0)
+                {
+                    countPrimes++;
+                    max = i;
+                }
+            }
+
+            return (countPrimes, max);
+        }
+
+        /// <summary>
         /// Creates a list of integers with random entries
         /// </summary>
         /// <param name="capacity">Number of elements</param>
         /// <returns>List with random entries</returns>
         public static List<int> MakeRandomList(int capacity, out int numOdd, bool debug = false)
         {
-            // New object for generating random numbers
-            // https://docs.microsoft.com/en-us/dotnet/api/system.random?f1url=%3FappId%3DDev16IDEF1%26l%3DEN-US%26k%3Dk(System.Random);k(DevLang-csharp)%26rd%3Dtrue&view=netcore-3.1
+            // Ustvarimo nov objekt za generiranje naključnih števil
+            // Določimo tudi "seed", da bo "naključnost" v naših primerih vedno enaka
+            // https://docs.microsoft.com/en-us/dotnet/api/system.random?f1url=%3FappId%3DDev16IDEF1%26l%3DEN-US%26k%3Dk(System.Random);k(DevLang-csharp)%26rd%3Dtrue&view=net-5.0
             Random rnd = new Random(0);
 
+            // Izbiramo števila med 0 in 100 in jih dodajamo v seznam
             List<int> lstRandoms = new List<int>();
             for (int i = 0; i < capacity; i++)
             {
@@ -74,6 +147,7 @@ namespace Uvod
 
             // Preverimo, koliko vnosov je lihih
             int tmpOdd = default;
+            // To lahko storimo na dva načina:
             //lstRandoms.ForEach(x => tmpOdd += x % 2 == 1 ? 1 : 0);
             lstRandoms.ForEach(x =>
                 {
@@ -102,6 +176,7 @@ namespace Uvod
             swData.WriteLine("Odvisno od dela.");
 
             swData.Close();
+            Console.WriteLine($"Datoteka {fileName} je bila uspešno ustvarjena.");
         }
 
         /// <summary>
