@@ -168,6 +168,8 @@ namespace Uvod
         /// <param name="fileName">Name of the file</param>
         public static void WriteFile(string fileName)
         {
+            // Ime datoteke lahko podamo relativno na pot izvajanja programa
+            // ali pa absolutno, npr. C:/Temp/imeDatoteke.txt
             StreamWriter swData = new StreamWriter(fileName);
 
             swData.WriteLine("Moje ime je Borut.");
@@ -183,27 +185,28 @@ namespace Uvod
         /// Reads the given file and counts its lines.
         /// </summary>
         /// <param name="fileName">Name of the file</param>
+        /// <returns>Number of lines in the file</returns>
         public static int ReadFile(string fileName)
         {
             StreamReader srData = new StreamReader(fileName);
 
             int countLines = 0;
-
-            // Dodaten podatek, za katerega želimo, da ga funkcija vrne
-            bool checkContainsMyName;
+            // Beremo datoteko, dokler ne pridemo do konca
             while (!srData.EndOfStream)
             {
-                string line = srData.ReadLine();
+                srData.ReadLine();
                 countLines++;
-
-                if (line.Contains("Borut"))
-                    checkContainsMyName = true;
             }
             srData.Close();
 
             return countLines;
         }
 
+        /// <summary>
+        /// Reads the given file and writes its properties in a special object
+        /// </summary>
+        /// <param name="fileName">Name of the file</param>
+        /// <returns>Object with file's properties</returns>
         public static FileData ReadFile2(string fileName)
         {
             StreamReader srData = new StreamReader(fileName);
@@ -222,11 +225,12 @@ namespace Uvod
             }
             srData.Close();
             
+            // Ustvarimo nov objekt
             FileData fd = new FileData(checkContainsMyName)
             {
                 NumberOfLines = countLines,
                 //ContainsSensitiveInfo = checkContainsMyName
-            };
+            };            
 
             return fd;
         }

@@ -21,7 +21,10 @@ namespace Uvod
             CountingPrimesAndTuples = 5,
             RandomLists = 6,
             RandomListsWithoutOut = 7,
-            WritingInFile = 8
+            WritingInFile = 8,
+            ReadingFromFile = 9,
+            ReadingFromFileWithObject = 10,
+            RecallingObjects = 11
         }
 
         static void Main(string[] args)
@@ -82,16 +85,27 @@ namespace Uvod
                         MyStaticFunctions.WriteFile("PrvaPredavanjaTest.txt");
                     }
                     break;
-            }
-
-            /*int numbeOfLines = MyStaticFunctions.ReadFile("PrvaPredavanjaTest.txt");
-            Console.WriteLine($"Datoteka vsebuje {numbeOfLines} vrstic!");*/
-
-            /*FileData fd = MyStaticFunctions.ReadFile2("PrvaPredavanja.txt");
-            Console.WriteLine($"Datoteka vsebuje {fd.NumberOfLines} vrstic in " +
-                    $"{(fd.ContainsSensitiveInfo ? "vsebuje moje ime!" : "ne vsebuje mojega imena!")}");*/
-
-            //CreateStudents();
+                case ExamplesSections.ReadingFromFile:
+                    { // V tem primeru si ogledamo branje iz datoteke
+                        int numLines = MyStaticFunctions.ReadFile("PrvaPredavanjaTest.txt");
+                        Console.WriteLine($"\nDatoteka vsebuje {numLines} vrstic");
+                    }
+                    break;
+                case ExamplesSections.ReadingFromFileWithObject:
+                    { // V tem primeru si ogledamo branje iz datoteke in
+                      // - zapisovanje lastnosti v poseben objekt
+                      // - lastnosti in njihove posebnosti (k njim se vrnemo malo kasneje)
+                        FileData fileData = MyStaticFunctions.ReadFile2("PrvaPredavanjaTest.txt");
+                        Console.WriteLine($"Datoteka vsebuje {fileData.NumberOfLines} vrstic in " +
+                                $"{(fileData.ContainsSensitiveInfo ? "vsebuje moje ime!" : "ne vsebuje mojega imena!")}");
+                    }
+                    break;
+                case ExamplesSections.RecallingObjects:
+                    { // V tem primeru si osvežimo spomin na definiranje novega tipa (objekta)
+                        CreateStudents();                        
+                    }
+                    break;
+            }           
 
             Console.Read();
         }
@@ -141,8 +155,13 @@ namespace Uvod
             Console.WriteLine($"\t|{"Borut Lužar",-20}|{"6  ",6}|{DateTime.Now,-20:d. M. yyyy}|");
         }
 
+        /// <summary>
+        /// V tej funkciji naredimo novo instanco tipa Student 
+        /// in  ji določimo nekaj lastnosti
+        /// </summary>
         static void CreateStudents()
         {
+            // Kreiramo novo instanco
             Student marko = new Student("Marko", "Markantni", new DateTime(1980, 1, 1))
             {
                 Subjects = new System.Collections.Generic.List<Subject>() { Subject.DiskretnaMatematika }
