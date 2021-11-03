@@ -4,6 +4,37 @@ using System.Text;
 
 namespace ObjektniKoncepti.Abstraction
 {
+    public static class Abstraction
+    {
+        public static void TestAbstraction()
+        {
+            ChessBoardField fieldStart = new ChessBoardField() { X = 1, Y = 1 };
+            ChessBoardField fieldEnd = new ChessBoardField() { X = 1, Y = 2 };
+
+            // Spodnja koda se ne prevede
+            //ChessPiece piece = new ChessPiece(fieldStart);
+
+            ChessPiece rook = new Rook(fieldStart);
+
+            Console.WriteLine($"Trenutna pozicija figure rook je {rook.Position}");
+            Console.WriteLine();
+
+            // Premaknimo figuro
+            try
+            {
+                rook.Move(fieldEnd);
+                Console.WriteLine("Premaknemo...");
+                Console.WriteLine($"Trenutna pozicija figure rook je {rook.Position}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Prišlo je do napake pri premiku figure {nameof(rook)}");
+                Console.WriteLine(ex.Message);
+            }
+        }
+    }
+
+
     /// <summary>
     /// V prejšnjem primeru smo se ukvarjali z vmesniki.
     /// Podoben koncept predstavljajo abstraktni razredi
@@ -22,7 +53,7 @@ namespace ObjektniKoncepti.Abstraction
         /// Vendar moramo lastnosti vmesnika dejansko implementirati v razredu.
         /// </summary>
         bool IsAlive { get; set; }
-        
+
         ChessBoardField Position { get; }
     }
 
@@ -35,7 +66,7 @@ namespace ObjektniKoncepti.Abstraction
         /// Vodoravna koordinata
         /// </summary>
         public int X { get; set; }
-        
+
         /// <summary>
         /// Navpična koordinata
         /// </summary>
@@ -87,12 +118,12 @@ namespace ObjektniKoncepti.Abstraction
         /// Implementirana lastnost mora biti zapisana eksplicitno
         /// </summary>
         private ChessBoardField position;
-        public ChessBoardField Position 
+        public ChessBoardField Position
         {
             get
             {
                 return position;
-            } 
+            }
             /*private set 
             {
                 position = value;
@@ -134,7 +165,7 @@ namespace ObjektniKoncepti.Abstraction
             //base.Move(field);
             Console.WriteLine("Premik je dovoljen, ampak nimam dostopa do this.Position! :(");
         }
-    }    
+    }
 
     public class Player
     {

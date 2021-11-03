@@ -4,6 +4,30 @@ using System.Text;
 
 namespace ObjektniKoncepti.Extensions
 {
+    public static class Extensions
+    {
+        public static void TestExtensions()
+        {
+            string denis = "Denis";
+            Console.WriteLine($"Denis vsebuje? {denis.ContainsVowels()}");
+
+            ChessBoardField field = new ChessBoardField()
+            {
+                X = 4,
+                Y = 3
+            };
+
+            // Klic razširitvene metode
+            Console.WriteLine($"Klic razširitvene metode: {(field.IsWhite() ? "Bela" : "Črna")}");
+
+            // Preverimo klic metode ToString() - vedno se kličejo metode iz razreda, če obstajajo
+            Console.WriteLine($"Klic (razširjene?) metode ToString {field.ToString()}");
+
+            // Do razširitvene metode pridemo neposredno preko razreda
+            Console.WriteLine($"Klic (razširjene?) metode ToString čez statični razred {ExtensionsClass.ToString(field)}");
+        }
+    }
+
     /// <summary>
     /// Arh, Q33
     /// Razširitvene metode nam omogočijo razširiti funkcionalnosti objektov

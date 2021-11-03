@@ -4,6 +4,49 @@ using System.Text;
 
 namespace ObjektniKoncepti
 {
+    public static class Properties
+    {
+        /// <summary>
+        /// Metoda za prikaz primerov uporabe lastnosti
+        /// </summary>
+        public static void CheckProperties()
+        {
+            // Ustvarimo novo instanco objekta
+            PropertiesExample pe = new PropertiesExample();
+            
+            // Vrednost polja field lahko beremo in nastavljamo brez omejitev
+            uint x = pe.field;
+            pe.field = 22;
+            Console.WriteLine();
+            Console.WriteLine($"Vrednost x={x}, vrednost polja field je {pe.field}");
+
+            
+            // Vrednost lastnosti lahko nastavimo samo,
+            // če imamo ustrezen nivo dostopa
+            pe.Property = 101;
+            Console.WriteLine();
+            Console.WriteLine($"Vrednost Property={pe.Property}");
+            
+            
+            // Vrednosti samodejno implementirane lastnosti lahko
+            // nastavljamo in beremo na enak način kot običajno
+            // implementirano metodo
+            //pe.AutoImplementedProperty = 14;
+            Console.WriteLine();
+            Console.WriteLine($"Vrednost AutoImplementedProperty={pe.AutoImplementedProperty}");
+            Console.WriteLine();
+            pe.MethodExample();
+            Console.WriteLine($"Vrednost po izvedbi metode AutoImplementedProperty={pe.AutoImplementedProperty}");
+            
+            
+            // Če se odločimo, da vrednosti lastnosti zagotovo
+            // ne bomo spreminjali, izpustimo definicijo 'set'
+            //pe.ReadOnlyAutoImplementedProperty = 122;
+            Console.WriteLine();
+            Console.WriteLine($"Vrednost ReadOnlyAutoImplementedProperty={pe.ReadOnlyAutoImplementedProperty}");            
+        }
+    }
+
     /// <summary>
     /// Arh, Q34
     /// Zakaj uporabljati lastnosti namesto javnih spremenljivk?
@@ -24,8 +67,10 @@ namespace ObjektniKoncepti
             }
 
             // Pri nastavljanju in branju lahko celo izvajamo kontrolo
-            // s pisanjem dodatne kode kodo
-            private set
+            // s pisanjem dodatne kode kode
+            // Več o nivojih dostopov lahko preberete tukaj:
+            // https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/accessibility-levels
+            internal set
             {
                 if (value % 2 == 0)
                     throw new ArgumentException("The provided value is not odd!");
@@ -56,7 +101,7 @@ namespace ObjektniKoncepti
 
         public void MethodExample()
         {
-            //this.AutoImplementedProperty = 56;
+            this.AutoImplementedProperty = 56;
             //this.ReadOnlyAutoImplementedProperty = 67;
         }
 

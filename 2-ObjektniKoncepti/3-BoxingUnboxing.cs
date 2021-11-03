@@ -13,7 +13,7 @@ namespace ObjektniKoncepti
     /// </summary>
     static class BoxingUnboxing
     {
-        public static void Test()
+        public static void TestBoxing()
         {
             
             int valType = 1;
@@ -35,14 +35,14 @@ namespace ObjektniKoncepti
             Console.WriteLine($"3. valType={valType}, refType={refType}");
             Console.WriteLine();
 
-            // Če uporabimo napačno preoblikovanje, se ob izvajanje sproži napaka
+            // Če uporabimo napačno preoblikovanje, se ob izvajanju sproži napaka
             object refType2 = 3;
+            //int l = (int)refType2;
+            //int l = (long)refType2;
             long l = (int)refType2;
 
             Console.WriteLine($"4. valType={l}, refType={refType2}");
             Console.WriteLine();
-            
-            // PRIMER??
         }
     }
 }

@@ -4,6 +4,41 @@ using System.Text;
 
 namespace ObjektniKoncepti.InterfacesImplicitExplicit
 {
+    public static class ImplicitExplicit
+    {
+        public static void TestImplicitExplicit()
+        {
+            ChessBoardField fieldStart = new ChessBoardField() { X = 1, Y = 1 };
+            ChessBoardField fieldEnd = new ChessBoardField() { X = 2, Y = 2 };
+
+            ChessPiece rook = new Rook(fieldStart);
+            Console.WriteLine();
+            Console.WriteLine($"Trenutna pozicija figure rook je {rook.Position}");
+
+
+            IPiece rook2 = rook as IPiece;
+            Console.WriteLine();
+            Console.WriteLine("Eksplicitna implementacija metode Promote iz IPiece");
+            rook2.Promote(new Rook(rook.Position));
+
+            Console.WriteLine();
+            Console.WriteLine("Implementacija metode Promote iz razreda");
+            Console.WriteLine();
+            Console.WriteLine("Klic na objektu rook: ");
+            rook.Promote(new Rook(rook.Position));
+
+            Console.WriteLine();
+            Console.WriteLine("Klic na objektu rook2: ");
+            rook2.Promote(new Rook(rook.Position));
+
+            Console.WriteLine();
+            Console.WriteLine("Klic na objektu tipa ICareerObject: ");
+            ((ICareerObject)rook).Promote(new Rook(rook.Position));
+
+            Console.WriteLine();
+        }
+    }
+
     /// <summary>
     /// Arh, Q25
     /// V tem primeru si bomo ogledali možnost eksplicitne implementacije metode vmesnika

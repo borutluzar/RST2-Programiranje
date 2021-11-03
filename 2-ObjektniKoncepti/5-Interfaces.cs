@@ -5,6 +5,52 @@ using System.Text;
 namespace ObjektniKoncepti.Interfaces
 {
     /// <summary>
+    /// Metoda za testiranje vmesnikov
+    /// </summary>
+    public static class Interfaces
+    {
+        public static void TestInterfaces()
+        {
+            // Ustvarimo dve polji na plošči
+            ChessBoardField fieldStart = new ChessBoardField() { X = 1, Y = 1 };
+            ChessBoardField fieldEnd = new ChessBoardField() { X = 2, Y = 1 };
+
+            ChessPiece piece = new ChessPiece(fieldStart);
+
+            Console.WriteLine($"Trenutna pozicija figure piece je {piece.Position}");
+            Console.WriteLine();
+
+            // Premaknimo figuro
+            piece.Move(fieldEnd);
+            Console.WriteLine("Premaknemo...");
+            Console.WriteLine($"Trenutna pozicija figure piece je {piece.Position}");
+
+
+            // Premaknimo trdnjavo
+            Console.WriteLine("\n");
+            Rook rook = new Rook(fieldStart);
+            Console.WriteLine($"Trenutna pozicija figure rook je {rook.Position}");
+            Console.WriteLine();
+
+            // Premaknimo figuro
+            try
+            {
+                rook.Move(fieldEnd);
+                Console.WriteLine("Premaknemo...");
+                Console.WriteLine($"Trenutna pozicija figure rook je {rook.Position}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Prišlo je do napake pri premiku figure {nameof(rook)}");
+                Console.WriteLine(ex.Message);
+            }
+
+            Console.WriteLine();
+        }
+    }
+
+
+    /// <summary>
     /// https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/interfaces/
     /// - Vmesniki določajo definicijo skupine funkcionalnosti,
     ///   ki jih mora razred implementirati.
@@ -58,7 +104,7 @@ namespace ObjektniKoncepti.Interfaces
     /// V tem primeru naj razred implementira vmesnik IPiece,
     /// zato moramo implementirati tudi vse zahtevane metode in lastnosti vmesnika
     /// </summary>
-    public class ChessPiece : IPiece
+    internal class ChessPiece : IPiece
     {
         public ChessPiece(ChessBoardField start)
         {
@@ -109,7 +155,7 @@ namespace ObjektniKoncepti.Interfaces
     /// V konkretnem podrazredu metodo Move zapišimo tako, 
     /// da preveri, če je premik metode možen.
     /// </summary>
-    public class Rook : ChessPiece
+    internal class Rook : ChessPiece
     {
         public Rook(ChessBoardField start) : base(start)
         {
@@ -135,7 +181,7 @@ namespace ObjektniKoncepti.Interfaces
         }
     }    
 
-    public class Player
+    internal class Player
     {
         /// <summary>
         /// Lastnost, ki vsebuje trenutne figure igralca

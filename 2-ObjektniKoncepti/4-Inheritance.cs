@@ -4,6 +4,71 @@ using System.Text;
 
 namespace ObjektniKoncepti.Inheritance
 {
+    public static class Inheritance
+    {
+        public static void TestInheritance1()
+        {
+            ParentClass parent = new ParentClass(Math.PI);
+            parent.Property1 = (int)(2 * Math.PI); // Cast vzame prvi objekt z desne
+
+            Console.WriteLine();
+            Console.WriteLine("Vrednosti objekta parent:");
+            Console.WriteLine($"\t Property1 = {parent.Property1}");
+            Console.WriteLine($"\t SquareField = {parent.SquareField()}");
+            Console.WriteLine();
+
+            ChildClass child = new ChildClass(Math.PI);
+            child.Property1 = (int)(3 * Math.PI);
+            (child as ParentClass).Property1 = (int)Math.E;
+
+            // Oglejmo si vrednosti lastnosti v oknu Quick Watch
+            // (kurzor na izbrani objekt in desni klik)
+
+            Console.WriteLine("Vrednosti objekta child:");
+            Console.WriteLine($"\t Property1 = {child.Property1}");
+            Console.WriteLine($"\t SquareField = {child.SquareField()}");
+            Console.WriteLine($"\t base.Property1 = {((ParentClass)child).Property1}");
+            Console.WriteLine();
+        }
+
+        public static void TestInheritanceWithCasting()
+        {
+            // Oglejmo si učinek cast-anja                        
+            ChildClass child = new ChildClass(Math.PI);
+            ParentClass childAsParent = child;
+
+            // Instanca childAsParent se obnaša kot instanca razreda ParentClass
+            Console.WriteLine($"Vrednost funkcije SquareField za child = {child.SquareField()}");
+            Console.WriteLine($"Vrednost funkcije SquareField za childAsParent = {childAsParent.SquareField()}");
+        }
+
+        public static void TestInheritanceWithOverridenMethod()
+        {
+            // Oglejmo si učinek cast-anja na povoženo metodo
+            Rook rook = new Rook();
+            ChessPiece piece = (ChessPiece)rook;
+
+            // Vedno se kliče metoda iz dejanskega razreda instance!
+            // Če hočemo imeti dostop do metode v nadrazredu,
+            // je v podrazredu ne povozimo, ampak uporabimo določilo new
+            Console.WriteLine($"ToString za rook = {rook.ToString()}");
+            Console.WriteLine($"ToString za piece = {piece.ToString()}");
+        }
+
+        public static void TestInheritanceWithPolymorphisms()
+        {
+            Player player = new Player();
+            player.MyPieces.Add(new Rook());
+            player.MyPieces.Add(new Rook());
+            player.MyPieces.Add(new King());
+
+            // Izpišimo figure iz seznama
+            Console.WriteLine($"Figure igralca player so:");
+            player.MyPieces.ForEach(fig => Console.WriteLine($"{fig}\n"));
+            Console.WriteLine();
+        }
+    }
+
     /// <summary>
     /// Ustvarimo razred, ki vsebuje skupne metode, polja in lastnosti vseh podrazredov
     /// </summary>
@@ -49,7 +114,10 @@ namespace ObjektniKoncepti.Inheritance
         {
             this.field2 = (int)g;
         }
-
+                
+        // Polje ima določilo readonly,
+        // z njim zagotovimo, da se mu vrednost lahko spremeni
+        // le pri deklaraciji oziroma v konstruktorju.
         public readonly int field2;
 
         /// <summary>
