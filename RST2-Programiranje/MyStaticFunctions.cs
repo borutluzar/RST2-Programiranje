@@ -7,6 +7,11 @@ namespace Uvod
 {
     public class MyStaticFunctions
     {
+        // Samo primer - boljše je imeti tovrstne flag-e v
+        // konfiguracijskih datotekah,
+        // ker ni potreben recompile.
+        public const int SEED = 0;  // If -1, then do not use seeds
+
         // Z določilom const definiramo spremenljivke,
         // ki jim ne bomo spreminjali vrednosti.
         private const string DEBUG = "Deb>";
@@ -119,7 +124,7 @@ namespace Uvod
             // Ustvarimo nov objekt za generiranje naključnih števil
             // Določimo tudi "seed", da bo "naključnost" v naših primerih vedno enaka
             // https://docs.microsoft.com/en-us/dotnet/api/system.random?f1url=%3FappId%3DDev16IDEF1%26l%3DEN-US%26k%3Dk(System.Random);k(DevLang-csharp)%26rd%3Dtrue&view=net-5.0
-            Random rnd = new Random(0);
+            Random rnd = SEED > -1 ? new Random(SEED) : new Random();
 
             // Izbiramo števila med 0 in 100 in jih dodajamo v seznam
             List<int> lstRandoms = new List<int>();
@@ -148,12 +153,12 @@ namespace Uvod
             // Preverimo, koliko vnosov je lihih
             int tmpOdd = default;
             // To lahko storimo na dva načina:
-            //lstRandoms.ForEach(x => tmpOdd += x % 2 == 1 ? 1 : 0);
-            lstRandoms.ForEach(x =>
+            lstRandoms.ForEach(x => tmpOdd += x % 2 == 1 ? 1 : 0);
+            /*lstRandoms.ForEach(x =>
                 {
                     if (x % 2 == 1)
                         tmpOdd++;
-                });
+                });*/
             numOdd = tmpOdd;
 
             if (debug)
@@ -173,10 +178,13 @@ namespace Uvod
             StreamWriter swData = new StreamWriter(fileName);
 
             swData.WriteLine("Moje ime je Borut.");
+            swData.Flush(); // Zapišemo trenuten buffer v datoteko
+
             swData.WriteLine("Rad delam na FIŠ.");
             swData.WriteLine("Ali pa tudi ne.");
             swData.WriteLine("Odvisno od dela.");
 
+            // Ne pozabite!
             swData.Close();
             Console.WriteLine($"Datoteka {fileName} je bila uspešno ustvarjena.");
         }

@@ -21,10 +21,10 @@ namespace ObjektniKoncepti.Extensions
             Console.WriteLine($"Klic razširitvene metode: {(field.IsWhite() ? "Bela" : "Črna")}");
 
             // Preverimo klic metode ToString() - vedno se kličejo metode iz razreda, če obstajajo
-            Console.WriteLine($"Klic (razširjene?) metode ToString {field.ToString()}");
+            Console.WriteLine($"Klic (razširitvene?) metode ToString {field.ToString()}");
 
             // Do razširitvene metode pridemo neposredno preko razreda
-            Console.WriteLine($"Klic (razširjene?) metode ToString čez statični razred {ExtensionsClass.ToString(field)}");
+            Console.WriteLine($"Klic (razširitvene?) metode ToString čez statični razred {ExtensionsClass.ToString(field)}");
         }
     }
 

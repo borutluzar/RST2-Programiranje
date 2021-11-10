@@ -1,9 +1,10 @@
-﻿using System;
+﻿using CommonFunctions;
+using System;
 using System.Linq.Expressions;
 
 namespace LINQ
 {
-    enum Section
+    enum LINQSections
     {
         Basics,
         MethodSyntax,
@@ -12,24 +13,21 @@ namespace LINQ
 
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
-            Section section = Section.LambdaExpressions;
-
-            Console.WriteLine();
-            switch (section)
+            switch (InterfaceFunctions.ChooseSection<LINQSections>())
             {
-                case Section.Basics:
+                case LINQSections.Basics:
                     {
                         Basics.BasicLINQSyntax();
                     }
                     break;
-                case Section.MethodSyntax:
+                case LINQSections.MethodSyntax:
                     {
                         Basics.MethodLINQSyntax();
                     }
                     break;
-                case Section.LambdaExpressions:
+                case LINQSections.LambdaExpressions:
                     {
                         LambdaExpressions.LambdaTests();
                     }

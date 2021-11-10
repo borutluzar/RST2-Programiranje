@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -6,5 +6,9 @@
     <AssemblyName>LINQ</AssemblyName>
     <RootNamespace>LINQ</RootNamespace>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CommonFunctions\0-CommonFunctions.csproj" />
+  </ItemGroup>
 
 </Project>

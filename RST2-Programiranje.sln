@@ -7,11 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "1-Uvod", "RST2-Programiranj
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "2-ObjektniKoncepti", "2-ObjektniKoncepti\2-ObjektniKoncepti.csproj", "{892DDBBC-452E-487E-B42C-786CD4153A00}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "3-NacrtovalskiVzorci", "NacrtovalskiVzorci\3-NacrtovalskiVzorci.csproj", "{837FECD4-898C-42AE-B86D-7B50A9485508}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "4-NacrtovalskiVzorci", "NacrtovalskiVzorci\4-NacrtovalskiVzorci.csproj", "{837FECD4-898C-42AE-B86D-7B50A9485508}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "4-PodatkovneStrukture", "PodatkovneStrukture\4-PodatkovneStrukture.csproj", "{77BEA7D8-5A07-4C1E-8E5A-720A80581034}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "5-PodatkovneStrukture", "PodatkovneStrukture\5-PodatkovneStrukture.csproj", "{77BEA7D8-5A07-4C1E-8E5A-720A80581034}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "5-LINQ", "LINQ\5-LINQ.csproj", "{55BCD2F0-4184-4C3F-89D6-5ECEF02DF921}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "3-LINQ", "LINQ\3-LINQ.csproj", "{55BCD2F0-4184-4C3F-89D6-5ECEF02DF921}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "6-ParallelAndAsync", "ParallelAndAsync\6-ParallelAndAsync.csproj", "{F65098F4-A3BE-4A91-BF56-04D5BBADE0DD}"
 EndProject

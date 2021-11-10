@@ -1,6 +1,4 @@
 ﻿using CommonFunctions;
-using ObjektniKoncepti.Abstraction;
-using ObjektniKoncepti.Extensions;
 using System;
 
 namespace ObjektniKoncepti
@@ -22,7 +20,7 @@ namespace ObjektniKoncepti
             Extensions = 11
         }
 
-        static void Main(string[] args)
+        static void Main()
         {
             switch (InterfaceFunctions.ChooseSection<ObjectsSections>())
             {

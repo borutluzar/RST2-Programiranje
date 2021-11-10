@@ -134,9 +134,6 @@ namespace ObjektniKoncepti.Interfaces
 
         public bool IsAlive { get; set; }
 
-        /// <summary>
-        /// Implementirana lastnost mora biti zapisana eksplicitno
-        /// </summary>
         private ChessBoardField position;
         public ChessBoardField Position 
         {

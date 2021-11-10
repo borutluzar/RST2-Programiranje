@@ -10,7 +10,7 @@ namespace ObjektniKoncepti.Inheritance
         {
             ParentClass parent = new ParentClass(Math.PI);
             parent.Property1 = (int)(2 * Math.PI); // Cast vzame prvi objekt z desne
-
+            
             Console.WriteLine();
             Console.WriteLine("Vrednosti objekta parent:");
             Console.WriteLine($"\t Property1 = {parent.Property1}");
