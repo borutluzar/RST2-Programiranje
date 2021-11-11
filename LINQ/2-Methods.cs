@@ -51,7 +51,8 @@ namespace LINQ
                         /*var queryGeneral = from animal in LINQDataSet.animals
                                            select animal; */
                         // Zgornjo kodo tako prepišemo v
-                        var queryGeneral = LINQDataSet.animals.Select(animal => animal);
+                        var queryGeneral = LINQDataSet.animals
+                                            .Select(animal => animal);
                         // Metoda Select 'projicira' vsak element zbirke v podano obliko
                         Console.WriteLine("\nSplošna poizvedba o vseh elementih");
                         queryGeneral.ReadEnumerable();
@@ -62,7 +63,7 @@ namespace LINQ
                         /*var queryGeneral2 = from animal in LINQDataSet.animals
                                             select new { animal.Species, animal.HasTail };*/
                         var queryGeneral2 = LINQDataSet.animals
-                            .Select(animal => new { animal.Species, animal.HasTail });
+                            .Select(animal => new { Species = animal.Species, Tail = animal.HasTail });
                         Console.WriteLine("\nSplošna poizvedba z izbranimi lastnostmi");
                         // Izpis anonimnega objekta zraven pripiše tudi imena lastnosti!
                         queryGeneral2.ReadEnumerable();
@@ -107,7 +108,7 @@ namespace LINQ
                                                 .Select(animal => animal.Species)
                                                 //.OrderBy(animal => animal.Species)  // se ne prevede, ker smo izbrali le Species
                                                 .OrderBy(species => species);
-                        //.Where(animal => animal.HasTail); // se ne prevede, ker smo izbrali le Species
+                                                //.Where(animal => animal.HasTail); // se ne prevede, ker smo izbrali le Species
                         Console.WriteLine("\nPoizvedba samo z vrsto živali");
                         querySelectFirst.ReadEnumerable();
                     }
@@ -127,14 +128,14 @@ namespace LINQ
                         // Metodi Take in Skip sta lahko uporabni npr. pri implementaciji listanja po zapisih (paginaciji)
                     }
                     break;
-                case MethodsSubsection.All:
+                case MethodsSubsection.Any:
                     {
                         // Metoda Any preveri, če v zbirki obstaja vsaj en element za dani pogoj
                         var existsWithTail = LINQDataSet.animals.Any(x => x.HasTail);
                         Console.WriteLine($"\n{(existsWithTail ? "Obstaja vsaj ena žival z repom!" : "Ne obstaja žival z repom!")}");
                     }
                     break;
-                case MethodsSubsection.Any:
+                case MethodsSubsection.All:
                     {
                         // Metoda All preveri, če vsi elementi v zbirki ustrezajo danemu pogoju
                         var allWithTail = LINQDataSet.animals.All(x => x.HasTail);
@@ -148,7 +149,7 @@ namespace LINQ
                         // Pri tem nas ne zanima, iz seznama katerega objekta smo zapise dobili.
                         var selectingMany = LINQDataSet.continents
                                                 .SelectMany(continent => continent.Animals)
-                                                .Where(animalID => LINQDataSet.animals.Find(x => x.ID == animalID).NumberOfLegs == 4)
+                                                .Where(animalID => LINQDataSet.animals.Find(x => x.ID == animalID)?.NumberOfLegs == 4)
                                                 .Select(animalID => LINQDataSet.animals.Find(x => x.ID == animalID).Species);
                         Console.WriteLine($"\nŽivali na vseh celinah, ki imajo štiri noge, so: ");
                         selectingMany.ReadEnumerable();
@@ -161,8 +162,10 @@ namespace LINQ
                         // objekt tipa IEqualityComparer, ki določi, kateri pari instanc naj bodo obravnavani kot enaki (več v Arh, Q52).
                         var selectingManyDistinct = LINQDataSet.continents
                                                 .SelectMany(continent => continent.Animals)
-                                                .OrderBy(x => x)
-                                                .Distinct();
+                                                .Distinct()
+                                                .Where(animalID => LINQDataSet.animals.Find(x => x.ID == animalID)?.NumberOfLegs == 4)
+                                                .Select(animalID => LINQDataSet.animals.Find(x => x.ID == animalID).Species)
+                                                .OrderBy(x => x);
                         Console.WriteLine($"\nRazlične živali na vseh celinah so: ");
                         selectingManyDistinct.ReadEnumerable();
                     }

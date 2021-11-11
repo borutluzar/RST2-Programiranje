@@ -46,7 +46,11 @@ namespace LINQ
                         // Izberemo lahko le nekatere lastnosti
                         // in jih postavimo v nov (anonimen) objekt
                         var queryGeneral2 = from animal in LINQDataSet.animals
-                                            select new { animal.Species, animal.HasTail }; // Pripravimo anonimen objekt. Več v Arh, Q19.
+                                            select new 
+                                            { 
+                                                animal.Species, 
+                                                animal.HasTail 
+                                            }; // Pripravimo anonimen objekt. Več v Arh, Q19.
                         Console.WriteLine("\nSplošna poizvedba z izbranimi lastnostmi");
                         // Izpis anonimnega objekta zraven pripiše tudi imena lastnosti!
                         queryGeneral2.ReadEnumerable();
@@ -66,9 +70,9 @@ namespace LINQ
                     {
                         // Ali filtriramo - spet uporabimo spremenljivko animal
                         var queryFiltered = from animal in LINQDataSet.animals
-                                            orderby animal.Species
                                             where animal.HasTail && animal.NumberOfLegs <= 4 // Filtriranje
-                                            select animal;
+                                            orderby animal.Species
+                                            select animal;                                            ;
                         Console.WriteLine("\nSplošna filtrirana poizvedba");
                         queryFiltered.ReadEnumerable();
                     }
