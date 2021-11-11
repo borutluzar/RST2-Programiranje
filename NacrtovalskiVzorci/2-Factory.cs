@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace NacrtovalskiVzorci
+namespace DesignPatterns
 {
     /** Primer je povzet po primeru iz https://dotnettutorials.net/lesson/factory-design-pattern-csharp/
      * 
@@ -32,110 +32,38 @@ namespace NacrtovalskiVzorci
 
     class Silver : ICreditCard
     {
-        public CreditCardType CreditCardType
-        {
-            get
-            {
-                return CreditCardType.Silver;
-            }
-        }
+        public CreditCardType CreditCardType => CreditCardType.Silver;
 
-        public double Limit
-        {
-            get
-            {
-                return 800;
-            }
-        }
+        public double Limit => 800;
 
-        public double AnnualCharge
-        {
-            get
-            {
-                return 20;
-            }
-        }
+        public double AnnualCharge => 20;
     }
 
     class Gold : ICreditCard
     {
-        public CreditCardType CreditCardType
-        {
-            get
-            {
-                return CreditCardType.Gold;
-            }
-        }
+        public CreditCardType CreditCardType => CreditCardType.Gold;
 
-        public double Limit
-        {
-            get
-            {
-                return 2000;
-            }
-        }
+        public double Limit => 2000;
 
-        public double AnnualCharge
-        {
-            get
-            {
-                return 50;
-            }
-        }
+        public double AnnualCharge => 50;
     }
 
     class Platinum : ICreditCard
     {
-        public CreditCardType CreditCardType
-        {
-            get
-            {
-                return CreditCardType.Platinum;
-            }
-        }
+        public CreditCardType CreditCardType => CreditCardType.Platinum;
 
-        public double Limit
-        {
-            get
-            {
-                return 5000;
-            }
-        }
+        public double Limit => 5000;
 
-        public double AnnualCharge
-        {
-            get
-            {
-                return 100;
-            }
-        }
+        public double AnnualCharge => 100;
     }
 
     class Student : ICreditCard
     {
-        public CreditCardType CreditCardType
-        {
-            get
-            {
-                return CreditCardType.Student;
-            }
-        }
+        public CreditCardType CreditCardType => CreditCardType.Student;
 
-        public double Limit
-        {
-            get
-            {
-                return 200;
-            }
-        }
+        public double Limit => 200;
 
-        public double AnnualCharge
-        {
-            get
-            {
-                return 5;
-            }
-        }
+        public double AnnualCharge => 5;
     }
 
     #endregion

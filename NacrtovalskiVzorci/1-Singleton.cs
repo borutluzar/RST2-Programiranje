@@ -4,7 +4,7 @@ using System.IO;
 using System.Runtime.CompilerServices;
 using System.Text;
 
-namespace NacrtovalskiVzorci
+namespace DesignPatterns
 {
     /// <summary>
     /// Če želimo zagotoviti, da bomo imeli v našem programu zgolj oziroma največ eno instanco 

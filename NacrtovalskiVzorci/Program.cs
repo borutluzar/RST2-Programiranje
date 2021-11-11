@@ -1,7 +1,8 @@
-﻿using System;
+﻿using CommonFunctions;
+using System;
 using System.Threading;
 
-namespace NacrtovalskiVzorci
+namespace DesignPatterns
 {
     class Program
     {
@@ -50,7 +51,7 @@ namespace NacrtovalskiVzorci
                 case DesignPatternsSections.FactoryBad:
                     {
                         // Tip kartice se izbere v GUI-ju
-                        CreditCardType type = CreditCardType.Gold;
+                        CreditCardType type = InterfaceFunctions.ChooseSection<CreditCardType>();
 
                         // Pripravimo si novo spremenljivko
                         ICreditCard card = null;
@@ -85,7 +86,7 @@ namespace NacrtovalskiVzorci
                 case DesignPatternsSections.FactoryGood:
                     {
                         // V uporabniškem vmesniku ohranimo samo logiko, ki se tiče uporabnika
-                        CreditCardType type = CreditCardType.Student;
+                        CreditCardType type = InterfaceFunctions.ChooseSection<CreditCardType>();
                         ICreditCard card = CreditCardFactory.GetCreditCard(type);
 
                         // Izpišemo podatke
