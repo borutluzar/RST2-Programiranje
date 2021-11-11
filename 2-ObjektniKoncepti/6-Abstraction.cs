@@ -124,10 +124,10 @@ namespace ObjektniKoncepti.Abstraction
             {
                 return position;
             }
-            /*private set 
+            protected set 
             {
                 position = value;
-            } */
+            }
         }
     }
 
@@ -163,7 +163,8 @@ namespace ObjektniKoncepti.Abstraction
             // ki se naj izvede v vseh podrazredih. 
             // V tem primeru je metoda v nadrazredu virtualna.
             //base.Move(field);
-            Console.WriteLine("Premik je dovoljen, ampak nimam dostopa do this.Position! :(");
+            this.Position = field;
+            //Console.WriteLine("Premik je dovoljen, ampak nimam dostopa do this.Position! :(");
         }
     }
 

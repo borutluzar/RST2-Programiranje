@@ -74,7 +74,7 @@ namespace LINQ
             foreach (var item in list)
             {
                 count++;
-                Console.Write(item.ToString() + $"{(count == list.Count() ? "" : ",")} ");
+                Console.Write($"{item} {(count == list.Count() ? "" : ",")} ");
             }
             Console.WriteLine();
         }

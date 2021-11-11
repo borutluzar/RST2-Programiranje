@@ -6,9 +6,9 @@ namespace LINQ
 {
     enum LINQSections
     {
-        Basics,
-        MethodSyntax,
-        LambdaExpressions
+        Basics = 1,
+        MethodSyntax = 2,
+        LambdaExpressions = 3
     }
 
     class Program

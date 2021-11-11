@@ -51,7 +51,7 @@ namespace ObjektniKoncepti.Inheritance
             // Vedno se kliče metoda iz dejanskega razreda instance!
             // Če hočemo imeti dostop do metode v nadrazredu,
             // je v podrazredu ne povozimo, ampak uporabimo določilo new
-            Console.WriteLine($"ToString za rook = {rook.ToString()}");
+            Console.WriteLine($"ToString za rook = {rook}");
             Console.WriteLine($"ToString za piece = {piece.ToString()}");
         }
 

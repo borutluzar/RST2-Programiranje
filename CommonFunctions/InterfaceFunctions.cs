@@ -13,14 +13,14 @@ namespace CommonFunctions
             // Izpis sekcij za izbiro 
             int i = 1;
             Console.WriteLine("--\t--\t--\t--");
-            Console.WriteLine("Example sections:\n");
+            Console.WriteLine($"{typeof(T).Name}:\n");
             foreach (var section in Enum.GetValues(typeof(T)))
             {
                 Console.WriteLine($"{i}. {section}");
                 i++;
             }
             Console.WriteLine("\n--\t--\t--\t--");
-            Console.Write("Choose example section to run: ");
+            Console.Write($"Choose {typeof(T).Name} to run: ");
 
             string input = Console.ReadLine();
             bool isFormatCorrect = int.TryParse(input, out int chosen);
@@ -36,7 +36,7 @@ namespace CommonFunctions
             }
 
             Console.Write("\n");
-            Console.WriteLine($"Running example section {chosen}...");
+            Console.WriteLine($"Running {typeof(T).Name} {(T)(object)chosen}...");
             Console.Write("\n\n");
             
             // Pretvorba (cast) iz int nazaj v enumeracijo ni možna 

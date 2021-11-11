@@ -13,7 +13,7 @@ namespace ObjektniKoncepti.Interfaces
         {
             // Ustvarimo dve polji na plošči
             ChessBoardField fieldStart = new ChessBoardField() { X = 1, Y = 1 };
-            ChessBoardField fieldEnd = new ChessBoardField() { X = 2, Y = 1 };
+            ChessBoardField fieldEnd = new ChessBoardField() { X = 2, Y = 2 };
 
             ChessPiece piece = new ChessPiece(fieldStart);
 
