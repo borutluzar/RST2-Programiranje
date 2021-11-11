@@ -5,7 +5,7 @@ namespace NacrtovalskiVzorci
 {
     class Program
     {
-        enum Section
+        enum DesignPatternsSections
         {
             Singleton,
             SingletonLog,
@@ -15,12 +15,12 @@ namespace NacrtovalskiVzorci
 
         static void Main(string[] args)
         {
-            Section section = Section.Singleton;
+            DesignPatternsSections section = DesignPatternsSections.Singleton;
 
             Console.WriteLine(); // Za prostor okoli okvirja
             switch (section)
             {
-                case Section.Singleton:
+                case DesignPatternsSections.Singleton:
                     {                     
                         // Klic konstruktorja se ne prevede
                         //Singleton single = new Singleton();
@@ -34,7 +34,7 @@ namespace NacrtovalskiVzorci
                         Console.WriteLine($"Naključni ID druge instance je: {single2.RandomID}");
                     }
                     break;
-                case Section.SingletonLog:
+                case DesignPatternsSections.SingletonLog:
                     {
                         EventLog log = EventLog.Instance();
                         
@@ -47,7 +47,7 @@ namespace NacrtovalskiVzorci
                         Console.WriteLine("Konec zapisovanja v dnevnik");
                     }
                     break;
-                case Section.FactoryBad:
+                case DesignPatternsSections.FactoryBad:
                     {
                         // Tip kartice se izbere v GUI-ju
                         CreditCardType type = CreditCardType.Gold;
@@ -82,7 +82,7 @@ namespace NacrtovalskiVzorci
                          */ 
                     }
                     break;
-                case Section.FactoryGood:
+                case DesignPatternsSections.FactoryGood:
                     {
                         // V uporabniškem vmesniku ohranimo samo logiko, ki se tiče uporabnika
                         CreditCardType type = CreditCardType.Student;

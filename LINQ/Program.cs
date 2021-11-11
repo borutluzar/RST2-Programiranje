@@ -24,7 +24,7 @@ namespace LINQ
                     break;
                 case LINQSections.MethodSyntax:
                     {
-                        Basics.MethodLINQSyntax();
+                        Methods.MethodLINQSyntax();
                     }
                     break;
                 case LINQSections.LambdaExpressions:
