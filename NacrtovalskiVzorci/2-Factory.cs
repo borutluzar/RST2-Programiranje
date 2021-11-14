@@ -24,10 +24,10 @@ namespace DesignPatterns
 
     public enum CreditCardType
     {
-        Silver,
-        Gold,
-        Platinum,
-        Student
+        Silver = 1,
+        Gold = 2,
+        Platinum = 3,
+        Student = 4
     }
 
     class Silver : ICreditCard

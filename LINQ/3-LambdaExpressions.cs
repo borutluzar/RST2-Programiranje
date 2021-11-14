@@ -34,6 +34,7 @@ namespace LINQ
                 case LambdaSubsections.FunctionWithLambda:
                     {
                         // Celo definiramo jih lahko in kličemo na različnih mestih.
+                        Func<int, int, (int, int)> sum = (x, y) => (x + y, x - y);
                         Func<double, int> roundUp = x => (int)Math.Round(x, 0, MidpointRounding.AwayFromZero);
                         Func<double, int> roundDown = x => (int)Math.Round(x, 0);
                         double x = Math.PI;

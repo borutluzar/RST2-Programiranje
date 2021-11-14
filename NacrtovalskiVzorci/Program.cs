@@ -8,48 +8,32 @@ namespace DesignPatterns
     {
         enum DesignPatternsSections
         {
-            Singleton,
-            SingletonLog,
-            FactoryBad,
-            FactoryGood
+            Singleton = 1,
+            SingletonLog = 2,
+            FactoryBad = 3,
+            FactoryGood = 4
         }
 
-        static void Main(string[] args)
+        static void Main()
         {
-            DesignPatternsSections section = DesignPatternsSections.Singleton;
-
-            Console.WriteLine(); // Za prostor okoli okvirja
-            switch (section)
+            switch (InterfaceFunctions.ChooseSection<DesignPatternsSections>())
             {
                 case DesignPatternsSections.Singleton:
-                    {                     
-                        // Klic konstruktorja se ne prevede
-                        //Singleton single = new Singleton();
-                        
-                        // Pokličimo funkcijo enkrat
-                        Singleton single1 = Singleton.Instance();
-                        Console.WriteLine($"Naključni ID prve instance je: {single1.RandomID}");
-
-                        // In ponovno
-                        Singleton single2 = Singleton.Instance();
-                        Console.WriteLine($"Naključni ID druge instance je: {single2.RandomID}");
+                    {
+                        // Osnoven primer kreiranja singletona
+                        SingletonTests.CreateSingleton();
                     }
                     break;
                 case DesignPatternsSections.SingletonLog:
                     {
-                        EventLog log = EventLog.Instance();
-                        
-                        log.WriteEvent("Kreiramo nov dogodek.");
-                        Thread.Sleep(1000);
-                        log.WriteEvent("Kreiramo še enega.");
-                        Thread.Sleep(1000);
-                        log.WriteEvent("Počasi zaključujemo program.");
-                        
-                        Console.WriteLine("Konec zapisovanja v dnevnik");
+                        // Primer uporabe singletona za kreiranje objekta log (dnevnik dogodkov)
+                        SingletonTests.CreateLog();
                     }
                     break;
                 case DesignPatternsSections.FactoryBad:
                     {
+                        // Slab primer izbire tipa kartice:
+
                         // Tip kartice se izbere v GUI-ju
                         CreditCardType type = InterfaceFunctions.ChooseSection<CreditCardType>();
 

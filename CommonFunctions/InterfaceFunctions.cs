@@ -16,7 +16,8 @@ namespace CommonFunctions
             Console.WriteLine($"{typeof(T).Name}:\n");
             foreach (var section in Enum.GetValues(typeof(T)))
             {
-                Console.WriteLine($"{i}. {section}");
+                var value = Convert.ChangeType(section, Type.GetTypeCode(typeof(T)));
+                Console.WriteLine($"{value}. {section}");
                 i++;
             }
             Console.WriteLine("\n--\t--\t--\t--");

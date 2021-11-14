@@ -3,9 +3,40 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Threading;
 
 namespace DesignPatterns
 {
+    class SingletonTests
+    {
+        public static void CreateSingleton()
+        {
+            // Klic konstruktorja se ne prevede
+            //Singleton single = new Singleton();
+
+            // Pokličimo funkcijo enkrat
+            Singleton single1 = Singleton.Instance();
+            Console.WriteLine($"Naključni ID prve instance je: {single1.RandomID}");
+
+            // In ponovno
+            Singleton single2 = Singleton.Instance();
+            Console.WriteLine($"Naključni ID druge instance je: {single2.RandomID}");
+        }
+
+        public static void CreateLog()
+        {
+            EventLog log = EventLog.Instance();
+
+            log.WriteEvent("Kreiramo nov dogodek.");
+            Thread.Sleep(1000);
+            log.WriteEvent("Kreiramo še enega.");
+            Thread.Sleep(1000);
+            log.WriteEvent("Počasi zaključujemo program.");
+
+            Console.WriteLine("Konec zapisovanja v dnevnik");
+        }
+    }
+
     /// <summary>
     /// Če želimo zagotoviti, da bomo imeli v našem programu zgolj oziroma največ eno instanco 
     /// izbranega razreda, uporabimo vzorec singleton.
