@@ -10,15 +10,16 @@ namespace PodatkovneStrukture
     {
         /// <summary>
         /// Oglejmo si vmesnik ICollection<T> in metode, ki jih zagotovi.
+        /// Arh, Q46
         /// </summary>
-        public static void MethodsOfICollection(Section section)
+        public static void MethodsOfICollection(StructuresSections section)
         {
             // Definirajmo zbirko 
             ICollection<string> zbirka = new List<string>() { "Luka", "Jernej", "Dejan", "Denis", "Tilen", "Jernej", "Jakob", "Samo" };
 
             switch (section)
             {
-                case Section.ICollection:
+                case StructuresSections.ICollection:
                     {
                         // Preizkusimo metode, ki jih ponuja ICollection
                         Console.WriteLine($"Count pred Add: {zbirka.Count}");
@@ -30,7 +31,7 @@ namespace PodatkovneStrukture
                         Console.WriteLine($"Count na koncu: {zbirka.Count}");
                     }
                     break;
-                case Section.IList:
+                case StructuresSections.IList:
                     {
                         // Spremenimo zbirko v instanco IList
                         IList<string> seznam = (IList<string>)zbirka;
@@ -42,7 +43,7 @@ namespace PodatkovneStrukture
                         Console.WriteLine($"seznam[1]: {seznam[1]}");
                     }
                     break;
-                case Section.ISet:
+                case StructuresSections.ISet:
                     {
                         // In v Set - klic se prevede, 
                         // vendar ob izvajanju javi napako InvalidCastException, 
@@ -54,6 +55,7 @@ namespace PodatkovneStrukture
 
                         // Preštejmo elemente - eden manjka!
                         Console.WriteLine($"Število elementov v množici: {mnozica.Count}");
+                        
                         // Za dodajanje imamo na voljo Add, 
                         // ki vrne true ali false glede na uspeh dodajanja
                         bool isInserted = mnozica.Add("Borut");                        
@@ -65,7 +67,7 @@ namespace PodatkovneStrukture
                         //((ICollection<string>)mnozica).Add("Borut");
                     }
                     break;
-                case Section.IDictionary:
+                case StructuresSections.IDictionary:
                     {
                         // Ustvarimo slovar z imeni dni
                         IDictionary<int, string> dnevi = new Dictionary<int, string>();

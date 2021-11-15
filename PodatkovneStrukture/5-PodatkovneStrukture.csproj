@@ -7,4 +7,8 @@
     <RootNamespace>PodatkovneStrukture</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CommonFunctions\0-CommonFunctions.csproj" />
+  </ItemGroup>
+
 </Project>

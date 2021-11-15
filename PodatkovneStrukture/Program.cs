@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CommonFunctions;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -6,35 +7,33 @@ using System.Net.Http.Headers;
 
 namespace PodatkovneStrukture
 {
-    enum Section
+    enum StructuresSections
     {
-        ICollection,
-        IList,
-        ISet,
-        IDictionary,
-        ITest,
-        TestSpeed,
-        HanoiExample,
+        ICollection = 1,
+        IList = 2,
+        ISet = 3,
+        IDictionary = 4,
+        ITest = 5,
+        TestSpeed = 6,
+        HanoiExample = 7,
     }
 
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
-            Section section = Section.HanoiExample;
-
-            Console.WriteLine();
+            var section = InterfaceFunctions.ChooseSection<StructuresSections>();
             switch (section)
             {
-                case Section.ICollection:
-                case Section.IList:
-                case Section.ISet:
-                case Section.IDictionary:
+                case StructuresSections.ICollection:
+                case StructuresSections.IList:
+                case StructuresSections.ISet:
+                case StructuresSections.IDictionary:
                     {
                         ICollectionTest.MethodsOfICollection(section);
                     }
                     break;
-                case Section.ITest:
+                case StructuresSections.ITest:
                     {
                         IList<string> testList = new MyList<string>();
                         testList.Add("Luka");
@@ -43,7 +42,7 @@ namespace PodatkovneStrukture
                         Console.WriteLine($"Imamo {testList.Count} elementov!");
                     }
                     break;
-                case Section.TestSpeed:
+                case StructuresSections.TestSpeed:
                     {
                         TestAction action = TestAction.Find;
 
@@ -59,7 +58,7 @@ namespace PodatkovneStrukture
                         TestSpeed.TestDataStructures(action);
                     }
                     break;
-                case Section.HanoiExample:
+                case StructuresSections.HanoiExample:
                     {
                         Console.WriteLine("Hanoi example ");
                         HanoiType type = Hanoi.SelectHanoiType();
@@ -69,7 +68,7 @@ namespace PodatkovneStrukture
 
                         Console.WriteLine($"Running case: {type} with {k} discs:");
 
-                        int numPegs = 4; // Delali bodo samo s štirimi stolpi
+                        int numPegs = 4; // Delali bomo samo s štirimi stolpi
 
                         Stopwatch sw = Stopwatch.StartNew();
                         Hanoi hanBasic = new Hanoi(k, numPegs, type);
