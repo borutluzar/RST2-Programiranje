@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -8,22 +9,27 @@ namespace PodatkovneStrukture
 
     public enum TestAction
     {
-        Insert,
-        Delete,
-        Find
+        Insert = 1,        
+        Find = 2
     }
 
     static class TestSpeed
     {
-        private const int BOUND = 10000000;
-        private const int FINDNUM = 100000;
-        public static int NUMBERS_UP_TO = 10001;
+        private const int BOUND = 50_000_000;
+        private const int FINDNUM = 10_000;
+        public static int NUMBERS_UP_TO = 100_001;
+
+        public static void TestDataStructures(TestAction action)
+        {
+            //Console.WriteLine($"Entered numbers up to {TestSpeed.NUMBERS_UP_TO}");
+            TestSpeed.CreateTests(action, true);
+        }
 
         /// <summary>
         /// V tej metodi preizkusimo hitrost vstavljanja mnogo elementov
         /// v različne strukture.
         /// </summary>
-        public static void TestDataStructures(TestAction action)
+        public static void CreateTests(TestAction action, bool allDistinct = false)
         {
             Stack<int> sklad = new Stack<int>(BOUND);
             Queue<int> vrsta = new Queue<int>(BOUND);
@@ -32,7 +38,7 @@ namespace PodatkovneStrukture
             SortedSet<int> urejenaMnozica = new SortedSet<int>();
             HashSet<int> zgoscenaTabela = new HashSet<int>(BOUND);
 
-            List<IEnumerable<int>> dataStructures = new List<IEnumerable<int>>()
+            List<IReadOnlyCollection<int>> dataStructures = new List<IReadOnlyCollection<int>>()
                 {
                     sklad,
                     vrsta,
@@ -49,33 +55,33 @@ namespace PodatkovneStrukture
                         Console.WriteLine($"Čas vstavljanja {BOUND} elementov v: ");
                         foreach (var structure in dataStructures)
                         {
-                            Console.WriteLine($"{structure.GetType().Name}: \t {Insert(structure)}");
+                            Insert(structure, allDistinct);
                         }
                     }
                     break;
                 case TestAction.Find:
                     {
-                        Console.WriteLine($"Čas iskanja {FINDNUM} elementov v: ");
+                        Console.WriteLine($"Čas iskanja {FINDNUM} elementov v: \n");
                         foreach (var structure in dataStructures)
                         {
-                            bool allIn = Find(structure, out double time);
-                            Console.WriteLine($"{structure.GetType().Name}: \t {time}");
-                            Console.WriteLine($"Vsebuje vse: \t {allIn}");
+                            Find(structure);
                         }
                     }
                     break;
             }
         }
 
-        private static double Insert(IEnumerable<int> dataStructure)
+        private static void Insert(IReadOnlyCollection<int> dataStructure, bool allDistinct = false)
         {
             // Vstavimo nekaj elementov v vsako izmed struktur in izmerimo čas vstavljanja
             Random rnd = new Random(1); // Dodamo seed, da so rezultati vedno enaki
 
-            DateTime dtStart = DateTime.Now;
+            Stopwatch swTimer = Stopwatch.StartNew();
             for (int i = 0; i < BOUND; i++)
             {
-                int x = rnd.Next(0, NUMBERS_UP_TO);
+                int x = i;
+                if (!allDistinct) // Insert random numbers unless specified otherwise
+                    x = rnd.Next(0, NUMBERS_UP_TO);
                 if (dataStructure is ICollection<int>)
                     ((ICollection<int>)dataStructure).Add(x);
                 else if (dataStructure is Stack<int>)
@@ -84,24 +90,26 @@ namespace PodatkovneStrukture
                     ((Queue<int>)dataStructure).Add(x);
 
             }
-            DateTime dtEnd = DateTime.Now;
-
-            return (dtEnd - dtStart).TotalSeconds;
+            Console.WriteLine($"> Čas vstavljanja v {dataStructure.GetType().Name}: \t {swTimer.Elapsed.TotalSeconds}");
+            Console.WriteLine($"> Struktura vsebuje {dataStructure.Count} elementov");
         }
 
-        private static bool Find(IEnumerable<int> dataStructure, out double time)
+        private static bool Find(IReadOnlyCollection<int> dataStructure)
         {
             // Najprej dodamo elemente v strukturo
-            Insert(dataStructure);
+            Console.WriteLine($"> Vstavljanje elementov");
+            Insert(dataStructure, true);
 
+            Console.WriteLine($"> Iskanje {FINDNUM} elementov");
             // Poiščemo nekaj vrednosti
             Random rnd = new Random(2);
             bool containsAll = true;
 
-            DateTime dtStart = DateTime.Now;
+            Stopwatch swTimer = Stopwatch.StartNew();
             for (int i = 0; i < FINDNUM; i++)
             {
                 int x = rnd.Next(0, NUMBERS_UP_TO);
+
                 if (dataStructure is ICollection<int>)
                 {
                     if (!((ICollection<int>)dataStructure).Contains(x))
@@ -111,17 +119,14 @@ namespace PodatkovneStrukture
                 {
                     if (!((Stack<int>)dataStructure).Contains(x))
                         containsAll = false;
-                }                    
+                }
                 else if (dataStructure is Queue<int>)
                 {
                     if (!((Queue<int>)dataStructure).Contains(x))
                         containsAll = false;
                 }
             }
-            DateTime dtEnd = DateTime.Now;
-
-            time = (dtEnd - dtStart).TotalSeconds;
-
+            Console.WriteLine($"> Čas za {dataStructure.GetType().Name}: \t {swTimer.Elapsed.TotalSeconds}\n");
             return containsAll;
         }
     }

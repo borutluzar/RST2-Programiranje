@@ -30,7 +30,7 @@ namespace CommonFunctions
                 Console.WriteLine($"\n The input {input} is not an integer! The execution is stopped.");
                 return default;
             }
-            else if (chosen <= 0 || chosen > i)
+            else if (chosen < 0 || chosen > i)
             {
                 Console.WriteLine($"\n There is no Section {input}! The execution is stopped.");
                 return default;

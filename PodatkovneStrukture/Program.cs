@@ -1,9 +1,7 @@
 ﻿using CommonFunctions;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Net.Http.Headers;
 
 namespace PodatkovneStrukture
 {
@@ -44,18 +42,7 @@ namespace PodatkovneStrukture
                     break;
                 case StructuresSections.TestSpeed:
                     {
-                        TestAction action = TestAction.Find;
-
-                        TestSpeed.NUMBERS_UP_TO = 101;
-                        TestSpeed.TestDataStructures(action);
-                        Console.WriteLine();
-
-                        TestSpeed.NUMBERS_UP_TO = 1001;
-                        TestSpeed.TestDataStructures(action);
-                        Console.WriteLine();
-
-                        TestSpeed.NUMBERS_UP_TO = 10001;
-                        TestSpeed.TestDataStructures(action);
+                        TestSpeed.TestDataStructures(InterfaceFunctions.ChooseSection<TestAction>());
                     }
                     break;
                 case StructuresSections.HanoiExample:

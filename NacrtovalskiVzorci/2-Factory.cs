@@ -58,7 +58,7 @@ namespace DesignPatterns
     }
 
     class Student : ICreditCard
-    {
+    {        
         public CreditCardType CreditCardType => CreditCardType.Student;
 
         public double Limit => 200;

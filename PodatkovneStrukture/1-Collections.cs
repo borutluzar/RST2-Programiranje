@@ -11,6 +11,7 @@ namespace PodatkovneStrukture
         /// <summary>
         /// Oglejmo si vmesnik ICollection<T> in metode, ki jih zagotovi.
         /// Arh, Q46
+        /// Pregledamo še ostale glavne pod-vmesnike
         /// </summary>
         public static void MethodsOfICollection(StructuresSections section)
         {
@@ -48,23 +49,23 @@ namespace PodatkovneStrukture
                         // In v Set - klic se prevede, 
                         // vendar ob izvajanju javi napako InvalidCastException, 
                         // ker List ne implementira vmesnika ISet<T>
-                        //ISet<string> mnozica = (ISet<string>)zbirka;
+                        //ISet<string> mnozica1 = (ISet<string>)zbirka;
 
                         // Definirajmo si novo množico
-                        ISet<string> mnozica = new HashSet<string>() { "Luka", "Jernej", "Dejan", "Denis", "Tilen", "Jernej", "Jakob", "Samo" };
+                        ISet<string> mnozica2 = new HashSet<string>() { "Luka", "Jernej", "Dejan", "Denis", "Tilen", "Jernej", "Jakob", "Samo" };
 
                         // Preštejmo elemente - eden manjka!
-                        Console.WriteLine($"Število elementov v množici: {mnozica.Count}");
+                        Console.WriteLine($"Število elementov v množici: {mnozica2.Count}");
                         
                         // Za dodajanje imamo na voljo Add, 
                         // ki vrne true ali false glede na uspeh dodajanja
-                        bool isInserted = mnozica.Add("Borut");                        
+                        bool isInserted = mnozica2.Add("Borut");                        
                         Console.WriteLine($"Element " +
                             $"{(isInserted ? "je bil dodan." : "ni bil dodan")}");
-                        Console.WriteLine($"Število elementov v množici: {mnozica.Count}");
+                        Console.WriteLine($"Število elementov v množici: {mnozica2.Count}");
 
                         // Metodo add iz vmesnika ICollection lahko kličemo le eksplicitno
-                        //((ICollection<string>)mnozica).Add("Borut");
+                        //((ICollection<string>)mnozica2).Add("Borut");
                     }
                     break;
                 case StructuresSections.IDictionary:
@@ -79,7 +80,7 @@ namespace PodatkovneStrukture
 
                         Console.WriteLine($"Elementi v dnevi: {dnevi.Count}");
 
-                        // Uporabimo lahko metodo Add
+                        // Uporabimo lahko metodo Add - podamo ključ in vrednost
                         dnevi.Add(3, "sreda");
                         Console.WriteLine($"Elementi v dnevi: {dnevi.Count}");
 
@@ -98,7 +99,7 @@ namespace PodatkovneStrukture
 
                         // Seznama vseh ključev in vrednosti sta na voljo preko spodnjih lastnosti
                         var kljuci = dnevi.Keys.ToList();
-                        Console.WriteLine($"Tretji index: {kljuci[2]}");
+                        Console.WriteLine($"Tretji indeks: {kljuci[2]}");
                         var vrednosti = dnevi.Values;
                         Console.WriteLine($"Število ključev: {kljuci.Count}");
                         Console.WriteLine($"Število vrednosti: {vrednosti.Count}");
@@ -120,7 +121,11 @@ namespace PodatkovneStrukture
             myList = new List<T>();
         }
 
-        T IList<T>.this[int index] { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        T IList<T>.this[int index] 
+        { 
+            get => throw new NotImplementedException(); 
+            set => throw new NotImplementedException(); 
+        }
 
         int ICollection<T>.Count => myList.Count;
 
@@ -136,7 +141,6 @@ namespace PodatkovneStrukture
                     return;
                 }
             }
-
             this.myList.Add(item);
         }
 
