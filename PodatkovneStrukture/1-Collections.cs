@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CommonFunctions;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,7 @@ namespace PodatkovneStrukture
         {
             // Definirajmo zbirko 
             ICollection<string> zbirka = new List<string>() { "Luka", "Jernej", "Dejan", "Denis", "Tilen", "Jernej", "Jakob", "Samo" };
+            Console.WriteLine($"{zbirka.WriteCollection()}\n");
 
             switch (section)
             {
@@ -24,11 +26,17 @@ namespace PodatkovneStrukture
                     {
                         // Preizkusimo metode, ki jih ponuja ICollection
                         Console.WriteLine($"Count pred Add: {zbirka.Count}");
+                        
                         zbirka.Add("Borut");
+                        Console.WriteLine($"{zbirka.WriteCollection()}\n");
                         Console.WriteLine($"Count pred Remove: {zbirka.Count}");
+                        
                         zbirka.Remove("Borut");
+                        Console.WriteLine($"{zbirka.WriteCollection()}\n");
                         Console.WriteLine($"Count pred Clear: {zbirka.Count}");
+                        
                         zbirka.Clear();
+                        Console.WriteLine($"{zbirka.WriteCollection()}\n");
                         Console.WriteLine($"Count na koncu: {zbirka.Count}");
                     }
                     break;
@@ -49,7 +57,7 @@ namespace PodatkovneStrukture
                         // In v Set - klic se prevede, 
                         // vendar ob izvajanju javi napako InvalidCastException, 
                         // ker List ne implementira vmesnika ISet<T>
-                        //ISet<string> mnozica1 = (ISet<string>)zbirka;
+                        //ISet<string> mnozica1 = (ISet<string>)zbirka; // TODO: Borut - Zakaj ne zazna
 
                         // Definirajmo si novo množico
                         ISet<string> mnozica2 = new HashSet<string>() { "Luka", "Jernej", "Dejan", "Denis", "Tilen", "Jernej", "Jakob", "Samo" };
@@ -65,7 +73,11 @@ namespace PodatkovneStrukture
                         Console.WriteLine($"Število elementov v množici: {mnozica2.Count}");
 
                         // Metodo add iz vmesnika ICollection lahko kličemo le eksplicitno
-                        //((ICollection<string>)mnozica2).Add("Borut");
+                        ((ICollection<string>)mnozica2).Add("Borut");
+                        Console.WriteLine($"{mnozica2.WriteCollection()}\n");
+
+                        ((ICollection<string>)mnozica2).Add("Borut"); // TODO: Borut
+                        Console.WriteLine($"{mnozica2.WriteCollection()}\n");
                     }
                     break;
                 case StructuresSections.IDictionary:
@@ -79,9 +91,11 @@ namespace PodatkovneStrukture
                         dnevi[5] = "petek";
 
                         Console.WriteLine($"Elementi v dnevi: {dnevi.Count}");
+                        Console.WriteLine($"{dnevi.WriteCollection()}\n");
 
                         // Uporabimo lahko metodo Add - podamo ključ in vrednost
                         dnevi.Add(3, "sreda");
+                        Console.WriteLine($"{dnevi.WriteCollection()}\n");
                         Console.WriteLine($"Elementi v dnevi: {dnevi.Count}");
 
                         // Vrednost dobimo s pomočjo indekserja,
@@ -103,6 +117,9 @@ namespace PodatkovneStrukture
                         var vrednosti = dnevi.Values;
                         Console.WriteLine($"Število ključev: {kljuci.Count}");
                         Console.WriteLine($"Število vrednosti: {vrednosti.Count}");
+
+                        var lstDays = dnevi.OrderBy(x => x.Key).ToList();
+                        Console.WriteLine($"Urejeno: {lstDays.WriteCollection()}\n");
                     }
                     break;
             }

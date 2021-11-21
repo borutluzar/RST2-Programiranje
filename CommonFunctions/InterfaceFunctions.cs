@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace CommonFunctions
 {
@@ -39,12 +41,30 @@ namespace CommonFunctions
             Console.Write("\n");
             Console.WriteLine($"Running {typeof(T).Name} {(T)(object)chosen}...");
             Console.Write("\n\n");
-            
+
             // Pretvorba (cast) iz int nazaj v enumeracijo ni možna 
             // neposredno iz int (saj je enumeracija lahko kakega drugega
             // celoštevilskega tipa), zato chosen najprej pretvorimo v
             // object in šele nato v T.
             return (T)(object)chosen;
+        }
+
+        public static string WriteCollection<T>(this ICollection<T> collection)
+        {
+            StringBuilder output = new StringBuilder();
+            output.Append("{");
+            int counter = 0;
+            foreach (var item in collection)
+            {
+                if(counter > 0)
+                    output.Append($", {item}");
+                else
+                    output.Append($"{item}");
+                counter++;
+            }
+            output.Append("}");
+
+            return output.ToString();
         }
     }
 }

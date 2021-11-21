@@ -75,13 +75,17 @@ namespace PodatkovneStrukture
         /// 
         /// For searchMode = 1, we do it with Iterative DFS.
         /// </summary>
-        public int ShortestPathForSmallDimension(int searchMode, out string path)
+        public int ShortestPathForSmallDimension(out string path)
         {
-            if (this.type != HanoiType.K13_01 && this.type != HanoiType.K13_12
-                && this.type != HanoiType.K13e_01 && this.type != HanoiType.K13e_12 && this.type != HanoiType.K13e_23 && this.type != HanoiType.K13e_30
-                && this.type != HanoiType.K4e_01 && this.type != HanoiType.K4e_12 && this.type != HanoiType.K4e_23
-                && this.type != HanoiType.C4_01 && this.type != HanoiType.C4_12
-                && this.type != HanoiType.P4_01 && this.type != HanoiType.P4_12 && this.type != HanoiType.P4_23 && this.type != HanoiType.P4_31)
+            if (
+                this.type != HanoiType.K13_01 && this.type != HanoiType.K13_12 &&
+                this.type != HanoiType.K13e_01 && this.type != HanoiType.K13e_12 &&
+                this.type != HanoiType.K13e_23 && this.type != HanoiType.K13e_30 &&
+                this.type != HanoiType.K4e_01 && this.type != HanoiType.K4e_12 &&
+                this.type != HanoiType.K4e_23 && this.type != HanoiType.C4_01 &&
+                this.type != HanoiType.C4_12 && this.type != HanoiType.P4_01 &&
+                this.type != HanoiType.P4_12 && this.type != HanoiType.P4_23 &&
+                this.type != HanoiType.P4_31)
                 throw new NotImplementedException("The search for this type is not implemented yet.");
 
             // For each disc we have its peg
@@ -182,110 +186,81 @@ namespace PodatkovneStrukture
 
             path = "";
 
-            if (searchMode == 0)
+            long maxCardinality = 0;
+            long maxMemory = 0;
+            InitIgnoredStates(type);
+
+            while (true) // Analiza posameznega koraka (i-tega premika)
             {
-                long maxCardinality = 0;
-                long maxMemory = 0;
-                InitIgnoredStates(type);
+                if (maxCardinality < setCurrent.Count)
+                    maxCardinality = setCurrent.Count;
 
-                while (true) // Analiza posameznega koraka (i-tega premika)
+                foreach (long num in setCurrent) // Znotraj i-tega premika preveri vsa možna stanja in se premakne v vse možne pozicije
                 {
-                    if (maxCardinality < setCurrent.Count)
-                        maxCardinality = setCurrent.Count;
+                    if (num == finalState)
+                    {
+                        return currentDistance;
+                    }
 
+                    if (setIgnore.Contains(num))
+                        continue;
+
+                    byte[] tmpState = LongToState(num);
                     switch (type)
                     {
+                        case HanoiType.K13_01:
+                            MakeMoveForSmallDimension_K13_01_Fast(tmpState);
+                            break;
+                        case HanoiType.K13_12:
+                            MakeMoveForSmallDimension_K13(tmpState);
+                            break;
                         case HanoiType.K13e_01:
-                            {
-                                bool @break = false;
-                                setCurrent.AsParallel().WithDegreeOfParallelism(5).ForAll(num =>
-                                {
-                                    if (num == finalState)
-                                       @break = true;
-
-                                    byte[] tmpState = LongToState(num);
-                                    switch (type)
-                                    {
-                                        case HanoiType.K13e_30:
-                                            MakeMoveForSmallDimension_K13e(tmpState);
-                                            break;
-                                    }
-                                });
-                                if (@break) return currentDistance;
-                            }
+                        case HanoiType.K13e_12:
+                        case HanoiType.K13e_23:
+                        case HanoiType.K13e_30:
+                            MakeMoveForSmallDimension_K13e(tmpState);
                             break;
-                        default:
-                            {
-                                foreach (long num in setCurrent) // Znotraj i-tega premika preveri vsa možna stanja in se premakne v vse možne pozicije
-                                {
-                                    if (num == finalState)
-                                    {
-                                        return currentDistance;
-                                    }
-
-                                    if (setIgnore.Contains(num))
-                                        continue;
-
-                                    byte[] tmpState = LongToState(num);
-                                    switch (type)
-                                    {
-                                        case HanoiType.K13_01:
-                                            MakeMoveForSmallDimension_K13_01_Fast(tmpState);
-                                            break;
-                                        case HanoiType.K13_12:
-                                            MakeMoveForSmallDimension_K13(tmpState);
-                                            break;
-                                        case HanoiType.K13e_01:
-                                        case HanoiType.K13e_12:
-                                        case HanoiType.K13e_23:
-                                        case HanoiType.K13e_30:
-                                            MakeMoveForSmallDimension_K13e(tmpState);
-                                            break;
-                                        case HanoiType.K4e_01:
-                                        case HanoiType.K4e_12:
-                                        case HanoiType.K4e_23:
-                                            MakeMoveForSmallDimension_K4e(tmpState);
-                                            break;
-                                        case HanoiType.C4_01:
-                                        case HanoiType.C4_12:
-                                            MakeMoveForSmallDimension_C4(tmpState);
-                                            break;
-                                        case HanoiType.P4_01:
-                                        case HanoiType.P4_12:
-                                        case HanoiType.P4_23:
-                                        case HanoiType.P4_31:
-                                            MakeMoveForSmallDimension_P4(tmpState);
-                                            break;
-                                    }
-                                }
-                            }
+                        case HanoiType.K4e_01:
+                        case HanoiType.K4e_12:
+                        case HanoiType.K4e_23:
+                            MakeMoveForSmallDimension_K4e(tmpState);
+                            break;
+                        case HanoiType.C4_01:
+                        case HanoiType.C4_12:
+                            MakeMoveForSmallDimension_C4(tmpState);
+                            break;
+                        case HanoiType.P4_01:
+                        case HanoiType.P4_12:
+                        case HanoiType.P4_23:
+                        case HanoiType.P4_31:
+                            MakeMoveForSmallDimension_P4(tmpState);
                             break;
                     }
-
-                    long mem = GC.GetTotalMemory(false);
-                    if (maxMemory < mem)
-                    {
-                        maxMemory = mem;
-                    }
-
-                    // Ko se premaknemo iz vseh trenutnih stanj,
-                    // pregledamo nova trenutna stanja
-                    setPrev = setCurrent;
-                    setCurrent = new HashSet<long>();
-                    int elts = setNew.Count;
-                    for (int i = 0; i < elts; i++)
-                    {
-                        setCurrent.Add(setNew.Dequeue());
-                    }
-
-                    setNew = new Queue<long>();
-
-                    currentDistance++;
-
-                    Console.WriteLine("Current distance: " + currentDistance + "     Maximum cardinality: " + maxCardinality);
-                    Console.WriteLine("Memory allocation: " + mem / 1000000 + "MB  \t\t Maximum memory: " + maxMemory / 1000000 + "MB");
-                    Console.CursorTop -= 2;
                 }
+
+                long mem = GC.GetTotalMemory(false);
+                if (maxMemory < mem)
+                {
+                    maxMemory = mem;
+                }
+
+                // Ko se premaknemo iz vseh trenutnih stanj,
+                // pregledamo nova trenutna stanja
+                setPrev = setCurrent;
+                setCurrent = new HashSet<long>();
+                int elts = setNew.Count;
+                for (int i = 0; i < elts; i++)
+                {
+                    setCurrent.Add(setNew.Dequeue());
+                }
+
+                setNew = new Queue<long>();
+
+                currentDistance++;
+
+                Console.WriteLine("Current distance: " + currentDistance + "     Maximum cardinality: " + maxCardinality);
+                Console.WriteLine("Memory allocation: " + mem / 1000000 + "MB  \t\t Maximum memory: " + maxMemory / 1000000 + "MB");
+                Console.CursorTop -= 2;
             }
             return -2;
         }
@@ -824,17 +799,6 @@ namespace PodatkovneStrukture
                 num /= this.numPegs;
             }
             return tmpState;
-        }
-
-        private string LongToStateString(long num)
-        {
-            string stateString = "";
-            for (int i = numDiscs - 1; i >= 0; i--)
-            {
-                stateString += (byte)(num % this.numPegs);
-                num = num / this.numPegs;
-            }
-            return stateString;
         }
 
         private long StateAllEqual(int pegNumber)

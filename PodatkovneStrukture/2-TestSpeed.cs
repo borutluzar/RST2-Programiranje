@@ -31,21 +31,21 @@ namespace PodatkovneStrukture
         /// </summary>
         public static void CreateTests(TestAction action, bool allDistinct = false)
         {
-            Stack<int> sklad = new Stack<int>(BOUND);
-            Queue<int> vrsta = new Queue<int>(BOUND);
-            List<int> seznam = new List<int>(BOUND);
+            Stack<int> sklad = new Stack<int>();
+            Queue<int> vrsta = new Queue<int>();
+            List<int> seznam = new List<int>();
             LinkedList<int> povezanSeznam = new LinkedList<int>();
             SortedSet<int> urejenaMnozica = new SortedSet<int>();
-            HashSet<int> zgoscenaTabela = new HashSet<int>(BOUND);
+            HashSet<int> zgoscenaTabela = new HashSet<int>();
 
             List<IReadOnlyCollection<int>> dataStructures = new List<IReadOnlyCollection<int>>()
-                {
-                    sklad,
+                {                    
                     vrsta,
                     seznam,
                     povezanSeznam,
                     urejenaMnozica,
                     zgoscenaTabela,
+                    sklad,
                 };
 
             switch (action)

@@ -59,7 +59,7 @@ namespace PodatkovneStrukture
 
                         Stopwatch sw = Stopwatch.StartNew();
                         Hanoi hanBasic = new Hanoi(k, numPegs, type);
-                        int length = hanBasic.ShortestPathForSmallDimension(0, out _);
+                        int length = hanBasic.ShortestPathForSmallDimension(out _);
 
                         Console.WriteLine();
                         Console.WriteLine($"\n\nDimension: {k}; Steps: {length}; Time: {sw.Elapsed.TotalSeconds}");
