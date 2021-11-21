@@ -31,10 +31,9 @@ namespace PodatkovneStrukture
         private readonly int numPegs;
         private readonly HanoiType type;
 
-        private HashSet<long> setIgnore; // The states which should not be considered, because they are equivalent
-        private HashSet<long> setPrev;
-        private HashSet<long> setCurrent;
-        private Queue<long> setNew;
+        private List<long> setPrev;
+        private List<long> setCurrent;
+        private List<long> setNew;
         private byte[] stateArray;
         private bool[] canMoveArray;
 
@@ -92,10 +91,9 @@ namespace PodatkovneStrukture
             stateArray = new byte[this.numDiscs];
             canMoveArray = new bool[this.numPegs];
 
-            setIgnore = new HashSet<long>();
-            setPrev = new HashSet<long>();
-            setCurrent = new HashSet<long>();
-            setNew = new Queue<long>();
+            setPrev = new List<long>();
+            setCurrent = new List<long>();
+            setNew = new List<long>();
 
             // Set initial and final states for each case
             {
@@ -202,9 +200,6 @@ namespace PodatkovneStrukture
                         return currentDistance;
                     }
 
-                    if (setIgnore.Contains(num))
-                        continue;
-
                     byte[] tmpState = LongToState(num);
                     switch (type)
                     {
@@ -247,14 +242,15 @@ namespace PodatkovneStrukture
                 // Ko se premaknemo iz vseh trenutnih stanj,
                 // pregledamo nova trenutna stanja
                 setPrev = setCurrent;
-                setCurrent = new HashSet<long>();
+                setCurrent = new List<long>();
                 int elts = setNew.Count;
                 for (int i = 0; i < elts; i++)
                 {
-                    setCurrent.Add(setNew.Dequeue());
+                    setCurrent.Add(setNew[0]);
+                    setNew.RemoveAt(0);
                 }
 
-                setNew = new Queue<long>();
+                setNew = new List<long>();
 
                 currentDistance++;
 
@@ -262,7 +258,6 @@ namespace PodatkovneStrukture
                 Console.WriteLine("Memory allocation: " + mem / 1000000 + "MB  \t\t Maximum memory: " + maxMemory / 1000000 + "MB");
                 Console.CursorTop -= 2;
             }
-            return -2;
         }
 
         private void InitIgnoredStates(HanoiType type)
@@ -285,8 +280,6 @@ namespace PodatkovneStrukture
                 newState[0] = 1;
                 for (int j = 1; j <= i; j++)
                     newState[j] = 3;
-
-                setIgnore.Add(StateToLong(newState));
             }
         }
 
@@ -298,8 +291,6 @@ namespace PodatkovneStrukture
                 newState = new byte[numDiscs];
                 for (int j = 0; j <= i; j++)
                     newState[j] = 3;
-
-                setIgnore.Add(StateToLong(newState));
             }
         }
 
@@ -310,9 +301,9 @@ namespace PodatkovneStrukture
                 newState[x] = state[x];
             newState[disc] = toPeg;
             currentState = StateToLong(newState);
-            if (!setPrev.Contains(currentState) && !setIgnore.Contains(currentState))
+            if (!setPrev.Contains(currentState))
             {
-                setNew.Enqueue(currentState);
+                setNew.Add(currentState);
             }
         }
 
@@ -440,7 +431,7 @@ namespace PodatkovneStrukture
                                 {
                                     lock (setNew)
                                     {
-                                        setNew.Enqueue(innerCurrentState);
+                                        setNew.Add(innerCurrentState);
                                     }
                                 }
                             }
@@ -459,7 +450,7 @@ namespace PodatkovneStrukture
                             {
                                 lock (setNew)
                                 {
-                                    setNew.Enqueue(innerCurrentState);
+                                    setNew.Add(innerCurrentState);
                                 }
                             }
                         }
@@ -479,7 +470,7 @@ namespace PodatkovneStrukture
                                 {
                                     lock (setNew)
                                     {
-                                        setNew.Enqueue(innerCurrentState);
+                                        setNew.Add(innerCurrentState);
                                     }
                                 }
                             }
@@ -500,7 +491,7 @@ namespace PodatkovneStrukture
                                 {
                                     lock (setNew)
                                     {
-                                        setNew.Enqueue(innerCurrentState);
+                                        setNew.Add(innerCurrentState);
                                     }
                                 }
                             }
@@ -532,7 +523,7 @@ namespace PodatkovneStrukture
                                 currentState = StateToLong(newState);
                                 if (!setPrev.Contains(currentState))
                                 {
-                                    setNew.Enqueue(currentState);
+                                    setNew.Add(currentState);
                                 }
                             }
                         }
@@ -550,7 +541,7 @@ namespace PodatkovneStrukture
                                 currentState = StateToLong(newState);
                                 if (!setPrev.Contains(currentState))
                                 {
-                                    setNew.Enqueue(currentState);
+                                    setNew.Add(currentState);
                                 }
                             }
                         }
@@ -568,7 +559,7 @@ namespace PodatkovneStrukture
                                 currentState = StateToLong(newState);
                                 if (!setPrev.Contains(currentState))
                                 {
-                                    setNew.Enqueue(currentState);
+                                    setNew.Add(currentState);
                                 }
                             }
                         }
@@ -586,7 +577,7 @@ namespace PodatkovneStrukture
                                 currentState = StateToLong(newState);
                                 if (!setPrev.Contains(currentState))
                                 {
-                                    setNew.Enqueue(currentState);
+                                    setNew.Add(currentState);
                                 }
                             }
                         }
@@ -617,7 +608,7 @@ namespace PodatkovneStrukture
                                 currentState = StateToLong(newState);
                                 if (!setPrev.Contains(currentState))
                                 {
-                                    setNew.Enqueue(currentState);
+                                    setNew.Add(currentState);
                                 }
                             }
                         }
@@ -635,7 +626,7 @@ namespace PodatkovneStrukture
                                 currentState = StateToLong(newState);
                                 if (!setPrev.Contains(currentState))
                                 {
-                                    setNew.Enqueue(currentState);
+                                    setNew.Add(currentState);
                                 }
                             }
                         }
@@ -653,7 +644,7 @@ namespace PodatkovneStrukture
                                 currentState = StateToLong(newState);
                                 if (!setPrev.Contains(currentState))
                                 {
-                                    setNew.Enqueue(currentState);
+                                    setNew.Add(currentState);
                                 }
                             }
                         }
@@ -671,7 +662,7 @@ namespace PodatkovneStrukture
                                 currentState = StateToLong(newState);
                                 if (!setPrev.Contains(currentState))
                                 {
-                                    setNew.Enqueue(currentState);
+                                    setNew.Add(currentState);
                                 }
                             }
                         }
@@ -702,7 +693,7 @@ namespace PodatkovneStrukture
                                 currentState = StateToLong(newState);
                                 if (!setPrev.Contains(currentState))
                                 {
-                                    setNew.Enqueue(currentState);
+                                    setNew.Add(currentState);
                                 }
                             }
                         }
@@ -720,7 +711,7 @@ namespace PodatkovneStrukture
                                 currentState = StateToLong(newState);
                                 if (!setPrev.Contains(currentState))
                                 {
-                                    setNew.Enqueue(currentState);
+                                    setNew.Add(currentState);
                                 }
                             }
                         }
@@ -738,7 +729,7 @@ namespace PodatkovneStrukture
                                 currentState = StateToLong(newState);
                                 if (!setPrev.Contains(currentState))
                                 {
-                                    setNew.Enqueue(currentState);
+                                    setNew.Add(currentState);
                                 }
                             }
                         }
@@ -756,7 +747,7 @@ namespace PodatkovneStrukture
                                 currentState = StateToLong(newState);
                                 if (!setPrev.Contains(currentState))
                                 {
-                                    setNew.Enqueue(currentState);
+                                    setNew.Add(currentState);
                                 }
                             }
                         }
