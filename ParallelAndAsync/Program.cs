@@ -4,106 +4,103 @@ using System.Threading.Tasks;
 
 namespace ParallelAndAsync
 {
-    enum Section
+    enum ConcurrentSection
     {
-        Multithreaded,
-        Tasks,
-        TasksWithResult,
-        Timers,
-        PLINQ,
-        PLINQOrdered,
-        Async,
-        AsyncSeveral,
-        AsyncFiles,
-        AsyncFilesCancel,
-        AsyncFilesProgress,
-        Lock,
-        ComputePI,
-        BreakfastBad,
-        BreakfastGood
+        Multithreaded = 1,
+        Tasks = 2,
+        TasksWithResult = 3,
+        Timers = 4,
+        PLINQ = 5,
+        PLINQOrdered = 6,
+        Async = 7,
+        AsyncSeveral = 8,
+        AsyncFiles = 9,
+        AsyncFilesCancel = 10,
+        AsyncFilesProgress = 11,
+        Lock = 12,
+        ComputePI = 13,
+        BreakfastBad = 14,
+        BreakfastGood = 15
     }
 
     class Program
     {
         static async Task Main(string[] args)
         {
-            Section section = Section.BreakfastGood;
-
-            Console.WriteLine();
-            switch (section)
+            switch (InterfaceFunctions.ChooseSection<ConcurrentSection>())
             {
-                case Section.Multithreaded:
+                case ConcurrentSection.Multithreaded:
                     {
                         Multithreads.Multithreaded();
                     }
                     break;
-                case Section.Tasks:
+                case ConcurrentSection.Tasks:
                     {
                         Multithreads.Tasks();
                     }
                     break;
-                case Section.TasksWithResult:
+                case ConcurrentSection.TasksWithResult:
                     {
                         Multithreads.TasksResult();
                     }
                     break;
-                case Section.Timers:
+                case ConcurrentSection.Timers:
                     {
                         Timers.TimersTest();
                     }
                     break;
-                case Section.PLINQ:
+                case ConcurrentSection.PLINQ:
                     {
                         ParallelLINQ.PLINQExample();
                     }
                     break;
-                case Section.PLINQOrdered:
+                case ConcurrentSection.PLINQOrdered:
                     {
                         ParallelLINQ.PLINQExampleOrdered();
                     }
                     break;
-                case Section.Async:
+                case ConcurrentSection.Async:
                     {
                         Asynchronous.AsyncTest();
                     }
                     break;
-                case Section.AsyncSeveral:
+                case ConcurrentSection.AsyncSeveral:
                     {
                         string keyword = "fiš";
                         Asynchronous.AsyncTestSeveral(keyword);
                     }
                     break;
-                case Section.AsyncFiles:
+                case ConcurrentSection.AsyncFiles:
                     {
                         AsyncFiles.AsyncFilesTest();
                     }
                     break;
-                case Section.AsyncFilesCancel:
+                case ConcurrentSection.AsyncFilesCancel:
                     {
                         AsyncFiles.AsyncFilesTestWithCancel();
                     }
                     break;
-                case Section.AsyncFilesProgress:
+                case ConcurrentSection.AsyncFilesProgress:
                     {
                         AsyncFiles.AsyncFilesTestWithCancelAndProgress();
                     }
                     break;
-                case Section.Lock:
+                case ConcurrentSection.Lock:
                     {
                         LockAndMonitor.LockExample();
                     }
                     break;
-                case Section.ComputePI:
+                case ConcurrentSection.ComputePI:
                     {
                         ComputePI.ComputePITests();
                     }
                     break;
-                case Section.BreakfastBad:
+                case ConcurrentSection.BreakfastBad:
                     {
                         PrepareBreakfastAsync.BreakfastBadExample();
                     }
                     break;
-                case Section.BreakfastGood:
+                case ConcurrentSection.BreakfastGood:
                     {
                         //PrepareBreakfastAsync.BreakfastBadExample();
                         await PrepareBreakfastAsync.BreakfastGoodExample();

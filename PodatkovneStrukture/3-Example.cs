@@ -31,8 +31,8 @@ namespace PodatkovneStrukture
         private readonly int numPegs;
         private readonly HanoiType type;
 
-        private List<long> setPrev;
-        private List<long> setCurrent;
+        private HashSet<long> setPrev;
+        private HashSet<long> setCurrent;
         private List<long> setNew;
         private byte[] stateArray;
         private bool[] canMoveArray;
@@ -67,12 +67,6 @@ namespace PodatkovneStrukture
 
         /// <summary>
         /// Computes the length of a shortest path from the initial state to the final state. Only for small dimensions.
-        /// 
-        /// If searchMode = 0, the algorithm performs breadth-first search through the graph of states. 
-        /// Each state represents a number in 4-base. For big dimensions integers do not suffice, so we work with longs.
-        /// For higher dimensions we need to save the set of vertices in the farthest set, from which we continue search, in a file.
-        /// 
-        /// For searchMode = 1, we do it with Iterative DFS.
         /// </summary>
         public int ShortestPathForSmallDimension(out string path)
         {
@@ -91,8 +85,8 @@ namespace PodatkovneStrukture
             stateArray = new byte[this.numDiscs];
             canMoveArray = new bool[this.numPegs];
 
-            setPrev = new List<long>();
-            setCurrent = new List<long>();
+            setPrev = new HashSet<long>();
+            setCurrent = new HashSet<long>();
             setNew = new List<long>();
 
             // Set initial and final states for each case
@@ -242,7 +236,7 @@ namespace PodatkovneStrukture
                 // Ko se premaknemo iz vseh trenutnih stanj,
                 // pregledamo nova trenutna stanja
                 setPrev = setCurrent;
-                setCurrent = new List<long>();
+                setCurrent = new HashSet<long>();
                 int elts = setNew.Count;
                 for (int i = 0; i < elts; i++)
                 {
