@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -18,7 +16,7 @@ namespace ParallelAndAsync
     ///     
     /// Večnitno programiranje (multithreaded programming):
     ///     je programiranje, ko se program hkrati izvaja v več ločenih nitih.
-    ///     Izvajanje vsake izmed niti določa in nadzoruje operacijski sistem.
+    ///     Izvajanje vsake od niti določa in nadzoruje operacijski sistem.
     ///     Če želimo poganjati več niti, kot imamo jeder na procesorju,
     ///     potem operacijski sistem stalno preklaplja med nitmi.
     ///     
@@ -33,6 +31,7 @@ namespace ParallelAndAsync
     class Multithreads
     {
         private static long x = 0;
+        private const int WAIT_INTERVAL = 5000; // V milisekundah
 
         /// <summary>
         /// Za enostavno večnitno programiranje lahko uporabimo razred Thread (iz paketa System.Threading).
@@ -42,39 +41,38 @@ namespace ParallelAndAsync
             // Pripravimo novo nit in ji povejmo, kaj naj izvaja
             Thread thread1 = new Thread(ComputeLong);
             Thread thread2 = new Thread(ComputeLong);
-            // Kot delegata lahko podamo tudi funkcijo s parametri, vendar morajo biti tipa object
+            // Kot delegata lahko podamo tudi funkcije s parametri, vendar morajo biti tipa object
             Thread thread3 = new Thread(ComputeLongWithIncrement);
 
             // Oglejmo si delovanje procesorja v Task Managerju.
-            Console.WriteLine("\nPočakamo 2 sekundi.");
-            Thread.Sleep(2000); // Zamrznemo izvajanje programa v naši trenutni niti.            
+            Console.WriteLine($"\nPočakamo {WAIT_INTERVAL / 1000} sekund.");
+            Thread.Sleep(WAIT_INTERVAL); // Zamrznemo izvajanje programa v naši trenutni niti.            
             Console.WriteLine("\nZačenjamo s prvo nitjo:");
             // Zaženemo jo s funkcijo Start.
             thread1.Start();
 
-            Console.WriteLine("\nPočakamo še 2 sekundi.");
-            Thread.Sleep(2000); // Zamrznemo izvajanje programa v naši trenutni niti.
+            Console.WriteLine($"\nPočakamo še {WAIT_INTERVAL / 1000} sekund.");
+            Thread.Sleep(WAIT_INTERVAL); // Zamrznemo izvajanje programa v naši trenutni niti.
             Console.WriteLine("\nZačenjamo z drugo nitjo:");
             // Zaženemo jo s funkcijo Start.
             thread2.Start();
 
-            Console.WriteLine("\nPočakamo še 2 sekundi.");
-            Thread.Sleep(2000); // Zamrznemo izvajanje programa v naši trenutni niti.
+            Console.WriteLine($"\nPočakamo še {WAIT_INTERVAL / 1000} sekund.");
+            Thread.Sleep(WAIT_INTERVAL); // Zamrznemo izvajanje programa v naši trenutni niti.
             Console.WriteLine("\nZačenjamo s tretjo nitjo:");
             // Funkciji Start podamo še pričakovani parameter za funkcijo ComputeLongWithIncrement
-            thread3.Start(1000);
+            thread3.Start(WAIT_INTERVAL / 2);
 
             Console.WriteLine("\nV trenutni niti še vedno lahko izvajamo svoje operacije.");
 
-            /*
+
             // Z metodo Join pa ustavimo (blokiramo) trenutno nit, dokler thread1 ne konča z izvajanjem.
-            thread1.Join();
-            Console.WriteLine("\nProgram se zaključi zdaj");
-            */
+            //thread1.Join();
+            //Console.WriteLine("\nProgram se zaključi zdaj");            
 
             // Druga možnost je, da metodi Join povemo,
             // koliko časa smo pripravljeni čakati, ona pa pove, če se je v tem času proces zaključil
-            bool isDone = thread1.Join(10000);
+            bool isDone = thread1.Join(WAIT_INTERVAL);
             if (isDone)
                 Console.WriteLine("\nProces 1 se je zaključil!");
             else
@@ -83,7 +81,18 @@ namespace ParallelAndAsync
                 // Včasih se je uporabljala funkcija Abort, 
                 // vendar je v .Net Core ogrodju onemogočena, 
                 // zaradi različnih težav, ki jih lahko njena uporaba povzroči.
-                thread1.Abort();
+                //thread1.Abort();
+
+
+                // Uporaba interrupt ne ubije niti, ki se izvajajo v ozadju.
+                thread1.Interrupt();
+                thread2.Interrupt();
+                thread3.Interrupt();
+                thread1.Join(10);
+                thread2.Join(10);
+                thread3.Join(10);
+                Console.WriteLine("\nVsi procesi so ustavljeni. (Ne bo držalo...)");
+                return;
             }
         }
 
@@ -92,6 +101,18 @@ namespace ParallelAndAsync
             long limit = long.MaxValue;
             while (x < limit)
                 x++;
+        }
+
+        private static void ComputeLong(CancellationToken token)
+        {
+            long limit = long.MaxValue;
+            while (x < limit)
+            {
+                if (!token.IsCancellationRequested)
+                    x++;
+                else
+                    break;
+            }
         }
 
         private static void ComputeLongWithIncrement(object increment)
@@ -104,31 +125,49 @@ namespace ParallelAndAsync
         /// <summary>
         /// Uporaba knjižnice Threading se ne priporoča več.
         /// Obstaja nekaj drugih knjižnic za upravljanje z nitmi.
-        /// Najbolj se priporoča knjižnica Task Parallel Library (spada pod System.Threading.Tasks).
+        /// Najbolj se (zaenkrat) priporoča knjižnica Task Parallel Library (spada pod System.Threading.Tasks).
         /// </summary>
         public static void Tasks()
         {
             // Ponovimo, kar smo želeli doseči s knjižnico Threading.
 
             // Oglejmo si delovanje procesorja v Task Managerju.
-            Console.WriteLine("\nPočakamo 2 sekundi.");
+            Console.WriteLine($"\nPočakamo {WAIT_INTERVAL / 1000} sekund.");
 
-            Thread.Sleep(2000); // Zamrznemo izvajanje programa v naši trenutni niti.            
+            // Definiramo še "flag", ki nam omogoči predčasno končanje procesa
+            CancellationTokenSource tokenSource = new CancellationTokenSource(); // Arh, Q63
+
+            Thread.Sleep(WAIT_INTERVAL); // Zamrznemo izvajanje programa v naši trenutni niti.            
             Console.WriteLine("\nZačenjamo s prvim opravilom:");
-            var task1 = Task.Run(ComputeLong);
+            var task1 = Task.Run(() => ComputeLong(tokenSource.Token));
 
-            Thread.Sleep(2000); // Zamrznemo izvajanje programa v naši trenutni niti.            
+            Thread.Sleep(WAIT_INTERVAL); // Zamrznemo izvajanje programa v naši trenutni niti.            
             Console.WriteLine("\nZačenjamo z drugim opravilom:");
             var task2 = Task.Run(ComputeLong);
 
-            Thread.Sleep(2000); // Zamrznemo izvajanje programa v naši trenutni niti.            
+            Thread.Sleep(WAIT_INTERVAL); // Zamrznemo izvajanje programa v naši trenutni niti.            
             Console.WriteLine("\nZačenjamo s tretjim opravilom:");
             var task3 = Task.Run(ComputeLong);
 
             // Počakajmo z glavno nitjo, da pomožne niti zaključijo proces
             Console.WriteLine("\nPočakajmo na izračun");
-            // Funkcijo Join iz prejšnjega primera nadomesti funkcija Wait.
-            task1.Wait();
+            // Funkcijo Join iz prejšnjega primera nadomesti funkcija Wait.                                    
+            try
+            {
+                // Prekinimo prvi task
+                tokenSource.Cancel();
+                //task1.Wait(tokenSource.Token);            
+            }
+            catch (OperationCanceledException)
+            {
+                Console.WriteLine($"Prišlo je do izjeme OperationCanceledException");
+            }
+            finally
+            {
+                task1.Dispose();
+                Console.WriteLine($"\n{nameof(task1)} smo uspešno zaključili!");
+            }
+
             Console.WriteLine("\nProgram se zaključi zdaj");
 
             // Task neposredno ne predstavlja niti, ampak je razvrščanje 
@@ -160,7 +199,7 @@ namespace ParallelAndAsync
 
         private static long ComputeLongAndReturn()
         {
-            long limit = 4000000000;
+            long limit = 4_000_000_000;
             while (x < limit)
                 x++;
 
@@ -169,7 +208,7 @@ namespace ParallelAndAsync
 
         private static long ComputeLongWithIncrementAndReturn(int inc)
         {
-            long limit = 6000000000;
+            long limit = 6_000_000_000;
             while (x < limit)
                 x += inc;
 

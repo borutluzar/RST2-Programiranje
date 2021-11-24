@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 
@@ -19,21 +20,18 @@ namespace ParallelAndAsync
             List<int> primes = new List<int>();
 
             // Najprej preizkusimo običajni pristop
-            DateTime dtStart = DateTime.Now;
+            Stopwatch sw = Stopwatch.StartNew();
             DataForParallel.Instance().ForEach(i =>
                     {
                         if (CommonFunctions.IsPrime(i))
                             primes.Add(i);
                     });
-            DateTime dtEnd = DateTime.Now;
-            TimeSpan ts = dtEnd - dtStart;
-
-            Console.WriteLine($"Čas zaporednega iskanja: {ts.TotalSeconds}, našli smo {primes.Count} praštevil.");
+            Console.WriteLine($"Čas zaporednega iskanja: {sw.Elapsed.TotalSeconds}, našli smo {primes.Count} praštevil.");
 
 
             // Sedaj pa jih preverimo paralelno
             primes.Clear();
-            dtStart = DateTime.Now;
+            sw = Stopwatch.StartNew();
             // Naš seznam prevedemo v instanco ParallelQuery<T> s klicem funkcije AsParallel.
             // Nato uporabimo funkcijo ForAll, ki naredi enako kot ForEach zgoraj, 
             // le da uporabi več paralelnih niti.
@@ -50,14 +48,12 @@ namespace ParallelAndAsync
                     }
                 }
             });
-            dtEnd = DateTime.Now;
-            ts = dtEnd - dtStart;
-            Console.WriteLine($"Čas vzporednega iskanja: {ts.TotalSeconds}, našli smo {primes.Count} praštevil.");
+            Console.WriteLine($"Čas vzporednega iskanja: {sw.Elapsed.TotalSeconds}, našli smo {primes.Count} praštevil.");
 
 
             // Če ne uporabimo 'lock', nam nekaj vnosov zmanjka
             primes.Clear();
-            dtStart = DateTime.Now;
+            sw = Stopwatch.StartNew();
             DataForParallel.Instance().AsParallel().ForAll(i =>
             {
                 if (CommonFunctions.IsPrime(i))
@@ -65,9 +61,7 @@ namespace ParallelAndAsync
                     primes.Add(i);
                 }
             });
-            dtEnd = DateTime.Now;
-            ts = dtEnd - dtStart;
-            Console.WriteLine($"Čas vzporednega iskanja brez lock-a: {ts.TotalSeconds}, našli smo {primes.Count} praštevil.");
+            Console.WriteLine($"Čas vzporednega iskanja brez lock-a: {sw.Elapsed.TotalSeconds}, našli smo {primes.Count} praštevil.");
 
 
             // Poleg metode ForAll imamo na voljo še nekaj drugih metod. Npr. Select, OrderBy itd.
@@ -79,7 +73,7 @@ namespace ParallelAndAsync
             for (int i = 1; i < Environment.ProcessorCount; i++)
             {
                 primes.Clear();
-                dtStart = DateTime.Now;
+                sw = Stopwatch.StartNew();
                 DataForParallel.Instance().AsParallel()
                         .WithDegreeOfParallelism(i)
                         .ForAll(i =>
@@ -95,9 +89,7 @@ namespace ParallelAndAsync
                                     }
                                 }
                             });
-                dtEnd = DateTime.Now;
-                ts = dtEnd - dtStart;
-                Console.WriteLine($"Čas vzporednega iskanja z {i} jedri od {Environment.ProcessorCount}: {ts.TotalSeconds}, našli smo {primes.Count} praštevil.");
+                Console.WriteLine($"Čas vzporednega iskanja z {i} jedri od {Environment.ProcessorCount}: {sw.Elapsed.TotalSeconds}, našli smo {primes.Count} praštevil.");
             }
         }
 
@@ -116,12 +108,12 @@ namespace ParallelAndAsync
             // To lahko pomeni, da elementi niso obravnavani zaporedoma, 
             // temveč po sklopih, ki so izbrani za vsako nit.
             // Urejenost končnega rezultata zahtevamo s klicem funkcije AsOrdered.
-            // Ta klic na metodo ForAll nima vpliva, ker ne vrača rezultata.
+            // Ta klic na metodo ForAll nima vpliva, ker ne vrača rezultata!
             DataForParallel.Instance().AsParallel().AsOrdered().ForAll(i =>
             {
                 if (CommonFunctions.IsPrime(i))
                 {
-                    // Ker vzoredno dodajamo elemente v seznam,
+                    // Ker vzporedno dodajamo elemente v seznam,
                     // ga moramo ob vsakem dodajanju 'zakleniti', 
                     // da ga ne uporabi hkrati druga nit in ne pride do manjkajočih vnosov
                     lock (primes)
@@ -156,11 +148,11 @@ namespace ParallelAndAsync
             // Uporaba AsOrdered ima vpliv na metodo Select.
             //var resultPrimes = DataForParallel.Instance().AsParallel().AsOrdered().Select<int, int?>(i => IsPrime(i) ? (int?)i : null);
             var resultPrimes = DataForParallel.Instance().AsParallel().AsOrdered().Select(i => ReturnIfPrime(i));
-            Console.WriteLine($"Prvih 100 praštevil:");
+            Console.WriteLine($"Prvih 100 praštevil (urejenih):");
             resultPrimes.Take(100).ReadEnumerable();
 
             resultPrimes = DataForParallel.Instance().AsParallel().Select(i => ReturnIfPrime(i));
-            Console.WriteLine($"Prvih 100 praštevil:");
+            Console.WriteLine($"Prvih 100 praštevil (neurejenih):");
             resultPrimes.Take(100).ReadEnumerable();
         }
 
