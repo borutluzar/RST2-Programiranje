@@ -1,10 +1,11 @@
-﻿using System;
+﻿using CommonFunctions;
+using System;
 
 namespace Serializacija
 {
     class Program
     {
-        enum Section
+        enum SerializationSections
         {
             Serialize,
             Deserialize,
@@ -13,17 +14,15 @@ namespace Serializacija
 
         static void Main(string[] args)
         {
-            Section section = Section.Cyclic;
-
-            switch (section)
+            switch (InterfaceFunctions.ChooseSection<SerializationSections>())
             {
-                case Section.Serialize:
+                case SerializationSections.Serialize:
                     SerializationBasics.Serialize();
                     break;
-                case Section.Deserialize:
+                case SerializationSections.Deserialize:
                     SerializationBasics.Deserialize();
                     break;
-                case Section.Cyclic:
+                case SerializationSections.Cyclic:
                     CyclicDependencies.CyclicSerialization();
                     break;
             }

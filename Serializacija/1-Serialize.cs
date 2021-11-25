@@ -16,7 +16,7 @@ namespace Serializacija
     /// 
     /// Najdemo lahko veliko primerov uporabe, recimo:
     /// - shranjevanje trenutnega stanja programa - ko program teče dlje časa, 
-    ///     npr. na super-računalniku več tednov, tam pa se pogosto dogajajoizklopi in posodobitve,
+    ///     npr. na super-računalniku več tednov, tam pa se pogosto dogajajo izklopi in posodobitve,
     ///     želimo da se naš proces ustrezno zamrzne in nadaljuje od točke prekinitve
     /// - prevelika poraba spomina - pri požrešnih programih lahko hitro porabimo RAM, ki je na voljo,
     ///     zato je v teh primerih smiselno podatke začasno shraniti v datoteko in jih nato iz nje brati posamič.
