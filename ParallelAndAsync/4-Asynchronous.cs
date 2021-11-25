@@ -105,7 +105,7 @@ namespace ParallelAndAsync
                 case ExecutionType.ParallelWrong:
                     {
                         DataForParallel.Instance().AsParallel()
-                            .WithDegreeOfParallelism(3)
+                            .WithDegreeOfParallelism(5)
                             .ForAll(i => 
                                 { 
                                     if (CommonFunctions.IsPrime(i)) count++; 
@@ -117,11 +117,12 @@ namespace ParallelAndAsync
                     {
                         // Vrednostnih tipov ne moremo zakleniti, zato uporabimo Increment v razredu Interlocked
                         DataForParallel.Instance().AsParallel()
-                                        .ForAll(i =>
-                                            {
-                                                if (CommonFunctions.IsPrime(i))
-                                                    Interlocked.Increment(ref count);
-                                            });
+                            .WithDegreeOfParallelism(5)
+                            .ForAll(i =>
+                                {
+                                    if (CommonFunctions.IsPrime(i))
+                                        Interlocked.Increment(ref count);
+                                });
                         }
                     break;
             }
@@ -146,16 +147,16 @@ namespace ParallelAndAsync
             Console.WriteLine($"Taske smo zagnali, zdaj čakamo na rezultat.");
 
             // PRIMER 1: Počakamo, da konča vsaj en od taskov
-            
+            /*
             var firstCompleted = await Task.WhenAny(backgroundTasks);
             Console.WriteLine($"\nPrvi je končal task (ID: {firstCompleted.Id}) z rezultatom {firstCompleted.Result}.\n");
-            
+            */
 
             // PRIMER 2: Počakamo, da končajo vsi taski
-            /*
+            
             var whichIsCompleted = await Task.WhenAll(backgroundTasks);
             Console.WriteLine($"\nVsi taski so se uspešno zaključili, prvi rezultat je bil {whichIsCompleted[0]}.\n");
-            */
+            
         }
 
         private static int OccurencesOnPage(string keyword, string url)

@@ -16,27 +16,28 @@ namespace ParallelAndAsync
     {
         public static void LockExample()
         {
-            BankAccount myAccount = new BankAccount() { Balance = 20000 };
+            BankAccount myAccount = new BankAccount() { Balance = 200_000 };
 
             List<double> amounts = new List<double>();
-            for (int i = 0; i < 100000; i++)
+            for (int i = 0; i < 100_000; i++)
             {
                 amounts.Add(1);
             }
 
             // Če objekt zaklenemo, bo rezultat pravilen, kljub hkratnemu brisanju z računa
-            //amounts.AsParallel().ForAll(a => myAccount.WithdrawWithLock(a));
+            amounts.AsParallel().ForAll(a => myAccount.WithdrawWithLock(a));
 
             // Brez lock-a tega ne moremo zagotoviti
             //amounts.AsParallel().ForAll(a => myAccount.WithdrawNoLock(a));
 
+            /*
             for (int i = 0; i < 20; i++)
             {
                 amounts.AsParallel().ForAll(a => myAccount.WithdrawNoLock(a));
                 Console.WriteLine($"Stanje na računu je: {myAccount.Balance}");
                 myAccount.Balance = 20000;
             }
-
+            */
             Console.WriteLine($"Stanje na računu je: {myAccount.Balance}");
 
             // Daljša oblika sintakse lock je uporaba razreda Monitor.

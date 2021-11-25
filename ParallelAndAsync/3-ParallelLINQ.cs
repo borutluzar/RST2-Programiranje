@@ -123,7 +123,7 @@ namespace ParallelAndAsync
                 }
             });
             Console.WriteLine($"Prvih 100 praštevil z uporabo AsOrdered (nima vpliva na rezultat pri ForAll):");
-            primes.Take(50).ReadEnumerable();
+            primes.Take(100).ReadEnumerable();
 
             primes.Clear();
             DataForParallel.Instance().AsParallel().ForAll(i =>
@@ -140,7 +140,7 @@ namespace ParallelAndAsync
                 }
             });
             Console.WriteLine($"Prvih 100 praštevil brez izbiranja po vrsti:");
-            primes.Take(50).ReadEnumerable();
+            primes.Take(100).ReadEnumerable();
 
 
             Console.WriteLine($"\n\nZ metodo Select:");
@@ -149,11 +149,11 @@ namespace ParallelAndAsync
             //var resultPrimes = DataForParallel.Instance().AsParallel().AsOrdered().Select<int, int?>(i => IsPrime(i) ? (int?)i : null);
             var resultPrimes = DataForParallel.Instance().AsParallel().AsOrdered().Select(i => ReturnIfPrime(i));
             Console.WriteLine($"Prvih 100 praštevil (urejenih):");
-            resultPrimes.Take(50).ReadEnumerable();
+            resultPrimes.Take(100).ReadEnumerable();
 
             resultPrimes = DataForParallel.Instance().AsParallel().Select(i => ReturnIfPrime(i));
             Console.WriteLine($"Prvih 100 praštevil (neurejenih):");
-            resultPrimes.Take(50).ReadEnumerable();
+            resultPrimes.Take(100).ReadEnumerable();
         }
 
         private static (int i, bool @is) ReturnIfPrime(int i)

@@ -66,13 +66,13 @@ namespace ParallelAndAsync
                         // Ker await ne blokira izvajalne niti, pred izračunom pridemo iz funkcije
                         Console.WriteLine("Smo na koncu primera!");
                         // Vrstni red čakanja na input ni popolnoma jasen...
-                        //Thread.Sleep(1000);
+                        //Thread.Sleep(3000);
                         Console.ReadLine();
                     }
                     break;
                 case ConcurrentSection.AsyncSeveral:
                     {
-                        string keyword = "fiš";
+                        string keyword = "in";
                         Asynchronous.AsyncTestSeveral(keyword);
                         Console.WriteLine($"Program se vmes nadaljuje...");
                     }
