@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Threading;
@@ -30,6 +31,7 @@ namespace ParallelAndAsync
                 //@"C:\Graph-Files\max3con2\max3con2num20.g6"
             };
 
+            // PRIMER 1: Branje datotek zaporedno
             /*
             // Pri branju velikih datotek, se ob uporabi zgolj sinhrone kode, naša aplikacija ustavi in čaka.
             foreach (var filePath in filePaths)
@@ -45,7 +47,10 @@ namespace ParallelAndAsync
             Console.WriteLine($"\nIn sedaj se je aplikacija 'odmrznila'.");
             */
 
+            // PRIMER 2: Branje datotek asinhrono
+
             // Preverimo sedaj asinhrone klice
+            
             foreach (var filePath in filePaths)
             {
                 Console.WriteLine($"\nBeremo datoteko {Path.GetFileName(filePath)}.");
@@ -53,8 +58,8 @@ namespace ParallelAndAsync
                 Console.WriteLine($"Branje datoteke {Path.GetFileName(filePath)} nam je vzelo {time} sekund.");
                 Console.WriteLine($"Prvih nekaj znakov v datoteki: {text.Result.Substring(0, Math.Min(40, text.Result.Length))}.");
             }
-
-            Console.WriteLine($"\nIn sedaj se je aplikacija 'odmrznila'."); // Lahko zaključimo s programom, čeprav se vzporedno še izvajajo operacije (glejte RAM :))
+             Console.WriteLine($"\nIn sedaj se je aplikacija 'odmrznila'."); // Lahko zaključimo s programom, čeprav se vzporedno še izvajajo operacije (glejte RAM :))
+            
         }
 
         /// <summary>
@@ -62,11 +67,9 @@ namespace ParallelAndAsync
         /// </summary>
         private static double MeasureTime<T, TResult>(Func<T, TResult> f, T par, out TResult result)
         {
-            DateTime dtStart = DateTime.Now;
+            Stopwatch sw = Stopwatch.StartNew();
             result = f(par);
-            DateTime dtEnd = DateTime.Now;
-
-            return (dtEnd - dtStart).TotalSeconds;
+            return sw.Elapsed.TotalSeconds;
         }
 
         /// <summary>
@@ -277,6 +280,7 @@ namespace ParallelAndAsync
                     cancelSource.Cancel(); // Prekinimo branje
                     Console.WriteLine($"\nBranje datoteke se je zaključilo!");
                     GC.Collect(); // Pospravimo za sabo.
+                    Console.WriteLine($"\nPrebrali smo {progressValue}% datoteke.!");
                     break;
                 }
                 else

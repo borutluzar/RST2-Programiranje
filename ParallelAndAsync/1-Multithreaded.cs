@@ -71,7 +71,7 @@ namespace ParallelAndAsync
             //Console.WriteLine("\nProgram se zaključi zdaj");            
 
             // Druga možnost je, da metodi Join povemo,
-            // koliko časa smo pripravljeni čakati, ona pa pove, če se je v tem času proces zaključil
+            // koliko časa smo pripravljeni čakati, ona pa pove, če se je v tem času proces zaključil     
             bool isDone = thread1.Join(WAIT_INTERVAL);
             if (isDone)
                 Console.WriteLine("\nProces 1 se je zaključil!");
@@ -150,6 +150,7 @@ namespace ParallelAndAsync
             var task3 = Task.Run(ComputeLong);
 
             // Počakajmo z glavno nitjo, da pomožne niti zaključijo proces
+            Thread.Sleep(WAIT_INTERVAL);
             Console.WriteLine("\nPočakajmo na izračun");
             // Funkcijo Join iz prejšnjega primera nadomesti funkcija Wait.                                    
             try
@@ -188,6 +189,9 @@ namespace ParallelAndAsync
             var task = Task.Run(() => ComputeLongWithIncrementAndReturn(2));
 
             Console.WriteLine("\nMoj program teče vzporedno.");
+
+            Thread.Sleep(1000);
+            Console.WriteLine("\nMoj program še vedno teče vzporedno.");
 
             // Če funkcija, ki jo task izvaja vrača rezultat, ga dobimo z lastnostjo Result.
             var result = task.Result;

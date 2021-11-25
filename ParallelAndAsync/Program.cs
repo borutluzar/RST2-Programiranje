@@ -1,5 +1,6 @@
 ﻿using CommonFunctions;
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace ParallelAndAsync
@@ -62,12 +63,18 @@ namespace ParallelAndAsync
                 case ConcurrentSection.Async:
                     {
                         Asynchronous.AsyncTest();
+                        // Ker await ne blokira izvajalne niti, pred izračunom pridemo iz funkcije
+                        Console.WriteLine("Smo na koncu primera!");
+                        // Vrstni red čakanja na input ni popolnoma jasen...
+                        //Thread.Sleep(1000);
+                        Console.ReadLine();
                     }
                     break;
                 case ConcurrentSection.AsyncSeveral:
                     {
                         string keyword = "fiš";
                         Asynchronous.AsyncTestSeveral(keyword);
+                        Console.WriteLine($"Program se vmes nadaljuje...");
                     }
                     break;
                 case ConcurrentSection.AsyncFiles:
@@ -108,7 +115,6 @@ namespace ParallelAndAsync
                     break;
             }
             Console.ReadLine();
-
         }
     }
 }
