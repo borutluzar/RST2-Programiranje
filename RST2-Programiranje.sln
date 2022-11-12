@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30611.23
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33103.184
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "1-Uvod", "RST2-Programiranje\1-Uvod.csproj", "{E60DF962-831D-4307-A808-44230C81FACE}"
 EndProject
@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "6-ParallelAndAsync", "Paral
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "7-Serializacija", "Serializacija\7-Serializacija.csproj", "{0A706318-1E2B-46A2-B6D0-4D3175E7F1A9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "0-CommonFunctions", "CommonFunctions\0-CommonFunctions.csproj", "{0BA3D101-D1EC-4F71-A073-40748A478D56}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "0-CommonFunctions", "CommonFunctions\0-CommonFunctions.csproj", "{0BA3D101-D1EC-4F71-A073-40748A478D56}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -13,7 +13,7 @@ namespace Uvod
     /// </summary>
     class Program
     {
-        private enum IntroductorySections
+        private enum IntroductorySection
         {
             HelloWorld = 1,
             CountingPrimes = 2,
@@ -34,32 +34,32 @@ namespace Uvod
             // Namesto funkcije ChooseExampleSection uporabimo bolj splošno generično funkcijo ChooseSection,
             // ki smo jo pripravili v razredni knjižnici (class library) in izpiše možne vrednosti za
             // poljubno enumeracijo.
-            switch (/*ChooseExampleSection()*/ InterfaceFunctions.ChooseSection<IntroductorySections>())
+            switch (/*ChooseExampleSection()*/ InterfaceFunctions.ChooseSection<IntroductorySection>())
             {
-                case IntroductorySections.HelloWorld:
+                case IntroductorySection.HelloWorld:
                     { // V tem primeru si ogledamo preprosto metodo, ki naredi izpis v konzolo
                         HelloWorld();
                     }
                     break;
-                case IntroductorySections.CountingPrimes:
+                case IntroductorySection.CountingPrimes:
                     { // V tem primeru si ogledamo glavno sintakso C# (zanke, izbirne stavke)
                         int numPrimes = MyStaticFunctions.CountPrimes(20);
                         Console.WriteLine(numPrimes);
                     }
                     break;
-                case IntroductorySections.PreparingOutputs:
+                case IntroductorySection.PreparingOutputs:
                     { // V tem primeru si ogledamo možnosti izpisa z uporabo interpolacije
                         PrepareOutputs();
                     }
                     break;
-                case IntroductorySections.CountingPrimesWithOut:
+                case IntroductorySection.CountingPrimesWithOut:
                     { // V tem primeru si ogledamo vračanje vrednosti z uporabo določila out
                         int upToNumber = 90;
                         int numPrimes = MyStaticFunctions.CountPrimes(upToNumber, out int largest);
                         Console.WriteLine($"Od 1 do {upToNumber} je {numPrimes} praštevil, največje pa je {largest}.");
                     }
                     break;
-                case IntroductorySections.CountingPrimesAndTuples:
+                case IntroductorySection.CountingPrimesAndTuples:
                     { // V tem primeru si ogledamo vračanje vrednosti s pomočja strukture Tuple
                       // https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/value-tuples
                         int upToNumber = 20;
@@ -67,7 +67,7 @@ namespace Uvod
                         Console.WriteLine($"Od 1 do {upToNumber} je {numPrimes} praštevil, največje pa je {largest}.");
                     }
                     break;
-                case IntroductorySections.RandomLists:
+                case IntroductorySection.RandomLists:
                     { // V tem primeru si ogledamo
                       // - generiranje naključnih števil
                       // - uporabo seznamov
@@ -77,25 +77,25 @@ namespace Uvod
                         Console.WriteLine($"\nŠtevilo vnosov je {lstRnd.Count}, od teh je lihih {odds}");
                     }
                     break;
-                case IntroductorySections.RandomListsWithoutOut:
+                case IntroductorySection.RandomListsWithoutOut:
                     { // V tem primeru si ogledamo
                       // - kako se izogniti definiranju out spremenljivke, če je ne uporabljamo
                         List<int> lstRnd = MyStaticFunctions.MakeRandomList(13, out _); 
                         Console.WriteLine($"\nŠtevilo vnosov je {lstRnd.Count}");
                     }
                     break;
-                case IntroductorySections.WritingInFile:
+                case IntroductorySection.WritingInFile:
                     { // V tem primeru si ogledamo zapisovanje v datoteko
                         MyStaticFunctions.WriteFile("PrvaPredavanjaTest3.txt");
                     }
                     break;
-                case IntroductorySections.ReadingFromFile:
+                case IntroductorySection.ReadingFromFile:
                     { // V tem primeru si ogledamo branje iz datoteke
                         int numLines = MyStaticFunctions.ReadFile("PrvaPredavanjaTest2.txt");
                         Console.WriteLine($"\nDatoteka vsebuje {numLines} vrstic");
                     }
                     break;
-                case IntroductorySections.ReadingFromFileWithObject:
+                case IntroductorySection.ReadingFromFileWithObject:
                     { // V tem primeru si ogledamo branje iz datoteke in
                       // - zapisovanje lastnosti v poseben objekt
                       // - lastnosti in njihove posebnosti (k njim se vrnemo malo kasneje)
@@ -104,7 +104,7 @@ namespace Uvod
                                 $"{(fileData.ContainsSensitiveInfo ? "vsebuje moje ime!" : "ne vsebuje mojega imena!")}");
                     }
                     break;
-                case IntroductorySections.RecallingObjects:
+                case IntroductorySection.RecallingObjects:
                     { // V tem primeru si osvežimo spomin na definiranje novega tipa (objekta)
                         CreateStudents();                        
                     }
@@ -179,13 +179,13 @@ namespace Uvod
         /// <summary>
         /// Funkcija izpiše možne sekcije primerov in prebere izbiro uporabnika
         /// </summary>
-        private static IntroductorySections ChooseExampleSection()
+        private static IntroductorySection ChooseExampleSection()
         {
             // Izpis sekcij za izbiro 
             int i = 1;
             Console.WriteLine("--\t--\t--\t--");
             Console.WriteLine("Example sections:\n");
-            foreach (var section in Enum.GetValues(typeof(IntroductorySections)))
+            foreach (var section in Enum.GetValues(typeof(IntroductorySection)))
             {
                 Console.WriteLine($"{i}. {section}");
                 i++;
@@ -209,7 +209,7 @@ namespace Uvod
             Console.Write("\n");
             Console.WriteLine($"Running example section {chosen}...");
             Console.Write("\n\n");
-            return (IntroductorySections)chosen;
+            return (IntroductorySection)chosen;
         }
     }
 }
