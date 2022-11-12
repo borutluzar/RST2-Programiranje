@@ -131,7 +131,7 @@ namespace Uvod
             for (int i = 0; i < capacity; i++)
             {
                 lstRandoms.Add(rnd.Next(0, 101));
-            }
+            }            
 
             if (debug)
                 Console.WriteLine($"{DEBUG} The list has been filled!");
