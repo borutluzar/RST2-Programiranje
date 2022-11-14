@@ -9,32 +9,19 @@ namespace Uvod
     /// https://docs.microsoft.com/en-us/dotnet/csharp/tour-of-csharp/
     /// 
     /// Dodatno o posebnostih zadnjih verzij jezika najdete tudi tukaj:
-    /// https://www.dotnetcurry.com/csharp/1489/csharp-8-visual-studio-2019
+    /// https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-11
+    /// https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-10
+    /// https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-9
     /// </summary>
     class Program
     {
-        private enum IntroductorySection
-        {
-            HelloWorld = 1,
-            CountingPrimes = 2,
-            PreparingOutputs = 3,
-            CountingPrimesWithOut = 4,
-            CountingPrimesAndTuples = 5,
-            RandomLists = 6,
-            RandomListsWithoutOut = 7,
-            WritingInFile = 8,
-            ReadingFromFile = 9,
-            ReadingFromFileWithObject = 10,
-            RecallingObjects = 11
-        }
-
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             // Poženemo primer glede na izbrano sekcijo
-            // Namesto funkcije ChooseExampleSection uporabimo bolj splošno generično funkcijo ChooseSection,
+            // Uporabimo splošno generično funkcijo ChooseSection,
             // ki smo jo pripravili v razredni knjižnici (class library) in izpiše možne vrednosti za
             // poljubno enumeracijo.
-            switch (/*ChooseExampleSection()*/ InterfaceFunctions.ChooseSection<IntroductorySection>())
+            switch (InterfaceFunctions.ChooseSection<IntroductorySection>())
             {
                 case IntroductorySection.HelloWorld:
                     { // V tem primeru si ogledamo preprosto metodo, ki naredi izpis v konzolo
@@ -57,6 +44,14 @@ namespace Uvod
                         int upToNumber = 90;
                         int numPrimes = MyStaticFunctions.CountPrimes(upToNumber, out int largest);
                         Console.WriteLine($"Od 1 do {upToNumber} je {numPrimes} praštevil, največje pa je {largest}.");
+                    }
+                    break;
+                case IntroductorySection.CountingPrimesWithRef:
+                    { // V tem primeru si ogledamo vračanje vrednosti z uporabo določila ref
+                        int upToNumber = 90;
+                        int numPrimes = MyStaticFunctions.CountPrimes(ref upToNumber, out int largest);
+                        Console.WriteLine($"Od 1 do {upToNumber} je {numPrimes} praštevil, največje pa je {largest}.");
+                        Console.WriteLine($"Vrednost parametra {nameof(upToNumber)} je {upToNumber}!");
                     }
                     break;
                 case IntroductorySection.CountingPrimesAndTuples:
@@ -176,40 +171,20 @@ namespace Uvod
             Console.WriteLine($"{marko.FirstName} je star {marko.GetAge()} let.");
         }
 
-        /// <summary>
-        /// Funkcija izpiše možne sekcije primerov in prebere izbiro uporabnika
-        /// </summary>
-        private static IntroductorySection ChooseExampleSection()
+        private enum IntroductorySection
         {
-            // Izpis sekcij za izbiro 
-            int i = 1;
-            Console.WriteLine("--\t--\t--\t--");
-            Console.WriteLine("Example sections:\n");
-            foreach (var section in Enum.GetValues(typeof(IntroductorySection)))
-            {
-                Console.WriteLine($"{i}. {section}");
-                i++;
-            }
-            Console.WriteLine("\n--\t--\t--\t--");
-            Console.Write("Choose example section to run: ");
-
-            string input = Console.ReadLine();
-            bool isFormatCorrect = int.TryParse(input, out int chosen);
-            if (!isFormatCorrect)
-            {
-                Console.WriteLine($"\n The input {input} is not an integer! The execution is stopped.");
-                return 0;
-            }
-            else if (chosen <= 0 || chosen > i)
-            {
-                Console.WriteLine($"\n There is no Section {input}! The execution is stopped.");
-                return 0;
-            }
-
-            Console.Write("\n");
-            Console.WriteLine($"Running example section {chosen}...");
-            Console.Write("\n\n");
-            return (IntroductorySection)chosen;
+            HelloWorld = 1,
+            CountingPrimes = 2,
+            PreparingOutputs = 3,
+            CountingPrimesWithOut = 4,
+            CountingPrimesWithRef = 5,
+            CountingPrimesAndTuples = 6,
+            RandomLists = 7,
+            RandomListsWithoutOut = 8,
+            WritingInFile = 9,
+            ReadingFromFile = 10,
+            ReadingFromFileWithObject = 11,
+            RecallingObjects = 12
         }
     }
 }

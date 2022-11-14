@@ -83,6 +83,43 @@ namespace Uvod
         /// <summary>
         /// Counts all prime numbers up to n
         /// </summary>
+        /// <param name="n">An integer up to which we count primes, at the end</param>
+        /// <param name="largest">Number of primes up to integer n</param>
+        /// <returns>Number of primes up to integer n</returns>
+        public static int CountPrimes(ref int n, out int largest)
+        {
+            int countPrimes = 0;
+            largest = 0; // Nastavimo privzeto vrednost out parametra
+
+            // For each i between 1 and n check if it is a prime number
+            for (int i = 2; i <= n; i++)
+            {
+                // Count number of divisors of the current number i
+                int countDivisors = 0;
+                for (int j = 2; j <= Math.Sqrt(i); j++)
+                {
+                    if (i % j == 0)
+                        countDivisors++;
+
+                    if (countDivisors > 0)
+                        break;
+                }
+
+                if (countDivisors == 0)
+                {
+                    countPrimes++;
+                    largest = i;
+                }
+            }
+
+            // Povečamo vrednost parametra n za 1.
+            n++;
+            return countPrimes;
+        }
+
+        /// <summary>
+        /// Counts all prime numbers up to n
+        /// </summary>
         /// <param name="n">An integer up to which we count primes</param>
         /// <returns>Number of primes up to integer n and the largest among them</returns>
         public static (int, int) CountPrimesAndFindLargest(int n)
