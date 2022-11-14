@@ -62,6 +62,12 @@ namespace Uvod
                         Console.WriteLine($"Od 1 do {upToNumber} je {numPrimes} praštevil, največje pa je {largest}.");
                     }
                     break;
+                case IntroductorySection.Enumerations:
+                    { // V tem primeru si ogledamo enumeracije
+                      // Analiziramo enumeracijo IntroductorySection
+                      // in funkcijo ChooseSection, ki jo kličemo v glavi glavnega switcha
+                    }
+                    break;
                 case IntroductorySection.RandomLists:
                     { // V tem primeru si ogledamo
                       // - generiranje naključnih števil
@@ -75,8 +81,17 @@ namespace Uvod
                 case IntroductorySection.RandomListsWithoutOut:
                     { // V tem primeru si ogledamo
                       // - kako se izogniti definiranju out spremenljivke, če je ne uporabljamo
-                        List<int> lstRnd = MyStaticFunctions.MakeRandomList(13, out _); 
+                        List<int> lstRnd = MyStaticFunctions.MakeRandomList(13, out _);
                         Console.WriteLine($"\nŠtevilo vnosov je {lstRnd.Count}");
+                    }
+                    break;
+                case IntroductorySection.RandomListsAndYield:
+                    { // V tem primeru si ogledamo uporabo yield v zanki. 
+                      // Funkcija MakeRandomListWithYield vrača vrednosti takoj, ko jih pridobi
+                        foreach (var rnd in MyStaticFunctions.MakeRandomListWithYield(13))
+                        {
+                            Console.WriteLine($"\nTrenutni vnos je {rnd}");
+                        }
                     }
                     break;
                 case IntroductorySection.WritingInFile:
@@ -101,10 +116,10 @@ namespace Uvod
                     break;
                 case IntroductorySection.RecallingObjects:
                     { // V tem primeru si osvežimo spomin na definiranje novega tipa (objekta)
-                        CreateStudents();                        
+                        CreateStudents();
                     }
                     break;
-            }           
+            }
 
             Console.Read();
         }
@@ -139,6 +154,14 @@ namespace Uvod
             // Pri interpolaciji pred nizom zapišemo znak $
             Console.WriteLine($"\tŠtevilo praštevil med 1 in {n} je {primes}.");
 
+            // Kot pri ostalih jezikih pa poznamo tudi 'verbatim' znak @
+            Console.WriteLine($@"\tŠtevilo praštevil med 1 in {n} je {primes}.");
+
+            // Z njim lahko definiramo tudi imena spremenljivk iz rezerviranih besed
+            int @class = 3;
+            Console.WriteLine($"\tVrednost spremenljivke {nameof(@class)} je {@class}.");
+
+            /*
             // Pri interpolaciji imamo še dodatne možnosti, npr. zamike
             Console.WriteLine();
             Console.WriteLine("Zamiki pri interpolaciji");
@@ -146,12 +169,15 @@ namespace Uvod
             // Negativna vrednost pomeni levo poravnavo, pozitivna desno
             Console.WriteLine($"\t|{"Ime in priimek",-20}|{"Ocena",6}|");
             Console.WriteLine($"\t|{"Borut Lužar",-20}|{"6  ",6}|");
+            */
 
+            /*
             Console.WriteLine();
             Console.WriteLine("Določanje formata izpisa pri interpolaciji");
             // Določamo lahko tudi format izpisa, ki ga zapišemo za dvopičjem
             Console.WriteLine($"\t|{"Ime in priimek",-20}|{"Ocena",6}|{"Datum opravljanja",-20}|");
             Console.WriteLine($"\t|{"Borut Lužar",-20}|{"6  ",6}|{DateTime.Now,-20:d. M. yyyy}|");
+            */
         }
 
         /// <summary>
@@ -171,6 +197,9 @@ namespace Uvod
             Console.WriteLine($"{marko.FirstName} je star {marko.GetAge()} let.");
         }
 
+        /// <summary>
+        /// Definiramo enumeracijo, s katero si razdelimo razdelke prvega poglavja
+        /// </summary>
         private enum IntroductorySection
         {
             HelloWorld = 1,
@@ -179,12 +208,14 @@ namespace Uvod
             CountingPrimesWithOut = 4,
             CountingPrimesWithRef = 5,
             CountingPrimesAndTuples = 6,
-            RandomLists = 7,
-            RandomListsWithoutOut = 8,
-            WritingInFile = 9,
-            ReadingFromFile = 10,
-            ReadingFromFileWithObject = 11,
-            RecallingObjects = 12
+            Enumerations = 7,
+            RandomLists = 8,
+            RandomListsWithoutOut = 9,
+            RandomListsAndYield = 10,
+            WritingInFile = 11,
+            ReadingFromFile = 12,
+            ReadingFromFileWithObject = 13,
+            RecallingObjects = 14
         }
     }
 }

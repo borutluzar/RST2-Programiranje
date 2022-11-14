@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Threading;
 
 namespace Uvod
 {
@@ -202,6 +203,28 @@ namespace Uvod
                 Console.WriteLine($"{DEBUG} Just before the end!");
 
             return lstRandoms;
+        }
+
+        /// <summary>
+        /// Creates a list of integers with random entries
+        /// </summary>
+        /// <param name="capacity">Number of elements</param>
+        /// <returns>List with random entries</returns>
+        public static IEnumerable<int> MakeRandomListWithYield(int capacity)
+        {
+            // Ustvarimo nov objekt za generiranje naključnih števil
+            // Določimo tudi "seed", da bo "naključnost" v naših primerih vedno enaka
+            // https://docs.microsoft.com/en-us/dotnet/api/system.random?f1url=%3FappId%3DDev16IDEF1%26l%3DEN-US%26k%3Dk(System.Random);k(DevLang-csharp)%26rd%3Dtrue&view=net-5.0
+            Random rnd = SEED > -1 ? new Random(SEED) : new Random();
+                        
+            // Izbiramo števila med 0 in 100 in jih sproti vračamo
+            for (int i = 0; i < capacity; i++)
+            {
+                Thread.Sleep(500); // Počakamo pol sekunde za učinek čakanja
+
+                // Vračamo vrednosti sproti, eno po eno
+                yield return rnd.Next(0, 101);
+            }
         }
 
         /// <summary>
