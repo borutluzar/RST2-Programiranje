@@ -1,4 +1,5 @@
 ﻿using CommonFunctions;
+using RST.Math;
 using System;
 using System.Collections.Generic;
 
@@ -119,6 +120,23 @@ namespace Uvod
                         CreateStudents();
                     }
                     break;
+                case IntroductorySection.OtherExamples:
+                    { // V tem delu kličemo funkcije iz projekta z živimi primeri
+                        int maxDegree = GraphTheory.MaximumDegree(new List<(int end1, int end2)>()
+                            {
+                                (1, 2),
+                                (1, 4),
+                                (1, 8),
+                                (2, 3),
+                                (2, 5),
+                                (3, 8),
+                                (4, 6),
+                                (5, 6)
+                            }, 
+                            out int? maxDegreeVert);
+                        Console.WriteLine($"Maksimalna stopnja danega grafa je {maxDegree}, doseže pa jo vozlišče {maxDegreeVert}");
+                    }
+                    break;
             }
 
             Console.Read();
@@ -215,7 +233,8 @@ namespace Uvod
             WritingInFile = 11,
             ReadingFromFile = 12,
             ReadingFromFileWithObject = 13,
-            RecallingObjects = 14
+            RecallingObjects = 14,
+            OtherExamples = 99
         }
     }
 }

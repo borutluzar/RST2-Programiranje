@@ -20,7 +20,9 @@ namespace CommonFunctions
             {
                 var value = Convert.ChangeType(section, Type.GetTypeCode(typeof(T)));
                 Console.WriteLine($"{value}. {section}");
-                i++;
+
+                if ((int)value > i)
+                    i = (int)value;
             }
             Console.WriteLine("\n--\t--\t--\t--");
             Console.Write($"Choose {typeof(T).Name} to run: ");
