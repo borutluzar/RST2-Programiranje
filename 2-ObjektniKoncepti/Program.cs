@@ -5,6 +5,9 @@ namespace ObjektniKoncepti
 {
     class Program
     {
+        /// <summary>
+        /// Enumeracija s primeri drugega poglavja.
+        /// </summary>
         enum ObjectsSections
         {
             Properties = 1,

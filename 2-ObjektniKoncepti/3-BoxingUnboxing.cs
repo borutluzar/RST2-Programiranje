@@ -37,9 +37,10 @@ namespace ObjektniKoncepti
 
             // Če uporabimo napačno preoblikovanje, se ob izvajanju sproži napaka
             object refType2 = 3;
-            //int l = (int)refType2;
+            int l = (int)refType2;
             //int l = (long)refType2;
-            long l = (int)refType2;
+            //long l = (long)refType2;
+            //long l = (int)refType2;
 
             Console.WriteLine($"4. valType={l}, refType={refType2}");
             Console.WriteLine();

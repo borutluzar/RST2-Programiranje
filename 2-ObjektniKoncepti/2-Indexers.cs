@@ -54,4 +54,43 @@ namespace ObjektniKoncepti
             }
         }
     }
+
+    /// <summary>
+    /// Še en primer razreda, ki uporablja indekserje. Imamo objekt, ki predstavlja generacijo študentov.
+    /// Vsaka generacija ima dve lastnosti - leto prvega vpisa in študijski program,
+    /// indeksirani pa so študentje generacije.
+    /// </summary>
+    public class StudentGeneration
+    {
+        public string ProgramName { get; set; }
+
+        public int FirstEnrolmentYear { get; set; }
+
+        private Dictionary<int, Student> dicStudents = new Dictionary<int, Student>();
+        public Student this[int enrolmentNumber] 
+        {
+            get 
+            {
+                return dicStudents.ContainsKey(enrolmentNumber) ? dicStudents[enrolmentNumber]  : null;
+            }
+            set
+            {
+                // Študenta dodamo samo, če še ne obstaja.
+                if (dicStudents.ContainsKey(enrolmentNumber))
+                    throw new Exception($"A student with enrolment number {enrolmentNumber} already exists! Use Update method for changing his properties.");
+                dicStudents[enrolmentNumber] = value;
+            }
+        }
+    }
+
+    public class Student
+    {
+        public string EnrolmentNumber { get; set; }
+        
+        public string LastName { get; set; }
+        
+        public string FirstName { get; set; }
+
+        public string Email { get; set; }
+    }
 }

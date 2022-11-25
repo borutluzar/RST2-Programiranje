@@ -169,7 +169,7 @@ namespace Uvod
             for (int i = 0; i < capacity; i++)
             {
                 lstRandoms.Add(rnd.Next(0, 101));
-            }            
+            }
 
             if (debug)
                 Console.WriteLine($"{DEBUG} The list has been filled!");
@@ -216,7 +216,7 @@ namespace Uvod
             // Določimo tudi "seed", da bo "naključnost" v naših primerih vedno enaka
             // https://docs.microsoft.com/en-us/dotnet/api/system.random?f1url=%3FappId%3DDev16IDEF1%26l%3DEN-US%26k%3Dk(System.Random);k(DevLang-csharp)%26rd%3Dtrue&view=net-5.0
             Random rnd = SEED > -1 ? new Random(SEED) : new Random();
-                        
+
             // Izbiramo števila med 0 in 100 in jih sproti vračamo
             for (int i = 0; i < capacity; i++)
             {
@@ -292,13 +292,13 @@ namespace Uvod
                     checkContainsMyName = true;
             }
             srData.Close();
-            
+
             // Ustvarimo nov objekt
             FileData fd = new FileData(checkContainsMyName)
             {
                 NumberOfLines = countLines,
                 //ContainsSensitiveInfo = checkContainsMyName
-            };            
+            };
 
             return fd;
         }

@@ -26,7 +26,7 @@
             return max;
         }
 
-        // Za dano množico povezav, poiščimo maksimalno stopnjo grafa in vrnimo vozlišče z maksimalno stopnjo.
+        // Za dano množico povezav, poiščimo maksimalno stopnjo grafa in dodatno vrnimo vozlišče z maksimalno stopnjo.
         public static int MaximumDegree(List<(int end1, int end2)> lstEdges, out int? maxDegreeVert)
         {
             // Preden zaključimo metodo, moramo nastaviti vse out parametre

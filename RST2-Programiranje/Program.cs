@@ -132,7 +132,7 @@ namespace Uvod
                                 (3, 8),
                                 (4, 6),
                                 (5, 6)
-                            }, 
+                            },
                             out int? maxDegreeVert);
                         Console.WriteLine($"Maksimalna stopnja danega grafa je {maxDegree}, doseže pa jo vozlišče {maxDegreeVert}");
                     }
@@ -179,7 +179,6 @@ namespace Uvod
             int @class = 3;
             Console.WriteLine($"\tVrednost spremenljivke {nameof(@class)} je {@class}.");
 
-            /*
             // Pri interpolaciji imamo še dodatne možnosti, npr. zamike
             Console.WriteLine();
             Console.WriteLine("Zamiki pri interpolaciji");
@@ -187,15 +186,13 @@ namespace Uvod
             // Negativna vrednost pomeni levo poravnavo, pozitivna desno
             Console.WriteLine($"\t|{"Ime in priimek",-20}|{"Ocena",6}|");
             Console.WriteLine($"\t|{"Borut Lužar",-20}|{"6  ",6}|");
-            */
 
-            /*
+
             Console.WriteLine();
             Console.WriteLine("Določanje formata izpisa pri interpolaciji");
             // Določamo lahko tudi format izpisa, ki ga zapišemo za dvopičjem
             Console.WriteLine($"\t|{"Ime in priimek",-20}|{"Ocena",6}|{"Datum opravljanja",-20}|");
             Console.WriteLine($"\t|{"Borut Lužar",-20}|{"6  ",6}|{DateTime.Now,-20:d. M. yyyy}|");
-            */
         }
 
         /// <summary>
@@ -234,7 +231,7 @@ namespace Uvod
             ReadingFromFile = 12,
             ReadingFromFileWithObject = 13,
             RecallingObjects = 14,
-            OtherExamples = 99
+            OtherExamples = 99,
         }
     }
 }

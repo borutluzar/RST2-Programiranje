@@ -4,6 +4,9 @@ using System.Text;
 
 namespace ObjektniKoncepti
 {
+    // Več o lastnostih:
+    // https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/language-specification/classes#147-properties
+    // https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/properties
     public static class Properties
     {
         /// <summary>
@@ -59,6 +62,7 @@ namespace ObjektniKoncepti
 
         // Pri lastnostih imamo popolno kontrolo
         private uint propertyValue = 21;
+
         public uint Property
         {
             get
@@ -67,7 +71,7 @@ namespace ObjektniKoncepti
             }
 
             // Pri nastavljanju in branju lahko celo izvajamo kontrolo
-            // s pisanjem dodatne kode kode
+            // s pisanjem dodatne kode
             // Več o nivojih dostopov lahko preberete tukaj:
             // https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/accessibility-levels
             internal set

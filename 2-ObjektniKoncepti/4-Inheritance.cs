@@ -19,7 +19,11 @@ namespace ObjektniKoncepti.Inheritance
 
             ChildClass child = new ChildClass(Math.PI);
             child.Property1 = (int)(3 * Math.PI);
-            (child as ParentClass).Property1 = (int)Math.E;
+            (child as ParentClass).Property1 = (int)Math.E; // Na nastavljanje te lastnosti s castom gledamo kot na dodatno delo,
+                                                            // ker smo se odločili za vztrajanje pri lastnostih z istim imenom.
+                                                            // Tega se v praksi izogibamo.
+            
+            child.PropertyParent = 7; // Lastnost z drugim imenom iz prednika vidimo tudi v podrazredu.
 
             // Oglejmo si vrednosti lastnosti v oknu Quick Watch
             // (kurzor na izbrani objekt in desni klik)
@@ -75,6 +79,8 @@ namespace ObjektniKoncepti.Inheritance
     public class ParentClass
     {
         public int Property1 { get; set; }
+
+        public int PropertyParent { get; set; }
 
         /// <summary>
         /// Polje nastavljamo le v konstruktorju, zato ga označimo kot 'readonly'
@@ -168,7 +174,7 @@ namespace ObjektniKoncepti.Inheritance
 
         public override string ToString()
         {
-            return base.ToString() + $"\nMoje ime je {this.GetType()}";
+            return base.ToString() + $"\nMoje ime je {this.GetType().Name}";
         }
     }
 
@@ -186,7 +192,7 @@ namespace ObjektniKoncepti.Inheritance
 
         public override string ToString()
         {
-            return base.ToString() + $"\nMoje ime je {this.GetType()}";
+            return base.ToString() + $"\nMoje ime je {this.GetType().Name}";
         }
     }
 
