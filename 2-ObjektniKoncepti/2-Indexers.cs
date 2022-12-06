@@ -31,7 +31,7 @@ namespace ObjektniKoncepti
         /// Definiramo polje, ki bo hranilo vrednosti
         /// </summary>
         private Dictionary<string, double> dicPrice = new Dictionary<string, double>();
-
+        
         /// <summary>
         /// Indekserji vzamejo vrednosti neposredno iz slovarja
         /// </summary>

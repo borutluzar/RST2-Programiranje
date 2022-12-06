@@ -17,10 +17,11 @@ namespace ObjektniKoncepti
             InheritanceWithCasting = 5,
             InheritanceWithCastingOnOverriden = 6,
             InheritancePolymorphism = 7,
-            Interfaces = 8,
-            Abstraction = 9,
-            InterfacesImplicitExplicit = 10,
-            Extensions = 11
+            InheritanceVirtualMethod = 8,
+            Interfaces = 9,
+            Abstraction = 10,
+            InterfacesImplicitExplicit = 11,
+            Extensions = 12
         }
 
         static void Main()
@@ -63,6 +64,11 @@ namespace ObjektniKoncepti
                 case ObjectsSections.InheritancePolymorphism:
                     {
                         Inheritance.Inheritance.TestInheritanceWithPolymorphisms();
+                    }
+                    break;
+                case ObjectsSections.InheritanceVirtualMethod:
+                    {
+                        Inheritance.Inheritance.TestInheritanceWithVirtual();
                     }
                     break;
                 case ObjectsSections.Interfaces:

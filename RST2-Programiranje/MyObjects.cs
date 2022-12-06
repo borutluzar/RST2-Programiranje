@@ -34,6 +34,8 @@ namespace Uvod
     /// </summary>
     public class Student
     {
+        private int id;
+
         /// <summary>
         /// Constructor that does not need the first name
         /// </summary>

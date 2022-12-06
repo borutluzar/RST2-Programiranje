@@ -10,7 +10,7 @@ namespace ObjektniKoncepti.Inheritance
         {
             ParentClass parent = new ParentClass(Math.PI);
             parent.Property1 = (int)(2 * Math.PI); // Cast vzame prvi objekt z desne
-            
+
             Console.WriteLine();
             Console.WriteLine("Vrednosti objekta parent:");
             Console.WriteLine($"\t Property1 = {parent.Property1}");
@@ -22,7 +22,7 @@ namespace ObjektniKoncepti.Inheritance
             (child as ParentClass).Property1 = (int)Math.E; // Na nastavljanje te lastnosti s castom gledamo kot na dodatno delo,
                                                             // ker smo se odločili za vztrajanje pri lastnostih z istim imenom.
                                                             // Tega se v praksi izogibamo.
-            
+
             child.PropertyParent = 7; // Lastnost z drugim imenom iz prednika vidimo tudi v podrazredu.
 
             // Oglejmo si vrednosti lastnosti v oknu Quick Watch
@@ -37,7 +37,7 @@ namespace ObjektniKoncepti.Inheritance
 
         public static void TestInheritanceWithCasting()
         {
-            // Oglejmo si učinek cast-anja                        
+            // Oglejmo si učinek cast-anja        
             ChildClass child = new ChildClass(Math.PI);
             ParentClass childAsParent = child;
 
@@ -54,11 +54,15 @@ namespace ObjektniKoncepti.Inheritance
 
             // Vedno se kliče metoda iz dejanskega razreda instance!
             // Če hočemo imeti dostop do metode v nadrazredu,
-            // je v podrazredu ne povozimo, ampak uporabimo določilo new
+            // je v podrazredu ne povozimo, ampak uporabimo določilo new (glejte prejšnji primer)
             Console.WriteLine($"ToString za rook = {rook}");
             Console.WriteLine($"ToString za piece = {piece.ToString()}");
         }
 
+        /// <summary>
+        /// Polimorfizmi nam omogočajo različno obnašanje objektov
+        /// "istega" tipa.
+        /// </summary>
         public static void TestInheritanceWithPolymorphisms()
         {
             Player player = new Player();
@@ -69,6 +73,26 @@ namespace ObjektniKoncepti.Inheritance
             // Izpišimo figure iz seznama
             Console.WriteLine($"Figure igralca player so:");
             player.MyPieces.ForEach(fig => Console.WriteLine($"{fig}\n"));
+            Console.WriteLine();
+        }
+
+        /// <summary>
+        /// Naredimo še primer z implementacijo virtualne metode
+        /// in njenimi reimplementacijami
+        /// </summary>
+        public static void TestInheritanceWithVirtual()
+        {
+            List<Animal> lstAnimals = new List<Animal>()
+            {
+                new Animal(),
+                new Elephant(),
+                new Ostrich(),
+                new Elephant()
+            };
+
+            // Izpišimo oglašanje živali iz seznama
+            Console.WriteLine($"Oglašanje živali:");
+            lstAnimals.ForEach(anim => Console.WriteLine($"{anim.MakeNoise()}\n"));
             Console.WriteLine();
         }
     }
@@ -120,7 +144,7 @@ namespace ObjektniKoncepti.Inheritance
         {
             this.field2 = (int)g;
         }
-                
+
         // Polje ima določilo readonly,
         // z njim zagotovimo, da se mu vrednost lahko spremeni
         // le pri deklaraciji oziroma v konstruktorju.
@@ -205,6 +229,33 @@ namespace ObjektniKoncepti.Inheritance
         /// <summary>
         /// Lastnost, ki vsebuje trenutne figure igralca
         /// </summary>
-        public List<ChessPiece> MyPieces { get; }  = new List<ChessPiece>();
+        public List<ChessPiece> MyPieces { get; } = new List<ChessPiece>();
+    }
+
+
+
+    /// <summary>
+    /// Naredimo razred z virtualno metodo, ki jo v podrazredih
+    /// re-implementirajmo.
+    /// </summary>
+    public class Animal
+    {
+        public Animal() { }
+
+        public virtual string MakeNoise() => "Mu!";
+    }
+
+    public class Elephant : Animal
+    {
+        public Elephant() { }
+
+        public override string MakeNoise() => "Trara!";
+    }
+
+    public class Ostrich : Animal
+    {
+        public Ostrich() { }
+
+        public override string MakeNoise() => "Čiv!";
     }
 }

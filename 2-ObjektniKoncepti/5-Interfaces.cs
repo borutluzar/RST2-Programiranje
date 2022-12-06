@@ -6,6 +6,11 @@ namespace ObjektniKoncepti.Interfaces
 {
     /// <summary>
     /// Metoda za testiranje vmesnikov
+    /// 
+    /// Dodatno branje: 
+    /// Vmesniki od C# dalje omogočajo definiranje statičnih abstraktnih metod, ki jih 
+    /// pri predmetu ne bomo obravnavali, primere uporabe pa lahko najdete tukaj:
+    /// https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/tutorials/static-virtual-interface-members
     /// </summary>
     public static class Interfaces
     {

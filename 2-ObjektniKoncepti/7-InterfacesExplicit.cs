@@ -52,6 +52,12 @@ namespace ObjektniKoncepti.InterfacesImplicitExplicit
         bool IsAlive { get; set; }
 
         ChessBoardField Position { get; }
+
+        /// <summary>
+        /// Z novo verzijo C# je dovoljeno predvideti tudi implementacije abstraktnih metod
+        /// </summary>
+        /// <param name="field"></param>
+        abstract void Move2(ChessBoardField field);
     }
 
     public abstract class ChessPiece : IPiece, ICareerObject
@@ -76,9 +82,10 @@ namespace ObjektniKoncepti.InterfacesImplicitExplicit
             this.position = field;
         }
 
+        public abstract void Move2(ChessBoardField field);
+
         /// <summary>
         /// Eksplicitna implementacija metode iz IPiece
-        /// Ne moremo je implementirati kot abstraktno. (Ni (še) jasno zakaj...)
         /// </summary>
         void IPiece.Promote(ChessPiece toPiece)
         {
@@ -138,7 +145,15 @@ namespace ObjektniKoncepti.InterfacesImplicitExplicit
 
             base.Move(field);
         }
-    }    
+
+        public override void Move2(ChessBoardField field)
+        {
+            if (this.Position.X != field.X && this.Position.Y != field.Y)
+                throw new Exception("Nedovoljen premik!");
+
+            base.Move(field);
+        }
+    }
 
     public class Player
     {

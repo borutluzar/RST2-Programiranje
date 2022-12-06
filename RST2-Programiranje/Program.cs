@@ -204,7 +204,11 @@ namespace Uvod
             // Kreiramo novo instanco
             Student marko = new Student("Marko", "Markantni", new DateTime(1980, 1, 1))
             {
-                Subjects = new System.Collections.Generic.List<Subject>() { Subject.DiskretnaMatematika }
+                Subjects = new System.Collections.Generic.List<Subject>() 
+                    { 
+                        Subject.DiskretnaMatematika,
+                        Subject.Programiranje
+                    }   
             };
 
             //Console.WriteLine($"{marko.FirstName} je rojen {marko.BirthDate.Day}. {marko.BirthDate.Month}. {marko.BirthDate.Year}");

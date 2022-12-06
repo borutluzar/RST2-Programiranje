@@ -236,7 +236,7 @@ namespace Uvod
             // Ime datoteke lahko podamo relativno na pot izvajanja programa
             // ali pa absolutno, npr. C:/Temp/imeDatoteke.txt
             StreamWriter swData = new StreamWriter(fileName);
-
+            
             swData.WriteLine("Moje ime je Borut.");
             swData.Flush(); // Zapišemo trenuten buffer v datoteko
 
@@ -247,6 +247,20 @@ namespace Uvod
             // Ne pozabite!
             swData.Close();
             Console.WriteLine($"Datoteka {fileName} je bila uspešno ustvarjena.");
+        }
+
+        public static void WriteInFileWithUsing(string fileName)
+        {
+            // Ob koncu izvajanja bloka using se pokliče metoda dispose,
+            // ki počisti objekt swData.
+            // V primeru StreamWriter objekta je Close == Dispose.
+            using (StreamWriter swData = new StreamWriter(fileName))
+            {
+                swData.WriteLine("Uporaba usinga");
+                // Enako kot zgoraj. Paziti na \r v drugih OS!
+                swData.Write("Uporaba usinga\r\n");
+                swData.Close();
+            }
         }
 
         /// <summary>
