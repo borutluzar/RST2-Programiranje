@@ -56,7 +56,6 @@ namespace ObjektniKoncepti.InterfacesImplicitExplicit
         /// <summary>
         /// Z novo verzijo C# je dovoljeno predvideti tudi implementacije abstraktnih metod
         /// </summary>
-        /// <param name="field"></param>
         abstract void Move2(ChessBoardField field);
     }
 
@@ -95,7 +94,6 @@ namespace ObjektniKoncepti.InterfacesImplicitExplicit
         /// <summary>
         /// Implementacija metode z istim imenom v razredu
         /// </summary>
-        /// <param name="toPiece"></param>
         public void Promote(ChessPiece toPiece)
         {
             Console.WriteLine($"(Metoda iz ChessPiece) Jaz, figura kmet, se želim promovirati v figuro:\n {toPiece.GetType()}");

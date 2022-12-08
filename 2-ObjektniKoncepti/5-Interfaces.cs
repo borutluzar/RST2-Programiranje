@@ -93,7 +93,7 @@ namespace ObjektniKoncepti.Interfaces
         /// Vodoravna koordinata
         /// </summary>
         public int X { get; set; }
-        
+
         /// <summary>
         /// Navpična koordinata
         /// </summary>
@@ -131,7 +131,7 @@ namespace ObjektniKoncepti.Interfaces
         /// https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/virtual?f1url=%3FappId%3DDev16IDEF1%26l%3DEN-US%26k%3Dk(virtual_CSharpKeyword);k(DevLang-csharp)%26rd%3Dtrue
         /// </summary>
         /// <param name="field">Polje, kamor naj se figura premakne</param>
-        public virtual void Move(ChessBoardField field) 
+        public virtual void Move(ChessBoardField field)
         {
             position = field;
             //this.Position = field;
@@ -140,12 +140,13 @@ namespace ObjektniKoncepti.Interfaces
         public bool IsAlive { get; set; }
 
         private ChessBoardField position;
-        public ChessBoardField Position 
+
+        public ChessBoardField Position
         {
             get
             {
                 return position;
-            } 
+            }
             /*private set 
             {
                 position = value;
@@ -181,7 +182,37 @@ namespace ObjektniKoncepti.Interfaces
 
             base.Move(field);
         }
-    }    
+    }
+
+    internal class Queen : ChessPiece
+    {
+        public Queen(ChessBoardField start) : base(start)
+        {
+            this.ChessWeight = 4.9;
+        }
+
+        public override string ToString()
+        {
+            return base.ToString() + $"\nMoje ime je {this.GetType()}";
+        }
+
+        /// <summary>
+        /// Kraljica se premika samo po diagonalah, linijah in vrstah
+        /// </summary>
+        /// <param name="field">Polje na plošči</param>
+        public override void Move(ChessBoardField field)
+        {
+            // Pravilo za premik kraljice
+            if (this.Position.X != field.X && this.Position.Y != field.Y)
+                throw new Exception("Nedovoljen premik!");
+            else if (Math.Abs(this.Position.X - field.X) != Math.Abs(this.Position.Y - field.Y))
+            {
+                throw new Exception("Nedovoljen premik!");
+            }
+
+            base.Move(field);
+        }
+    }
 
     internal class Player
     {

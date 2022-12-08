@@ -98,12 +98,28 @@ namespace ObjektniKoncepti.Abstraction
             this.position = start;
         }
 
+        /// <summary>
+        /// Konstruktor, ki nam omogoča določitev konstante VAL_COEFFICIENT tudi v 
+        /// podrazredih.
+        /// </summary>
+        public ChessPiece(ChessBoardField start, double valCoeff)
+        {
+            this.position = start;
+            VAL_COEFFICIENT = valCoeff;
+        }
+
         public virtual double ChessWeight { get; protected set; }
 
         public override string ToString()
         {
             return $"Sem šahovska figura z vrednostjo {this.ChessWeight}.";
         }
+
+        /// <summary>
+        /// Definirajmo posebno konstanto, ki bo vidna samo v abstraktnem razredu,
+        /// ker nočemo, da se ji vrednost spremeni v kakšni drugi situaciji.
+        /// </summary>
+        private readonly double VAL_COEFFICIENT = 1;
 
         /// <summary>
         /// Te metode nam ni treba implementirati v abstraktnem razredu, 
@@ -142,6 +158,15 @@ namespace ObjektniKoncepti.Abstraction
             this.ChessWeight = 4.9;
         }
 
+        /// <summary>
+        /// V tem konstruktorju lahko nastavimo tudi vrednost spremeljivki,
+        /// ki je vidna samo nadrazredu.
+        /// </summary>
+        public Rook(ChessBoardField start, double valCoeff) : base(start, valCoeff)
+        {
+            this.ChessWeight = 4.9;            
+        }
+
         public override string ToString()
         {
             return base.ToString() + $"\nMoje ime je {this.GetType()}";
@@ -150,7 +175,6 @@ namespace ObjektniKoncepti.Abstraction
         /// <summary>
         /// Trdnjava se premika samo po linijah in vrstah
         /// </summary>
-        /// <param name="field"></param>
         public override void Move(ChessBoardField field)
         {
             if (this.Position.X != field.X && this.Position.Y != field.Y)
@@ -161,9 +185,9 @@ namespace ObjektniKoncepti.Abstraction
             // Pri tem moramo vedno dobro razmisliti, 
             // če lahko že v nadrazredu v metodi izvedemo nek košček kode, 
             // ki se naj izvede v vseh podrazredih. 
-            // V tem primeru je metoda v nadrazredu virtualna.
+            // V tem primeru bo metoda v nadrazredu virtualna.
             //base.Move(field);
-            this.Position = field;
+            this.Position = field; // Paziti moramo, da ima lastnost ustrezno vidnost...
             //Console.WriteLine("Premik je dovoljen, ampak nimam dostopa do this.Position! :(");
         }
     }

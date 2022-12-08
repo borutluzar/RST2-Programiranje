@@ -241,18 +241,23 @@ namespace ObjektniKoncepti.Inheritance
     public class Animal
     {
         public Animal() { }
-
-        public virtual string MakeNoise() => "Mu!";
+        public virtual string Name { get; }
+        public virtual string MakeNoise() { return "Mu!"; }
+        //public virtual string MakeNoise() => "Mu!";
     }
 
     public class Elephant : Animal
     {
         public Elephant() { }
-
+        public override string Name { get; }
         public override string MakeNoise() => "Trara!";
     }
 
-    public class Ostrich : Animal
+    /// <summary>
+    /// Z določilom sealed povemo, da je razred zadnji v vrsti dedovanja,
+    /// se pravi, da noben razred ne more dedovati iz njega.
+    /// </summary>
+    public sealed class Ostrich : Animal
     {
         public Ostrich() { }
 
