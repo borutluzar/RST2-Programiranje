@@ -4,12 +4,16 @@ using System.Text;
 
 namespace ObjektniKoncepti.Extensions
 {
+    /// <summary>
+    /// Razširitvene metode uporabimo, ko želimo razširiti funkcionalnosti instanc razredov,
+    /// do katerih nimamo dostopa. Npr. če želimo stringu dodati metodo -- int NumberOfLetters(char letter) --
+    /// </summary>
     public static class Extensions
     {
         public static void TestExtensions()
         {
-            string denis = "Denis";
-            Console.WriteLine($"Denis vsebuje? {denis.ContainsVowels()}");
+            string filip = "Filip";
+            Console.WriteLine($"Filip vsebuje? {filip.ContainsVowels()}");
 
             ChessBoardField field = new ChessBoardField()
             {
@@ -59,7 +63,20 @@ namespace ObjektniKoncepti.Extensions
             return $"[{field.X}:{field.Y}]";
         }
 
+        public static string ToString2(this ChessBoardField field)
+        {
+            return $"[{field.X}:{field.Y}]";
+        }
+
         // Dodajmo metodo za izpis elementov seznama.
+    }
+
+    public static class ExtensionsClass2
+    {
+        public static string ToString2(this ChessBoardField field)
+        {
+            return $"[{field.X}:{field.Y}]";
+        }
     }
 
     public struct ChessBoardField

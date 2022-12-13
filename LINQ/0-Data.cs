@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Text;
 
 namespace LINQ
 {
@@ -74,7 +72,7 @@ namespace LINQ
             foreach (var item in list)
             {
                 count++;
-                Console.Write($"{item} {(count == list.Count() ? "" : ",")} ");
+                Console.Write($"{item}{(count == list.Count() ? "" : ",")} ");
             }
             Console.WriteLine();
         }

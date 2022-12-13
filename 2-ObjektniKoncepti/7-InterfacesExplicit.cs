@@ -79,7 +79,7 @@ namespace ObjektniKoncepti.InterfacesImplicitExplicit
         public virtual void Move(ChessBoardField field)
         {
             this.position = field;
-        }
+        }               
 
         public abstract void Move2(ChessBoardField field);
 

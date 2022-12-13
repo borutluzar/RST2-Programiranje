@@ -38,6 +38,8 @@ namespace LINQ
                         Func<double, int> roundUp = x => (int)Math.Round(x, 0, MidpointRounding.AwayFromZero);
                         Func<double, int> roundDown = x => (int)Math.Round(x, 0);
                         double x = Math.PI;
+                        var y = sum(4, 3);
+                        Console.WriteLine($"Seštejmo in odštejmo 4 in 3: {y}");
                         Console.WriteLine($"Zaokrožimo število {x}: {roundUp(x)}");
                         Console.WriteLine($"Zaokrožimo število 4.5 navzgor: {roundUp(4.5)}");
                         Console.WriteLine($"Zaokrožimo število 4.5 navzdol: {roundDown(4.5)}");

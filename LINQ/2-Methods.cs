@@ -131,14 +131,14 @@ namespace LINQ
                 case MethodsSubsection.Any:
                     {
                         // Metoda Any preveri, če v zbirki obstaja vsaj en element za dani pogoj
-                        var existsWithTail = LINQDataSet.animals.Any(x => x.HasTail);
+                        bool existsWithTail = LINQDataSet.animals.Any(x => x.HasTail);
                         Console.WriteLine($"\n{(existsWithTail ? "Obstaja vsaj ena žival z repom!" : "Ne obstaja žival z repom!")}");
                     }
                     break;
                 case MethodsSubsection.All:
                     {
                         // Metoda All preveri, če vsi elementi v zbirki ustrezajo danemu pogoju
-                        var allWithTail = LINQDataSet.animals.All(x => x.HasTail);
+                        bool allWithTail = LINQDataSet.animals.All(x => x.HasTail);
                         Console.WriteLine($"\n{(allWithTail ? "Vse živali imajo rep!" : "Nimajo vse živali repa!")}");
                     }
                     break;
