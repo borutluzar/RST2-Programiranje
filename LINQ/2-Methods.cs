@@ -22,15 +22,16 @@ namespace LINQ
         {
             Basic = 1,
             Select = 2,
-            Sort = 3,
-            Filter = 4,
-            CallOrder = 5,
-            SkipAndTake = 6,
-            Any = 7,
-            All = 8,
-            SelectMany = 9,
-            Distinct = 10,
-            Aggregate = 11
+            SelectWithFunction = 3,
+            Sort = 4,
+            Filter = 5,
+            CallOrder = 6,
+            SkipAndTake = 7,
+            Any = 8,
+            All = 9,
+            SelectMany = 10,
+            Distinct = 11,
+            Aggregate = 12
         }
 
         /// <summary>
@@ -63,21 +64,45 @@ namespace LINQ
                         /*var queryGeneral2 = from animal in LINQDataSet.animals
                                             select new { animal.Species, animal.HasTail };*/
                         var queryGeneral2 = LINQDataSet.animals
-                            .Select(animal => new { Species = animal.Species, Tail = animal.HasTail });
+                            .Select(animal => new 
+                            { 
+                                Species = animal.Species, 
+                                Tail = animal.HasTail 
+                            });
                         Console.WriteLine("\nSplošna poizvedba z izbranimi lastnostmi");
                         // Izpis anonimnega objekta zraven pripiše tudi imena lastnosti!
                         queryGeneral2.ReadEnumerable();
                     }
                     break;
+                case MethodsSubsection.SelectWithFunction:
+                    {
+                        // V klicu Select funkcije lahko podamo kar funkcijo 
+                        // (samo njeno ime!), vendar mora kot parameter prejeti objekt 
+                        // takšnega tipa, kot je v prejšnjem seznamu.
+                        var queryGeneral2 = LINQDataSet.animals
+                            .Select(PodKind);
+
+                        // Še primer, ko prilagodimo objekte seznama funkciji,
+                        // da so parametri pravega tipa
+                        var queryGeneral3 = LINQDataSet.animals
+                            .Select(animal => animal.NumberOfLegs)
+                            .Select(PodKind2);
+                        
+                        Console.WriteLine("\nSplošna poizvedba z izbranimi lastnostmi");
+                        // Izpis anonimnega objekta zraven pripiše tudi imena lastnosti!
+                        queryGeneral2.ReadEnumerable();
+                        queryGeneral3.ReadEnumerable();
+                    }
+                    break;
                 case MethodsSubsection.Sort:
                     {
                         /*var queryOrdered = from animal in LINQDataSet.animals
-                                           orderby animal.Species
+                                           orderby animal.NumberOfLegs, animal.Species
                                            select animal;*/
                         var queryOrdered = LINQDataSet.animals
                                                 .OrderByDescending(animal => animal.NumberOfLegs)
                                                 .ThenBy(animal => animal.Species)
-                                                .Select(animal => animal);
+                                                .Select(animal => new { animal.Species, animal.HasTail });
                         Console.WriteLine("\nSplošna urejena poizvedba");
                         queryOrdered.ReadEnumerable();
                     }
@@ -187,7 +212,7 @@ namespace LINQ
                                                 minLegs => minLegs?.Species // Rezultat, ki ni nujno instanca, ampak le kakšna izmed lastnosti
                                             );
                         Console.WriteLine($"\nNajmanj nog ima {queryAggMinLegsAnimal}!");
-
+                                                
                         var queryAggMinLegsNumber = LINQDataSet.animals
                                         .Aggregate<Animal, int, int>( // Tip elementa seznama, tip iskane vrednosti, tip rezultata
                                                 seed: int.MaxValue, // Določitev začetne vrednosti iskane instance
@@ -195,10 +220,46 @@ namespace LINQ
                                                 (minLegs, animal) => (minLegs == int.MaxValue || minLegs > animal.NumberOfLegs) ? animal.NumberOfLegs : minLegs,
                                                 minLegs => minLegs // Rezultat
                                             );
-                        Console.WriteLine($"\nNajmanjše število nog je {queryAggMinLegsNumber}!");
+                        Console.WriteLine($"\nNajmanjše število nog je {queryAggMinLegsNumber}!");                        
                     }
                     break;
             }
+        }
+
+        private static Pod PodKind(Animal animal)
+        {
+            switch (animal.NumberOfLegs)
+            {
+                case 1: return Pod.Monopod;
+                case 2: return Pod.Bipod;
+                case 4: return Pod.Tetrapod;
+                case 6: return Pod.Hexapod;
+                case 8: return Pod.Octopod;
+                default: return Pod.Uknownopod;
+            }
+        }
+
+        private static Pod PodKind2(int numberOfLegs)
+        {
+            switch (numberOfLegs)
+            {
+                case 1: return Pod.Monopod;
+                case 2: return Pod.Bipod;
+                case 4: return Pod.Tetrapod;
+                case 6: return Pod.Hexapod;
+                case 8: return Pod.Octopod;
+                default: return Pod.Uknownopod;
+            }
+        }
+
+        enum Pod
+        {
+            Monopod,
+            Bipod,
+            Tetrapod,
+            Hexapod,
+            Octopod,
+            Uknownopod
         }
     }
 }

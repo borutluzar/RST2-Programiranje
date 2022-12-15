@@ -71,8 +71,8 @@ namespace LINQ
                         // Ali filtriramo - spet uporabimo spremenljivko animal
                         var queryFiltered = from animal in LINQDataSet.animals
                                             where animal.HasTail && animal.NumberOfLegs <= 4 // Filtriranje
-                                            orderby animal.Species
-                                            select animal;                                            ;
+                                            orderby animal.NumberOfLegs descending, animal.Species                                            
+                                            select animal;                         
                         Console.WriteLine("\nSplošna filtrirana poizvedba");
                         queryFiltered.ReadEnumerable();
                     }

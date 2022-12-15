@@ -35,11 +35,13 @@ namespace LINQ
                     {
                         // Celo definiramo jih lahko in kličemo na različnih mestih.
                         Func<int, int, (int, int)> sum = (x, y) => (x + y, x - y);
+                        Func<int, int, int, bool> isPitegorean = (x, y, z) => x * x + y * y == z * z;
                         Func<double, int> roundUp = x => (int)Math.Round(x, 0, MidpointRounding.AwayFromZero);
                         Func<double, int> roundDown = x => (int)Math.Round(x, 0);
                         double x = Math.PI;
                         var y = sum(4, 3);
                         Console.WriteLine($"Seštejmo in odštejmo 4 in 3: {y}");
+                        Console.WriteLine($"{(isPitegorean(5,12,13) ? "5, 12 in 13 je pitagorejska trojica" : "5, 12, 13 ni pitagorejska trojica!")}");
                         Console.WriteLine($"Zaokrožimo število {x}: {roundUp(x)}");
                         Console.WriteLine($"Zaokrožimo število 4.5 navzgor: {roundUp(4.5)}");
                         Console.WriteLine($"Zaokrožimo število 4.5 navzdol: {roundDown(4.5)}");
