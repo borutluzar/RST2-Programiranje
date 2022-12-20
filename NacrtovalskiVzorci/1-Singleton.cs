@@ -94,7 +94,7 @@ namespace DesignPatterns
      * - Ima statično spremenljivko, ki nosi referenco do morebitne edine instance razreda
      * - Ima javno statično metodo, ki to edino instanco posreduje klicatelju
      * 
-     * Razred singleton lahko deduje druge razrede in implementira vmesnike, 
+     * Razred singleton lahko deduje od drugih razredov in implementira vmesnike, 
      * zato ima prednost pred statičnimi razredi.
      * Njegova slabost se pokaže pri uporabi paralelizacije, ko hkrati dostopamo do edine instance.
      * V takem primeru jo moramo ob dostopu zakleniti ('lock').
@@ -107,7 +107,7 @@ namespace DesignPatterns
 
 
     /// <summary>
-    /// Primer uporabe sigletona za razred, ki beleži dnevniške zapise v eno datoteko.
+    /// Primer uporabe singletona za razred, ki beleži dnevniške zapise v eno datoteko.
     /// </summary>    
     public sealed class EventLog
     {

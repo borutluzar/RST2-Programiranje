@@ -32,17 +32,20 @@ namespace LINQ
                         // Pripravimo instanco spodaj pripravljenega delegata NumberProperty
                         // in mu dajmo sklic na funkcijo IsPrimeNumber
                         NumberProperty property = IsPrimeNumber;
+                        NumberProperty property2 = IsOdd;
 
                         // Poglejmo izpis
                         int input = 2;
+                        var result = property(input);
                         Console.WriteLine($"\nSpremenljivka {nameof(property)} ima vrednost {nameof(IsPrimeNumber)}");
-                        Console.WriteLine($"Za število {input} lastnost {(property(input) ? "drži" : "ne drži")}");
+                        Console.WriteLine($"Za število {input} lastnost {(result ? "drži" : "ne drži")}");
 
 
                         // Zamenjajmo vrednost
                         property = IsOdd;
+                        result = property(input);
                         Console.WriteLine($"\nSpremenljivka {nameof(property)} ima vrednost {nameof(IsOdd)}");
-                        Console.WriteLine($"Za število {input} lastnost {(property(input) ? "drži" : "ne drži")}");
+                        Console.WriteLine($"Za število {input} lastnost {(result ? "drži" : "ne drži")}");
                     }
                     break;
                 case DelegateSubsections.MultipleFunctionReferences:
@@ -69,7 +72,7 @@ namespace LINQ
                         List<int> lstInputs = new() { 3, 5, 7, 12, 13, 14, 18, 23, 25, 28, 43, 55, 56, 57, 58, 82, 85, 89 };
 
                         // Pokličimo funkcijo CheckProperty za različne lastnosti
-                        var lstResults = CheckProperty(lstInputs, IsOdd);
+                        var lstResults = CheckProperty(lstInputs, IsPrimeNumber);
                         lstResults.ForEach(x => Console.WriteLine(x.ToString()));
                     }
                     break;
@@ -119,7 +122,7 @@ namespace LINQ
         // vrednost delegata.
         static bool IsPrimeNumber(int n)
         {
-            Console.WriteLine("Poteka izvajanje funkcije IsPrimerNumber...");
+            Console.WriteLine("Poteka izvajanje funkcije IsPrimeNumber...");
 
             for (int i = 2; i <= (int)Math.Sqrt(n); i++)
                 if (n % i == 0)
@@ -139,7 +142,7 @@ namespace LINQ
             Console.WriteLine("Poteka izvajanje funkcije IsDivisibleBy11...");
             return n % 11 == 0;
         }
-
+                
 
         // Definirajmo funkcijo, ki kot parameter prejme seznam števil in delegata za preverjanje izbrane lastnosti.
         static List<(int, bool)> CheckProperty(List<int> lstNumbers, NumberProperty property)

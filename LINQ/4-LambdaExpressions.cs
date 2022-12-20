@@ -52,7 +52,8 @@ namespace LINQ
                 case LambdaSubsections.ThreeFunctionSyntaxes:
                     {
                         // LINQ poizvedbo torej lahko izvedemo na tri različne načine
-                        var queryLambda = LINQDataSet.animals.Where(x => x.NumberOfLegs < 4);
+                        var queryLambda = LINQDataSet.animals
+                            .Where(x => x.NumberOfLegs < 4);
                         Console.WriteLine($"\nObičajni lambda izraz:");
                         queryLambda.ReadEnumerable();
 
@@ -81,7 +82,7 @@ namespace LINQ
                         // kar lahko prinese velike časovne razlike.
                         // Na to moramo torej paziti, ko implementiramo svoje metode, 
                         // ki delajo poizvedbe na podatkovni bazi - vračanje IQueryable<T> ali IEnumerable<T> 
-                        // lahko bistveno upočasni našo aplikacijo.
+                        // lahko bistveno upočasni našo aplikacijo. [Arh, Q58]
                     }
                     break;
             }
