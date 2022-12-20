@@ -1,5 +1,6 @@
 ﻿using CommonFunctions;
 using System;
+using System.Diagnostics;
 using System.Linq.Expressions;
 
 namespace LINQ
@@ -8,7 +9,8 @@ namespace LINQ
     {
         Basics = 1,
         MethodSyntax = 2,
-        LambdaExpressions = 3
+        Delegates = 3,
+        LambdaExpressions = 4
     }
 
     class Program
@@ -25,6 +27,11 @@ namespace LINQ
                 case LINQSections.MethodSyntax:
                     {
                         Methods.MethodLINQSyntax();
+                    }
+                    break;
+                case LINQSections.Delegates:
+                    {
+                        Delegates.DelegateTests();
                     }
                     break;
                 case LINQSections.LambdaExpressions:
