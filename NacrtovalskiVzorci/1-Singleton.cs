@@ -15,6 +15,7 @@ namespace DesignPatterns
             //Singleton single = new Singleton();
 
             // Pokličimo funkcijo enkrat
+            
             Singleton single1 = Singleton.Instance();
             Console.WriteLine($"Naključni ID prve instance je: {single1.RandomID}");
 
@@ -43,6 +44,9 @@ namespace DesignPatterns
     /// Ideja singletona je, da ima izbrani razred zgolj privaten konstruktor, 
     /// namesto konstruktorja pa razred izpostavi javno statično metodo, 
     /// ki skrbi za instanco razreda.
+    /// 
+    /// Ker pa gre za razred, ki ni statičen, lahko deduje lastnosti in metode nekega razreda 
+    /// ali implementira vmesnike!
     /// </summary>
     public sealed class Singleton
     {
@@ -63,7 +67,7 @@ namespace DesignPatterns
         }
 
         /// <summary>
-        /// Javna lastnost vsake instance
+        /// Javna (objektna!) lastnost vsake instance tega razreda
         /// </summary>
         public int RandomID { get; }
 

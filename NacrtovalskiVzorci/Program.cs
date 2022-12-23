@@ -11,7 +11,8 @@ namespace DesignPatterns
             Singleton = 1,
             SingletonLog = 2,
             FactoryBad = 3,
-            FactoryGood = 4
+            FactoryGood = 4,
+            Strategy = 5
         }
 
         static void Main()
@@ -78,6 +79,23 @@ namespace DesignPatterns
                         Console.WriteLine($"  Tip: {card.CreditCardType}");
                         Console.WriteLine($"  Limit: {card.Limit}");
                         Console.WriteLine($"  Letni strošek: {card.AnnualCharge}");
+                    }
+                    break;
+                case DesignPatternsSections.Strategy:
+                    {
+                        // Oglejmo si scenarij razvoja razrednega modela.
+
+                        // 1. Imamo začetni razredni model
+                        StrategyPart1.Part1Test.ShowPart1();
+
+                        // 2. Dobimo zahtevo za dopolnitev oziroma spremembo razrednega modela
+                        //  in jo vpeljemo neposredno, brez upoštevanja dobrih praks
+                        StrategyPart2.Part2Test.ShowPart2();
+
+                        // 3. V tem delu prikažemo, kako z uporabo prakse, ki nam
+                        // jo podaja strateški načrtovalski vzorec, 
+                        // ustrezno implementiramo nove funkcionalnosti.
+                        StrategyPart3.Part3Test.ShowPart3();
                     }
                     break;
             }
