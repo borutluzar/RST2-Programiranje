@@ -35,6 +35,13 @@ namespace DesignPatterns
             log.WriteEvent("Počasi zaključujemo program.");
 
             Console.WriteLine("Konec zapisovanja v dnevnik");
+
+            // Čez dva dni v isti funkciji
+            // spet pokličemo instanco
+            Thread.Sleep(2000);
+
+            EventLog log2 = EventLog.Instance();
+            log2.WriteEvent("Kreiramo nov dogodek - tadabum!");
         }
     }
 
@@ -138,6 +145,9 @@ namespace DesignPatterns
             sw.Close();
         }
 
+        /// <summary>
+        /// Statična funkcija, ki vrača edino instanco razreda.
+        /// </summary>
         public static EventLog Instance()
         {
             if (instance == null)

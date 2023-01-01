@@ -50,19 +50,29 @@ namespace DesignPatterns.StrategyPart3
         /// </summary>
         public void PaySalary(int amount, string bankAccount)
         {
-            // Pay salary to personal account...
+            // Nakaže plačo na osebni račun
             Console.WriteLine($"Vaša plača je bila izplačana danes, {DateTime.Now:d. M. yyyy}, na račun številka {bankAccount}");
         }
 
         // Metodo SpeakForeignLanguage nadomestimo z instanco vmesnika IForeignLanguageSpeaker
+        // Tukaj smo uporabili strateški vzorec, saj za vsako spreminjajočo se funkcionalnost
+        // implementiramo poseben vmesnik, za implementacijo metod vmesnika pa pripravimo posebne razrede,
+        // katerih instance ustvarimo v konstruktorjih podrazredov.
         protected IForeignLanguageSpeaker SpeakForeign { get; set; }
 
         /// <summary>
-        /// Pripravimo metodo, ki kliče metodo ustrezne instance
+        /// In pripravimo metodo, ki kliče metodo ustrezne instance IForeignLanguageSpeaker
         /// </summary>
         public void TrySpeakForeignLanguage(string language)
         {
             SpeakForeign.SpeakForeignLanguage(language);
+        }
+
+        protected IAcademicPerformer AcademicPerformer { get; set; }
+
+        public int GetHIndex()
+        {
+            return AcademicPerformer.HIndex;
         }
 
         public virtual void WorkDuties()
@@ -78,10 +88,11 @@ namespace DesignPatterns.StrategyPart3
     {
         public Researcher(string familyName, string givenName) : base(familyName, givenName) 
         {
+            // Tukaj določimo ustrezno instanco vmesnika IForeignLanguageSpeaker za ta razred
             SpeakForeign = new SpeakForeignLanguageFluently();
+            // In podobno za instanco vmesnika IAcademicPerformer
+            AcademicPerformer = new AcademicInNaturalSciences();
         }
-
-        public int HIndex { get; set; }
 
         public override void WorkDuties()
         {
@@ -103,10 +114,12 @@ namespace DesignPatterns.StrategyPart3
     {
         public Lecturer(string familyName, string givenName) : base(familyName, givenName) 
         {
+            // Tukaj določimo ustrezno instanco vmesnika IForeignLanguageSpeaker za ta razred
             SpeakForeign = new SpeakForeignLanguageSoSo();
-        }
 
-        public int HIndex { get; set; }
+            // In podobno za instanco vmesnika IAcademicPerformer
+            AcademicPerformer = new AcademicInSocialSciences();
+        }
 
         public override void WorkDuties()
         {
@@ -128,7 +141,11 @@ namespace DesignPatterns.StrategyPart3
     {
         public PublicRelationsPerson(string familyName, string givenName) : base(familyName, givenName) 
         {
+            // Tukaj določimo ustrezno instanco vmesnika IForeignLanguageSpeaker za ta razred
             SpeakForeign = new SpeakForeignLanguageFluently();
+
+            // In podobno za instanco vmesnika IAcademicPerformer
+            AcademicPerformer = new NotAcademic();
         }
 
         public override void WorkDuties()
@@ -151,7 +168,11 @@ namespace DesignPatterns.StrategyPart3
     {
         public Janitor(string familyName, string givenName) : base(familyName, givenName) 
         {
+            // Tukaj določimo ustrezno instanco vmesnika IForeignLanguageSpeaker za ta razred
             SpeakForeign = new SpeakForeignLanguageNot();
+
+            // In podobno za instanco vmesnika IAcademicPerformer
+            AcademicPerformer = new NotAcademic();
         }
 
         public override void WorkDuties()
@@ -180,6 +201,8 @@ namespace DesignPatterns.StrategyPart3
     public interface IForeignLanguageSpeaker
     {
         void SpeakForeignLanguage(string language);
+
+        void ReadForeignLanguage();
     }
 
     /// <summary>
@@ -190,6 +213,11 @@ namespace DesignPatterns.StrategyPart3
         public void SpeakForeignLanguage(string language)
         {
             Console.WriteLine($"Tuj jezik {language} govorim tekoče dva dni skupaj!");
+        }
+
+        public void ReadForeignLanguage()
+        {
+            Console.WriteLine($"V tujem jeziku izvrstno berem!");
         }
     }
 
@@ -202,6 +230,11 @@ namespace DesignPatterns.StrategyPart3
         {
             Console.WriteLine($"Tuj jezik {language} govorim bolj tako tako.");
         }
+
+        public void ReadForeignLanguage()
+        {
+            Console.WriteLine($"V tujem jeziku berem bolje kot pišem!");
+        }
     }
 
     /// <summary>
@@ -212,6 +245,49 @@ namespace DesignPatterns.StrategyPart3
         public void SpeakForeignLanguage(string language)
         {
             Console.WriteLine($"Nič ne bo.");
+        }
+
+        public void ReadForeignLanguage()
+        {
+            Console.WriteLine($"V tujem jeziku berem, ampak nič ne razumem!");
+        }
+    }
+
+    public interface IAcademicPerformer
+    {
+        public int HIndex { get; }
+    }
+
+    public class AcademicInNaturalSciences : IAcademicPerformer
+    {
+        public int HIndex 
+        {
+            get 
+            {
+                return 12; // After rigorous computations
+            }
+        }
+    }
+
+    public class AcademicInSocialSciences : IAcademicPerformer
+    {
+        public int HIndex
+        {
+            get
+            {
+                return 4; // After even more rigorous computations
+            }
+        }
+    }
+
+    public class NotAcademic : IAcademicPerformer
+    {
+        public int HIndex
+        {
+            get
+            {
+                return 0;
+            }
         }
     }
 }

@@ -27,7 +27,8 @@ namespace DesignPatterns
         Silver = 1,
         Gold = 2,
         Platinum = 3,
-        Student = 4
+        Student = 4,
+        Diamond = 5
     }
 
     class Silver : ICreditCard
@@ -66,6 +67,15 @@ namespace DesignPatterns
         public double AnnualCharge => 5;
     }
 
+    class Diamond : ICreditCard
+    {
+        public CreditCardType CreditCardType => CreditCardType.Diamond;
+
+        public double Limit => 10000;
+
+        public double AnnualCharge => 200;
+    }
+
     #endregion
 
 
@@ -96,6 +106,9 @@ namespace DesignPatterns
                     break;
                 case CreditCardType.Platinum:
                     card = new Platinum();
+                    break;
+                case CreditCardType.Diamond:
+                    card = new Diamond();
                     break;
             }
 

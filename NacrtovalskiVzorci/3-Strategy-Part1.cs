@@ -10,7 +10,7 @@ namespace DesignPatterns.StrategyPart1
      * ki navadno spadajo v kak širši razred.
      * 
      * Povzeto po knjigi:
-     * E. Freeman et al. (2004), Head First Design Patterns, O'Reilly Media, USA. 
+     * E. Freeman et al. (2014), Head First Design Patterns, O'Reilly Media, USA. 
      */
 
     public class Part1Test

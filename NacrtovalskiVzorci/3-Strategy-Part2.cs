@@ -50,7 +50,7 @@ namespace DesignPatterns.StrategyPart2
         /// </summary>
         public void PaySalary(int amount, string bankAccount)
         {
-            // Pay salary to personal account...
+            // Plačo nakažemo na osebni račun
             Console.WriteLine($"Vaša plača je bila izplačana danes, {DateTime.Now:d. M. yyyy}, na račun številka {bankAccount}");
         }
 
@@ -77,6 +77,10 @@ namespace DesignPatterns.StrategyPart2
     {
         public Researcher(string familyName, string givenName) : base(familyName, givenName) { }
 
+        /// <summary>
+        /// Lastnost dodamo v vseh razredih, ki jo potrebujejo, 
+        /// kar je slaba praksa
+        /// </summary>
         public int HIndex { get; set; }
 
         public override void WorkDuties()
@@ -99,6 +103,10 @@ namespace DesignPatterns.StrategyPart2
     {
         public Lecturer(string familyName, string givenName) : base(familyName, givenName) { }
 
+        /// <summary>
+        /// Lastnost dodamo v vseh razredih, ki jo potrebujejo, 
+        /// kar je slaba praksa
+        /// </summary>
         public int HIndex { get; set; }
 
         public override void WorkDuties()
@@ -157,7 +165,9 @@ namespace DesignPatterns.StrategyPart2
         }
 
         /// <summary>
-        /// Metodo povozimo, da ne izvede ničesar.
+        /// Metodo povozimo, da ne izvede ničesar. 
+        /// Ponovno je to slaba praksa, saj bomo to implementacijo morali ponavljati
+        /// v vsakem razredu, ki jo bo potreboval.
         /// </summary>
         public override void SpeakForeignLanguage(string language)
         {
