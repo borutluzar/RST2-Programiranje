@@ -43,6 +43,8 @@ namespace PodatkovneStrukture
                 case StructuresSections.IList:
                     {
                         // Spremenimo zbirko v instanco IList
+                        // Seznami so v resnici tabele, le da si rezervirajo več prostora in
+                        // skrijejo operacije, ki jih v tabelah moramo izvesti sami (npr. dodajanje novega elementa na konec)
                         IList<string> seznam = (IList<string>)zbirka;
                         
                         Console.WriteLine($"seznam[0]: {seznam[0]}");
@@ -57,7 +59,7 @@ namespace PodatkovneStrukture
                         // In v Set - klic se prevede, 
                         // vendar ob izvajanju javi napako InvalidCastException, 
                         // ker List ne implementira vmesnika ISet<T>
-                        //ISet<string> mnozica1 = (ISet<string>)zbirka; // TODO: Borut - Zakaj ne zazna
+                        ISet<string> mnozica1 = (ISet<string>)zbirka;
 
                         // Definirajmo si novo množico
                         ISet<string> mnozica2 = new HashSet<string>() { "Luka", "Jernej", "Dejan", "Denis", "Tilen", "Jernej", "Jakob", "Samo" };
@@ -67,7 +69,7 @@ namespace PodatkovneStrukture
                         
                         // Za dodajanje imamo na voljo Add, 
                         // ki vrne true ali false glede na uspeh dodajanja
-                        bool isInserted = mnozica2.Add("Borut");                        
+                        bool isInserted = mnozica2.Add("Borut");                           
                         Console.WriteLine($"Element " +
                             $"{(isInserted ? "je bil dodan." : "ni bil dodan")}");
                         Console.WriteLine($"Število elementov v množici: {mnozica2.Count}");

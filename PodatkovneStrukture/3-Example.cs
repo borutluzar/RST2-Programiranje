@@ -31,8 +31,8 @@ namespace PodatkovneStrukture
         private readonly int numPegs;
         private readonly HanoiType type;
 
-        private HashSet<long> setPrev;
-        private HashSet<long> setCurrent;
+        private List<long> setPrev;
+        private List<long> setCurrent;
         private List<long> setNew;
         private byte[] stateArray;
         private bool[] canMoveArray;
@@ -85,8 +85,8 @@ namespace PodatkovneStrukture
             stateArray = new byte[this.numDiscs];
             canMoveArray = new bool[this.numPegs];
 
-            setPrev = new HashSet<long>();
-            setCurrent = new HashSet<long>();
+            setPrev = new List<long>();
+            setCurrent = new List<long>();
             setNew = new List<long>();
 
             // Set initial and final states for each case
@@ -236,7 +236,7 @@ namespace PodatkovneStrukture
                 // Ko se premaknemo iz vseh trenutnih stanj,
                 // pregledamo nova trenutna stanja
                 setPrev = setCurrent;
-                setCurrent = new HashSet<long>();
+                setCurrent = new List<long>();
                 int elts = setNew.Count;
                 for (int i = 0; i < elts; i++)
                 {

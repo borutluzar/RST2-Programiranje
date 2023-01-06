@@ -10,7 +10,7 @@ namespace CommonFunctions
         /// Funkcija izpiše možne sekcije in prebere izbiro uporabnika.
         /// Tip enumeracije ji podamo preko parametra generičnega tipa T.
         /// </summary>
-        public static T ChooseSection<T>()
+        public static T ChooseSection<T>() where T : Enum
         {
             // Izpis sekcij za izbiro 
             int i = 1;

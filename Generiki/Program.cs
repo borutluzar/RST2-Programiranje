@@ -29,7 +29,7 @@ namespace Generics
                         // podali tip, ki ga naj lastnost ID vmesnika vrača.
 
                         // Najprej naredimo instanco razreda Citizen
-                        IUnique<long> obcan = new Citizen(010123500001);
+                        IUnique<long> obcan = new Citizen(0101023500891);
                         Console.WriteLine($"ID občana {nameof(obcan)} je tipa {obcan.ID.GetType()}");
 
                         // In še instanco razreda Student
@@ -41,12 +41,10 @@ namespace Generics
                     {
                         // Če imamo generični razred, instanci podamo tip šele ob kreiranju
 
-                        // Najprej naredimo instanco razreda Citizen
-                        Article<long> macola = new Article<long>(11112222112121);
+                        Article<long, int, string> macola = new(11112222112121, 0, "Moja super vrednost!");
                         Console.WriteLine($"ID artikla {nameof(macola)} je tipa {macola.ID.GetType()}");
 
-                        // In še instanco razreda Student
-                        Article<int> sponka = new Article<int>(12423);
+                        Article<int, int, string> sponka = new Article<int, int, string>(12423, 1, "Nimam nobene vrednosti :(");
                         Console.WriteLine($"ID artikla {nameof(sponka)} je tipa {sponka.ID.GetType()}");
                     }
                     break;
@@ -111,14 +109,17 @@ namespace Generics
     /// in instanci določimo tip šele takrat,
     /// ko jo kreiramo.
     /// </summary>
-    public class Article<T> : IUnique<T>
+    public class Article<T, U, V> : IUnique<T>
     {
-        public Article(T articleID)
+        public Article(T articleID, U key, V value)
         {
             ID = articleID;
+            KeyValue = (key, value);
         }
 
         public T ID { get; set; }
+
+        public (U Key, V Value) KeyValue { get; set; }
 
         public override string ToString()
         {

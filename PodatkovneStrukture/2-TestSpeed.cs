@@ -13,15 +13,19 @@ namespace PodatkovneStrukture
         Find = 2
     }
 
+    /// <summary>
+    /// Operacije nad podatkovnimi strukturami v C# imajo nasledje časovne zahtevnosti:
+    /// https://learn.microsoft.com/en-us/dotnet/standard/collections/
+    /// </summary>
     static class TestSpeed
     {
-        private const int BOUND = 50_000_000;
+        private const int BOUND = 5_000_000;
         private const int FINDNUM = 10_000;
         public static int NUMBERS_UP_TO = 100_001;
 
         public static void TestDataStructures(TestAction action)
         {
-            //Console.WriteLine($"Entered numbers up to {TestSpeed.NUMBERS_UP_TO}");
+            Console.WriteLine($"Entered numbers up to {TestSpeed.NUMBERS_UP_TO}");
             TestSpeed.CreateTests(action, true);
         }
 

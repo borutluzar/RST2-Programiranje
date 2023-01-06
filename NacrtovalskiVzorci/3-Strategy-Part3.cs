@@ -26,6 +26,10 @@ namespace DesignPatterns.StrategyPart3
             // Dodali smo še tip Janitor, ki ne zna tujega jezika, kar pomeni,
             // da smo v njem morali povoziti metodo za govorjenje tujega jezika in
             // ji umakniti funkcionalnost, kar je spet slaba praksa.
+
+            Employee researcher = new Janitor("Borut", "Xy");
+            researcher.PaySalary(8000, "201314-1201");
+            researcher.TrySpeakForeignLanguage("mandarinščina");
         }
     }
 
