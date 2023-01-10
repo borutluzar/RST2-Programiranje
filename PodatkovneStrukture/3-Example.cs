@@ -40,6 +40,7 @@ namespace PodatkovneStrukture
         private byte[] newState;
         private long currentState;
         private short currentDistance;
+        long finalState = 0;
 
         public Hanoi(int numDiscs, int numPegs, HanoiType type)
         {
@@ -61,9 +62,7 @@ namespace PodatkovneStrukture
             {
                 Console.WriteLine("\t" + (int)Enum.Parse(typeof(HanoiType), s) + " - " + s);
             }
-        }
-
-        long finalState = 0;
+        }        
 
         /// <summary>
         /// Computes the length of a shortest path from the initial state to the final state. Only for small dimensions.
@@ -85,9 +84,9 @@ namespace PodatkovneStrukture
             stateArray = new byte[this.numDiscs];
             canMoveArray = new bool[this.numPegs];
 
-            setPrev = new List<long>();
-            setCurrent = new List<long>();
-            setNew = new List<long>();
+            setPrev = new();
+            setCurrent = new();
+            setNew = new();
 
             // Set initial and final states for each case
             {
@@ -236,15 +235,8 @@ namespace PodatkovneStrukture
                 // Ko se premaknemo iz vseh trenutnih stanj,
                 // pregledamo nova trenutna stanja
                 setPrev = setCurrent;
-                setCurrent = new List<long>();
-                int elts = setNew.Count;
-                for (int i = 0; i < elts; i++)
-                {
-                    setCurrent.Add(setNew[0]);
-                    setNew.RemoveAt(0);
-                }
-
-                setNew = new List<long>();
+                setCurrent = new(setNew);
+                setNew = new();
 
                 currentDistance++;
 

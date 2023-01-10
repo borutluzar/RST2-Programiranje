@@ -88,6 +88,7 @@ namespace PodatkovneStrukture
                         IDictionary<int, string> dnevi = new Dictionary<int, string>();
 
                         // Dodajmo nekaj vnosov
+                        dnevi.Add(7, "nedelja");
                         dnevi[1] = "ponedeljek";
                         dnevi[2] = "torek";
                         dnevi[5] = "petek";
@@ -212,7 +213,5 @@ namespace PodatkovneStrukture
         {
             throw new NotImplementedException();
         }
-
     }
-
 }

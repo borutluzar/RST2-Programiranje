@@ -19,7 +19,7 @@ namespace PodatkovneStrukture
     /// </summary>
     static class TestSpeed
     {
-        private const int BOUND = 5_000_000;
+        private const int BOUND = 10_000_000;
         private const int FINDNUM = 10_000;
         public static int NUMBERS_UP_TO = 100_001;
 
