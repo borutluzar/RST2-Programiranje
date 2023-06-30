@@ -64,9 +64,10 @@ namespace ParallelAndAsync
                     {
                         Asynchronous.AsyncTest();
                         // Ker await ne blokira izvajalne niti, pred izračunom pridemo iz funkcije
+                        //Thread.Sleep(3_000);
                         Console.WriteLine("Smo na koncu primera!");
-                        // Vrstni red čakanja na input ni popolnoma jasen...
-                        //Thread.Sleep(3000);
+                        // Vrstni red čakanja na input ni popolnoma jasen...                        
+                        Thread.Sleep(5_000);
                         Console.ReadLine();
                     }
                     break;

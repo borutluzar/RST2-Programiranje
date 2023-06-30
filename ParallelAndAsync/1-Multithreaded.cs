@@ -88,9 +88,6 @@ namespace ParallelAndAsync
                 thread1.Interrupt();
                 thread2.Interrupt();
                 thread3.Interrupt();
-                thread1.Join(10);
-                thread2.Join(10);
-                thread3.Join(10);
                 Console.WriteLine("\nVsi procesi so ustavljeni. (Ne bo držalo...)");
                 return;
             }
@@ -143,7 +140,7 @@ namespace ParallelAndAsync
 
             Thread.Sleep(WAIT_INTERVAL); // Zamrznemo izvajanje programa v naši trenutni niti.            
             Console.WriteLine("\nZačenjamo z drugim opravilom:");
-            var task2 = Task.Run(ComputeLong);
+            var task2 = Task.Run(() => ComputeLong(tokenSource.Token));
 
             Thread.Sleep(WAIT_INTERVAL); // Zamrznemo izvajanje programa v naši trenutni niti.            
             Console.WriteLine("\nZačenjamo s tretjim opravilom:");
@@ -157,7 +154,7 @@ namespace ParallelAndAsync
             {
                 // Prekinimo prvi task
                 tokenSource.Cancel();
-                //task1.Wait(tokenSource.Token);            
+                //task1.Wait(tokenSource.Token);      
             }
             catch (OperationCanceledException)
             {
@@ -183,17 +180,18 @@ namespace ParallelAndAsync
         public static void TasksResult()
         {
             Console.WriteLine("\nZaženimo task vzporedno.");
-            //var task = Task.Run(ComputeLongAndReturn); // Poglejmo si razliko v tipu, če funkcija ne vrača ničesar
+            //var task = Task.Run(ComputeLong);
+            var task = Task.Run(ComputeLongAndReturn); // Poglejmo si razliko v tipu, če funkcija ne vrača ničesar
 
             // Drug način klica funkcije je lambda izraz, kjer funkciji lahko damo tudi parameter
-            var task = Task.Run(() => ComputeLongWithIncrementAndReturn(2));
+            //var task = Task.Run(() => ComputeLongWithIncrementAndReturn(2));
 
             Console.WriteLine("\nMoj program teče vzporedno.");
 
             Thread.Sleep(1000);
             Console.WriteLine("\nMoj program še vedno teče vzporedno.");
 
-            // Če funkcija, ki jo task izvaja vrača rezultat, ga dobimo z lastnostjo Result.
+            // Če funkcija, ki jo task izvaja, vrača rezultat, ga dobimo z lastnostjo Result.
             var result = task.Result;
             // Ko se rezultat pojavi, se naša koda izvaja naprej
             Console.WriteLine($"\nRezultat taska je {result}.");

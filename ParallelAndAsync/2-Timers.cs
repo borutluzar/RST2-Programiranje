@@ -38,13 +38,18 @@ namespace ParallelAndAsync
             // Koda timerja se izvede v niti, ki bo prosta. Ni nujno, da bo to trenutna nit.
             Console.WriteLine("In to je izpis po kodi, ki določa timer.");
 
-            // Spremenimo še intervale z metodo Change
+            // Spremenimo še intervale z metodo Change 
             Console.WriteLine("Sprememba intervalov v timerju.");
             timer.Change(5000, 1000);
 
             // Kaj naredi spodnja koda?
             var stopper = new System.Threading.Timer(
-                state => { timer.Change(1000, Timeout.Infinite); }, null, 10000, Timeout.Infinite);
+                state => { 
+                    timer.Change(1000, Timeout.Infinite); 
+                }, 
+                null, 
+                10000, 
+                Timeout.Infinite);
 
             // Za zaustavitev izvajanja timerja lahko uporabimo tudi klic timer.Dispose() na ustreznem mestu.
         }

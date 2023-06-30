@@ -9,7 +9,7 @@ namespace ParallelAndAsync
     {
         private List<int> primeCandidates;
         //private const int BOUND = 5000000;
-        private const int BOUND = 10_000_000;
+        private const int BOUND = 5_000_000;
         //private const int BOUND = 20000000;
 
         private DataForParallel()
@@ -47,8 +47,8 @@ namespace ParallelAndAsync
         }
     }
 
-    public static class CommonFunctions 
-    { 
+    public static class CommonFunctions
+    {
         public static bool IsPrime(int i)
         {
             for (int j = 2; j <= (int)Math.Sqrt(i); j++)

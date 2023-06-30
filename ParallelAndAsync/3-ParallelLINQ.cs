@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 
 namespace ParallelAndAsync
 {
@@ -16,11 +17,13 @@ namespace ParallelAndAsync
         {
             Console.WriteLine($"Poiščimo praštevila v veliki množici:");
 
+            Console.WriteLine($"Najprej zaporedno:");
             // Praštevila iz množice si shranimo v drug seznam
             List<int> primes = new List<int>();
 
             // Najprej preizkusimo običajni pristop
             Stopwatch sw = Stopwatch.StartNew();
+            int testAdd = 0;
             DataForParallel.Instance().ForEach(i =>
                     {
                         if (CommonFunctions.IsPrime(i))
@@ -28,8 +31,27 @@ namespace ParallelAndAsync
                     });
             Console.WriteLine($"Čas zaporednega iskanja: {sw.Elapsed.TotalSeconds}, našli smo {primes.Count} praštevil.");
 
+            primes.Clear();
+            sw = Stopwatch.StartNew();
+            int testWhere = DataForParallel.Instance().Where(CommonFunctions.IsPrime).Count();
+            Console.WriteLine($"Čas zaporednega iskanja z Where: {sw.Elapsed.TotalSeconds}, " +
+                $"našli smo {testWhere} praštevil.");
+
+            Console.WriteLine($"Gremo!");
+            sw = Stopwatch.StartNew();
+            var testWhereParallel = DataForParallel.Instance().AsParallel().Where(CommonFunctions.IsPrime);
+            Console.WriteLine($"Čas vzporednega iskanja z Where: {sw.Elapsed.TotalSeconds}, " +
+                $"našli smo {testWhereParallel.Count()} praštevil."); // Hitro, ker se čas izpiše, preden se evaluira Count.
+
+            sw = Stopwatch.StartNew();
+            int testWhereParallelCount = DataForParallel.Instance().AsParallel().Where(CommonFunctions.IsPrime).Count();
+            Console.WriteLine($"Čas vzporednega iskanja z Where: {sw.Elapsed.TotalSeconds}, " +
+                $"našli smo {testWhereParallel} praštevil.");
+
+            Thread.Sleep(1000);
 
             // Sedaj pa jih preverimo paralelno
+            Console.WriteLine($"\nIn še vzporedno:");
             primes.Clear();
             sw = Stopwatch.StartNew();
             // Naš seznam prevedemo v instanco ParallelQuery<T> s klicem funkcije AsParallel.

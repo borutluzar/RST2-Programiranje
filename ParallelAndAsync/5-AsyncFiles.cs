@@ -14,7 +14,7 @@ namespace ParallelAndAsync
     /// asinhronih operacijah z datotekami.
     /// 
     /// Vemo že, da so operacije z datotekami (ali bolj splošno I/O operacije) 
-    /// lahko do stokrat ali tisočkrat počasnejše od računskih operacij,
+    /// lahko do stokrat ali tisočkrat počasnejše od računskih operacij
     /// pa čeprav imamo zdaj opravka z datotekami na lokalnih SSD diskih.
     /// </summary>
     class AsyncFiles

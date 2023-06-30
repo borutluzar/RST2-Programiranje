@@ -44,20 +44,19 @@ namespace ParallelAndAsync
 
 
             // PRIMER 1: Ko dostopimo do rezultata, bo trenutna nit počakala na rezultat (enako kot pri metodi Wait).            
-            
+            /*
             Console.WriteLine($"Task smo zagnali, zdaj čakamo na rezultat.");
             var result = backgroundTask.Result;
             Console.WriteLine($"Čakamo, da task konča izračun.");
             Console.WriteLine($"In čakamo...");
             Console.WriteLine($"In čakamo...");
-            Console.WriteLine($"Našli smo {result} praštevil v {sw.Elapsed.TotalSeconds} sekundah.");
-            
-
+            Console.WriteLine($"Našli smo {result} praštevil v {sw.Elapsed.TotalSeconds} sekundah.");            
+            */
 
             // PRIMER 2: Namesto čakanja lahko uporabimo rezervirano besedo await, 
             //           vendar nam v funkciji to ne spremeni obnašanja.
             //           Se  pa bo sprostila trenutna nit za ostale aktivnosti
-            /*
+            
             Console.WriteLine($"Task smo zagnali, zdaj čakamo na rezultat.");            
             var result = await backgroundTask;
             Console.WriteLine($"Čakamo, da task konča izračun.");
@@ -65,7 +64,7 @@ namespace ParallelAndAsync
             Console.WriteLine($"In čakamo...");
             Console.WriteLine($"Našli smo {result} praštevil v {sw.Elapsed.TotalSeconds} sekundah.");
             Console.WriteLine($"Do tukaj pridemo šele, ko imamo rezultat");
-            */
+            
 
             // PRIMER 3: Implementirajmo našo logiko v ločeni metodi
             //           Klic deluje podobno kot pri await - le da se izvajanje nadaljuje samo znotraj metode
