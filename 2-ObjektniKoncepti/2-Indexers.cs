@@ -11,6 +11,10 @@ namespace ObjektniKoncepti
         /// </summary>
         internal static void TestIndexers()
         {
+            // Primer tabele:
+            int[] tabelica = new int[3];
+            tabelica[0] = 12;
+
             // Ustvarimo nov objekt, ki vsebuje indekser.
             IndexerExample ie = new IndexerExample();
             ie["Jabolko"] = 12.0;

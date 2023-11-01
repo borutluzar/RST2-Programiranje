@@ -18,6 +18,11 @@ namespace Uvod
             this.ContainsSensitiveInfo = checkName;
         }
 
+        public FileData()
+        {
+            this.ContainsSensitiveInfo = default;
+        }
+
         /// <summary>
         /// Stores the number of lines in the file
         /// </summary>

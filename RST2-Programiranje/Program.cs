@@ -60,6 +60,7 @@ namespace Uvod
                       // https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/value-tuples
                         int upToNumber = 20;
                         (int numPrimes, int largest) = MyStaticFunctions.CountPrimesAndFindLargest(upToNumber);
+
                         Console.WriteLine($"Od 1 do {upToNumber} je {numPrimes} praštevil, največje pa je {largest}.");
                     }
                     break;
@@ -102,7 +103,7 @@ namespace Uvod
                     break;
                 case IntroductorySection.ReadingFromFile:
                     { // V tem primeru si ogledamo branje iz datoteke
-                        int numLines = MyStaticFunctions.ReadFile("PrvaPredavanjaTest2.txt");
+                        int numLines = MyStaticFunctions.ReadFile("PrvaPredavanjaTest3.txt");
                         Console.WriteLine($"\nDatoteka vsebuje {numLines} vrstic");
                     }
                     break;
@@ -111,6 +112,7 @@ namespace Uvod
                       // - zapisovanje lastnosti v poseben objekt
                       // - lastnosti in njihove posebnosti (k njim se vrnemo malo kasneje)
                         FileData fileData = MyStaticFunctions.ReadFile2("PrvaPredavanjaTest.txt");
+
                         Console.WriteLine($"Datoteka vsebuje {fileData.NumberOfLines} vrstic in " +
                                 $"{(fileData.ContainsSensitiveInfo ? "vsebuje moje ime!" : "ne vsebuje mojega imena!")}");
                     }

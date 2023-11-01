@@ -157,7 +157,7 @@ namespace Uvod
         /// </summary>
         /// <param name="capacity">Number of elements</param>
         /// <returns>List with random entries</returns>
-        public static List<int> MakeRandomList(int capacity, out int numOdd, bool debug = false)
+        public static List<int> MakeRandomList(int capacity, out int numOdd, bool debug = false, int seed = 0)
         {
             // Ustvarimo nov objekt za generiranje naključnih števil
             // Določimo tudi "seed", da bo "naključnost" v naših primerih vedno enaka
@@ -276,7 +276,8 @@ namespace Uvod
             // Beremo datoteko, dokler ne pridemo do konca
             while (!srData.EndOfStream)
             {
-                srData.ReadLine();
+                string line = srData.ReadLine();
+                Console.WriteLine(line);
                 countLines++;
             }
             srData.Close();

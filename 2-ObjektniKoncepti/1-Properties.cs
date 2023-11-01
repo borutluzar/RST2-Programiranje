@@ -13,13 +13,13 @@ namespace ObjektniKoncepti
         /// Metoda za prikaz primerov uporabe lastnosti
         /// </summary>
         public static void CheckProperties()
-        {
+        { 
             // Ustvarimo novo instanco objekta
             PropertiesExample pe = new PropertiesExample();
             
             // Vrednost polja field lahko beremo in nastavljamo brez omejitev
-            uint x = pe.field;
-            pe.field = 22;
+            uint x = pe.field;  // branje
+            pe.field = 22;      // pisanje
             Console.WriteLine();
             Console.WriteLine($"Vrednost x={x}, vrednost polja field je {pe.field}");
 
@@ -96,6 +96,11 @@ namespace ObjektniKoncepti
         /// - nastavitev v lokalni metodi
         /// </summary>
         public uint AutoImplementedProperty { get; private set; } = 43;
+
+        public PropertiesExample(uint auto)
+        {
+            this.AutoImplementedProperty = auto;
+        }
 
         public PropertiesExample()
         {
