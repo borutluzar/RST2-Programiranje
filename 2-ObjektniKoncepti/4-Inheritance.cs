@@ -41,18 +41,28 @@ namespace ObjektniKoncepti.Inheritance
             ChildClass child = new ChildClass(Math.PI);
             ParentClass childAsParent = child;
             ParentClass childAsParent2 = new ChildClass(4);
+            
+            // Obratno seveda ne moremo storiti. Zakaj?
+            //ChildClass child2 = new ParentClass(1);
 
             child.Property1 = 11;
             child.PropertyParent = 3;
             childAsParent.Property1 = 12;
             if (childAsParent2 is ChildClass)
-            {
+            {                
                 ((ChildClass)childAsParent2).ChildMethod();
             }            
 
             // Instanca childAsParent se obnaša kot instanca razreda ParentClass
             Console.WriteLine($"Vrednost funkcije SquareField za child = {child.SquareField()}");
-            Console.WriteLine($"Vrednost funkcije SquareField za childAsParent = {childAsParent2.SquareField()}");
+            Console.WriteLine($"Vrednost funkcije SquareField za childAsParent = {childAsParent.SquareField()}");
+        }
+
+        public static void ExampleMasks() 
+        {
+            Kurent kurent1 = new Kurent(48.3, 1610);
+
+            Console.WriteLine($"{kurent1}");
         }
 
         public static void AnalyzeInstance(ParentClass parent)
@@ -64,13 +74,13 @@ namespace ObjektniKoncepti.Inheritance
         {
             // Oglejmo si učinek cast-anja na povoženo metodo
             Rook rook = new Rook();
-            ChessPiece piece = (ChessPiece)rook;
+            ChessPiece piece = rook;
 
             // Vedno se kliče metoda iz dejanskega razreda instance!
             // Če hočemo imeti dostop do metode v nadrazredu,
             // je v podrazredu ne povozimo, ampak uporabimo določilo new (glejte prejšnji primer)
-            Console.WriteLine($"ToString za rook = {rook.ToString()}");
-            Console.WriteLine($"ToString za piece = {piece.ToString()}");
+            Console.WriteLine($"ToString za {nameof(rook)} = {rook.ToString()}");
+            Console.WriteLine($"ToString za {nameof(piece)} = {piece.ToString()}");
         }
 
         /// <summary>
@@ -80,9 +90,14 @@ namespace ObjektniKoncepti.Inheritance
         public static void TestInheritanceWithPolymorphisms()
         {
             Player player = new Player();
-            player.MyPieces.Add(new Rook());
-            player.MyPieces.Add(new Rook());
-            player.MyPieces.Add(new King());
+            
+            Rook rook1 = new Rook();
+            player.MyPieces.Add(rook1);
+            Rook rook2 = new Rook();
+            player.MyPieces.Add(rook2);
+
+            King king = new King();
+            player.MyPieces.Add(king);
 
             // Izpišimo figure iz seznama
             Console.WriteLine($"Figure igralca player so:");
@@ -112,6 +127,27 @@ namespace ObjektniKoncepti.Inheritance
             Console.WriteLine();
         }
     }
+
+    internal class Mask
+    {
+        int FirstAppearanceInYear { get; set; }
+
+        public Mask(int firstAppearance)
+        {
+            this.FirstAppearanceInYear = firstAppearance;
+        }
+    }
+
+    internal class Kurent : Mask
+    {
+        double TongueLength { get; set; }
+
+        public Kurent(double tongueLength, int firstAppearance) : base(firstAppearance)
+        {
+            this.TongueLength = tongueLength;
+        }
+    }
+
 
     /// <summary>
     /// Ustvarimo razred, ki vsebuje skupne metode, polja in lastnosti vseh podrazredov

@@ -14,6 +14,7 @@ namespace ObjektniKoncepti
             Indexers = 2,
             BoxingUnboxing = 3,
             Inheritance = 4,
+            InheritanceKurent = 13,
             InheritanceWithCasting = 5,
             InheritanceWithCastingOnOverriden = 6,
             InheritancePolymorphism = 7,
@@ -49,6 +50,14 @@ namespace ObjektniKoncepti
                         // zato do ustrezne funkcije pridemo šele preko
                         // ustrezne poti
                         Inheritance.Inheritance.TestInheritance1();
+                    }
+                    break;
+                case ObjectsSections.InheritanceKurent:
+                    {
+                        // V namespace-u Inheritance smo naredili nov razdelek, 
+                        // zato do ustrezne funkcije pridemo šele preko
+                        // ustrezne poti
+                        Inheritance.Inheritance.ExampleMasks();
                     }
                     break;
                 case ObjectsSections.InheritanceWithCasting:
