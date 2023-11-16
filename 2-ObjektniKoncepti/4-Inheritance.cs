@@ -40,10 +40,24 @@ namespace ObjektniKoncepti.Inheritance
             // Oglejmo si učinek cast-anja        
             ChildClass child = new ChildClass(Math.PI);
             ParentClass childAsParent = child;
+            ParentClass childAsParent2 = new ChildClass(4);
+
+            child.Property1 = 11;
+            child.PropertyParent = 3;
+            childAsParent.Property1 = 12;
+            if (childAsParent2 is ChildClass)
+            {
+                ((ChildClass)childAsParent2).ChildMethod();
+            }            
 
             // Instanca childAsParent se obnaša kot instanca razreda ParentClass
             Console.WriteLine($"Vrednost funkcije SquareField za child = {child.SquareField()}");
-            Console.WriteLine($"Vrednost funkcije SquareField za childAsParent = {childAsParent.SquareField()}");
+            Console.WriteLine($"Vrednost funkcije SquareField za childAsParent = {childAsParent2.SquareField()}");
+        }
+
+        public static void AnalyzeInstance(ParentClass parent)
+        {
+            Console.WriteLine($"Tip: {parent.GetType()}");
         }
 
         public static void TestInheritanceWithOverridenMethod()
@@ -55,7 +69,7 @@ namespace ObjektniKoncepti.Inheritance
             // Vedno se kliče metoda iz dejanskega razreda instance!
             // Če hočemo imeti dostop do metode v nadrazredu,
             // je v podrazredu ne povozimo, ampak uporabimo določilo new (glejte prejšnji primer)
-            Console.WriteLine($"ToString za rook = {rook}");
+            Console.WriteLine($"ToString za rook = {rook.ToString()}");
             Console.WriteLine($"ToString za piece = {piece.ToString()}");
         }
 
@@ -72,6 +86,7 @@ namespace ObjektniKoncepti.Inheritance
 
             // Izpišimo figure iz seznama
             Console.WriteLine($"Figure igralca player so:");
+            // Za vsako figuro fig se kliče njena metoda ToString
             player.MyPieces.ForEach(fig => Console.WriteLine($"{fig}\n"));
             Console.WriteLine();
         }
@@ -92,7 +107,8 @@ namespace ObjektniKoncepti.Inheritance
 
             // Izpišimo oglašanje živali iz seznama
             Console.WriteLine($"Oglašanje živali:");
-            lstAnimals.ForEach(anim => Console.WriteLine($"{anim.MakeNoise()}\n"));
+            // Metoda MakeSound se pokliče iz razreda, katerega instanca je anim
+            lstAnimals.ForEach(anim => Console.WriteLine($"{anim.MakeSound()}\n"));
             Console.WriteLine();
         }
     }
@@ -124,7 +140,7 @@ namespace ObjektniKoncepti.Inheritance
         /// Javna metoda, ki vrača kvadrat vrednosti polja field1
         /// </summary>
         /// <returns>Kvadrat vrednosti field1</returns>
-        public double SquareField()
+        public virtual double SquareField()
         {
             return this.field1 * this.field1;
         }
@@ -163,9 +179,15 @@ namespace ObjektniKoncepti.Inheritance
         /// <summary>
         /// Podobno pri lastnosti lahko definiramo novo metodo, ki povozi metodo nadrazreda.
         /// </summary>
-        new public double SquareField()
+        public override double SquareField()
         {
             return base.SquareField() * this.field2;
+        }
+
+        public bool ChildMethod()
+        {
+            Console.WriteLine("This method is defined only in the child class");
+            return true;
         }
     }
 
@@ -242,7 +264,7 @@ namespace ObjektniKoncepti.Inheritance
     {
         public Animal() { }
         public virtual string Name { get; }
-        public virtual string MakeNoise() { return "Mu!"; }
+        public virtual string MakeSound() { return "Mu!"; }
         //public virtual string MakeNoise() => "Mu!";
     }
 
@@ -250,7 +272,7 @@ namespace ObjektniKoncepti.Inheritance
     {
         public Elephant() { }
         public override string Name { get; }
-        public override string MakeNoise() => "Trara!";
+        public override string MakeSound() => "Trara!";
     }
 
     /// <summary>
@@ -261,6 +283,6 @@ namespace ObjektniKoncepti.Inheritance
     {
         public Ostrich() { }
 
-        public override string MakeNoise() => "Čiv!";
+        public override string MakeSound() => "Čiv!";
     }
 }

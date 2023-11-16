@@ -8,18 +8,20 @@ namespace ObjektniKoncepti.Interfaces
     /// Metoda za testiranje vmesnikov
     /// 
     /// Dodatno branje: 
-    /// Vmesniki od C# dalje omogočajo definiranje statičnih abstraktnih metod, ki jih 
+    /// Vmesniki od C# 9.0 dalje omogočajo definiranje statičnih abstraktnih metod, ki jih 
     /// pri predmetu ne bomo obravnavali, primere uporabe pa lahko najdete tukaj:
     /// https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/tutorials/static-virtual-interface-members
     /// </summary>
     public static class Interfaces
     {
-        public static void TestInterfaces()
+        public static void InterfacesExample()
         {
             // Ustvarimo dve polji na plošči
             ChessBoardField fieldStart = new ChessBoardField() { X = 1, Y = 1 };
             ChessBoardField fieldEnd = new ChessBoardField() { X = 2, Y = 2 };
 
+            // Razred ChessPiece implementira vmesnik IPiece,
+            // ki določa, katere metode mora razred implementirati
             ChessPiece piece = new ChessPiece(fieldStart);
 
             Console.WriteLine($"Trenutna pozicija figure piece je {piece.Position}");
@@ -51,6 +53,16 @@ namespace ObjektniKoncepti.Interfaces
             }
 
             Console.WriteLine();
+        }
+
+
+        /// <summary>
+        /// Še en primer uporabe vmesnika. 
+        /// Pripravimo vmesnik za standardne metapodatke ter razmislimo, katere razrede bi lahko razširili z njim
+        /// </summary>
+        public static void ExampleMetaData()
+        {
+
         }
     }
 
@@ -220,5 +232,56 @@ namespace ObjektniKoncepti.Interfaces
         /// Lastnost, ki vsebuje trenutne figure igralca
         /// </summary>
         public List<ChessPiece> MyPieces { get; } = new List<ChessPiece>();
+    }
+
+
+    /// <summary>
+    /// Vmesnik z lastnostmi in metodami za razrede, 
+    /// ki definirajo objekte, ki potrebujejo osnovne metapodatke
+    /// </summary>
+    interface IMetaData
+    {
+        string Author { get; set; }
+
+        DateTime DateCreated { get; set; }
+
+        string? Organization { get; set; }
+    }
+
+    /// <summary>
+    /// Razširitev vmesnika z dodatnima metodama,
+    /// specifičnima za dokumente
+    /// </summary>
+    interface IDocumentMetaData : IMetaData
+    {
+        string Title { get; set; }
+
+        DateTime DateModified { get; set; }
+    }
+
+
+    /// <summary>
+    /// Razred, ki definira neko programsko rešitev
+    /// </summary>
+    internal class Application : IMetaData
+    {
+        public string Author { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public DateTime DateCreated { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public string Organization { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+    }
+
+    internal class File
+    {
+
+    }
+
+    internal class MastersThesis
+    {
+
+    }
+
+    internal class Exhibition
+    {
+
     }
 }

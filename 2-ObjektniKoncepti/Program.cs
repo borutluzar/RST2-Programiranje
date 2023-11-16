@@ -73,7 +73,7 @@ namespace ObjektniKoncepti
                     break;
                 case ObjectsSections.Interfaces:
                     {
-                        Interfaces.Interfaces.TestInterfaces();
+                        Interfaces.Interfaces.InterfacesExample();
                     }
                     break;
                 case ObjectsSections.Abstraction:

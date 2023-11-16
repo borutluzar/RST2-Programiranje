@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
 using System.Text;
 
 namespace ObjektniKoncepti
@@ -96,5 +97,7 @@ namespace ObjektniKoncepti
         public string FirstName { get; set; }
 
         public string Email { get; set; }
+
+        public bool IsNull => throw new NotImplementedException();
     }
 }

@@ -26,7 +26,7 @@ namespace ObjektniKoncepti
             Console.WriteLine();
                         
             // Ob predelavi se ustvari kopija vrednosti
-            valType = 2;
+            valType = 2;            
             Console.WriteLine($"2. valType={valType}, refType={refType}");
             Console.WriteLine();
                         
@@ -44,6 +44,11 @@ namespace ObjektniKoncepti
             //long l = (int)refType2;
 
             Console.WriteLine($"4. valType={l}, refType={refType2}");
+            Console.WriteLine();
+
+
+            // Tip objekta lahko preverimo s funkcijo GetType()
+            Console.WriteLine($"Tip objekta {nameof(refType)}: {refType2.GetType().Name}");
             Console.WriteLine();
         }
     }
