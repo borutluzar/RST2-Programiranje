@@ -14,15 +14,16 @@ namespace ObjektniKoncepti
             Indexers = 2,
             BoxingUnboxing = 3,
             Inheritance = 4,
-            InheritanceKurent = 13,
-            InheritanceWithCasting = 5,
-            InheritanceWithCastingOnOverriden = 6,
-            InheritancePolymorphism = 7,
-            InheritanceVirtualMethod = 8,
-            Interfaces = 9,
-            Abstraction = 10,
-            InterfacesImplicitExplicit = 11,
-            Extensions = 12
+            InheritanceMasksExample = 5,
+            InheritanceWithCasting = 6,
+            InheritanceWithCastingOnOverriden = 7,
+            InheritancePolymorphism = 8,
+            InheritanceVirtualMethod = 9,
+            Interfaces = 10,
+            InterfacesExampleMetadata = 11,
+            Abstraction = 12,
+            InterfacesImplicitExplicit = 13,
+            Extensions = 14
         }
 
         static void Main()
@@ -52,7 +53,7 @@ namespace ObjektniKoncepti
                         Inheritance.Inheritance.TestInheritance1();
                     }
                     break;
-                case ObjectsSections.InheritanceKurent:
+                case ObjectsSections.InheritanceMasksExample:
                     {
                         // V namespace-u Inheritance smo naredili nov razdelek, 
                         // zato do ustrezne funkcije pridemo šele preko
@@ -83,6 +84,11 @@ namespace ObjektniKoncepti
                 case ObjectsSections.Interfaces:
                     {
                         Interfaces.Interfaces.InterfacesExample();
+                    }
+                    break;
+                case ObjectsSections.InterfacesExampleMetadata:
+                    {
+                        Interfaces.Interfaces.ExampleMetaData();
                     }
                     break;
                 case ObjectsSections.Abstraction:

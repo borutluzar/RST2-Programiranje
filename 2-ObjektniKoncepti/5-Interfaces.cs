@@ -5,7 +5,7 @@ using System.Text;
 namespace ObjektniKoncepti.Interfaces
 {
     /// <summary>
-    /// Metoda za testiranje vmesnikov
+    /// Razred s primeri vmesnikov
     /// 
     /// Dodatno branje: 
     /// Vmesniki od C# 9.0 dalje omogočajo definiranje statičnih abstraktnih metod, ki jih 
@@ -62,7 +62,40 @@ namespace ObjektniKoncepti.Interfaces
         /// </summary>
         public static void ExampleMetaData()
         {
+            // Ustvarimo štiri instance različnih tipov,
+            // ki imajo skupno lastnost, da nosijo neke tipe metapodatkov
+            Application app = new Application() { Organization = "FIŠ", Author = "Borut", DateCreated = DateTime.Now };
+            File file = new File();
+            MastersThesis ms = new MastersThesis();
+            Exhibition ex = new Exhibition();
 
+            // Dodajmo jih v seznam, ki kot vrednosti dobi tip IMetaData
+            List<IMetaData> lstObjects = new List<IMetaData>()
+            { 
+                app,
+                file,
+                ms,
+                ex
+            };
+
+            // Ker imajo vsi objekti seznama na voljo enako metodo,
+            // lahko zanje izvajamo program na enak način
+            // (npr. izpišemo metapodatke),
+            // pa čeprav gre za nesorodne instance s stališča dedovanja
+            foreach (IMetaData obj in lstObjects)
+            {
+                Console.WriteLine($"\nObject metadata: " +
+                    $"- type: {obj.GetType()}" +
+                    $"- author: {obj.Author}" +
+                    $"- date created: {obj.DateCreated}" +
+                    $"- organization: {obj.Organization} \n");
+
+                if (obj is IDocumentMetaData)
+                {
+                    Console.WriteLine($"\nObject metadata: " +
+                        $"- title: {((IDocumentMetaData)obj).Title}");
+                }
+            }
         }
     }
 
@@ -93,7 +126,7 @@ namespace ObjektniKoncepti.Interfaces
 
         double ChessWeight { get; }
 
-        ChessBoardField Position { get; }
+        ChessBoardField Position { get; set; }
     }
 
     /// <summary>
@@ -159,10 +192,10 @@ namespace ObjektniKoncepti.Interfaces
             {
                 return position;
             }
-            /*private set 
+            set 
             {
                 position = value;
-            } */
+            }
         }
     }
 
@@ -190,7 +223,9 @@ namespace ObjektniKoncepti.Interfaces
         {
             // Pravilo za premik trdnjave
             if (this.Position.X != field.X && this.Position.Y != field.Y)
+            {
                 throw new Exception("Nedovoljen premik!");
+            }
 
             base.Move(field);
         }
@@ -265,23 +300,31 @@ namespace ObjektniKoncepti.Interfaces
     /// </summary>
     internal class Application : IMetaData
     {
-        public string Author { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public DateTime DateCreated { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public string Organization { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public string Author { get; set; }
+        public DateTime DateCreated { get; set; }
+        public string Organization { get; set; }
     }
 
-    internal class File
+    internal class File : IMetaData
     {
-
+        public string Author { get; set; }
+        public DateTime DateCreated { get; set; }
+        public string Organization { get; set; }
     }
 
-    internal class MastersThesis
+    internal class MastersThesis : IDocumentMetaData
     {
-
+        public string Title { get; set; }
+        public DateTime DateModified { get; set; }
+        public string Author { get; set; }
+        public DateTime DateCreated { get; set; }
+        public string Organization { get; set; }
     }
 
-    internal class Exhibition
+    internal class Exhibition : IMetaData
     {
-
+        public string Author { get; set; }
+        public DateTime DateCreated { get; set; }
+        public string Organization { get; set; }
     }
 }
