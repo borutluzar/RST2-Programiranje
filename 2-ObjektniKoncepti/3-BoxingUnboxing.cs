@@ -14,7 +14,7 @@ namespace ObjektniKoncepti
     /// </summary>
     static class BoxingUnboxing
     {
-        public static void TestBoxing()
+        public static void ExampleBoxing()
         {
             // Pripravimo si spremenljivko vrednostnega tipa
             int valType = 1;

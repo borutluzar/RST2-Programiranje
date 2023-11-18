@@ -6,7 +6,7 @@ namespace ObjektniKoncepti.Inheritance
 {
     public static class Inheritance
     {
-        public static void TestInheritance1()
+        public static void ExampleInheritance()
         {
             ParentClass parent = new ParentClass(Math.PI);
             parent.Property1 = (int)(2 * Math.PI); // Cast vzame prvi objekt z desne
@@ -35,7 +35,7 @@ namespace ObjektniKoncepti.Inheritance
             Console.WriteLine();
         }
 
-        public static void TestInheritanceWithCasting()
+        public static void ExampleInheritanceWithCasting()
         {
             // Oglejmo si učinek cast-anja        
             ChildClass child = new ChildClass(Math.PI);
@@ -45,6 +45,7 @@ namespace ObjektniKoncepti.Inheritance
             // Obratno seveda ne moremo storiti. Zakaj?
             //ChildClass child2 = new ParentClass(1);
 
+            // Nastavimo vrednosti lastnostim
             child.Property1 = 11;
             child.PropertyParent = 3;
             childAsParent.Property1 = 12;
@@ -60,6 +61,8 @@ namespace ObjektniKoncepti.Inheritance
 
         public static void ExampleMasks() 
         {
+            // Še en primer dedovanja, ko imamo razred za splošno masko
+            // in razrede za specifične maske
             Kurent kurent1 = new Kurent(48.3, 1610);
 
             Console.WriteLine($"{kurent1}");

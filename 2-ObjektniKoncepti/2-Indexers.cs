@@ -10,7 +10,7 @@ namespace ObjektniKoncepti
         /// <summary>
         /// Metoda za prikaz primerov uporabe indekserjev
         /// </summary>
-        internal static void TestIndexers()
+        internal static void ExampleIndexers()
         {
             // Primer tabele:
             int[] tabelica = new int[3];

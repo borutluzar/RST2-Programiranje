@@ -12,7 +12,7 @@ namespace ObjektniKoncepti
         /// <summary>
         /// Metoda za prikaz primerov uporabe lastnosti
         /// </summary>
-        public static void CheckProperties()
+        public static void ExampleProperties()
         { 
             // Ustvarimo novo instanco objekta
             PropertiesExample pe = new PropertiesExample();

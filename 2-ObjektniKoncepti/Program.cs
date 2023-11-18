@@ -32,17 +32,17 @@ namespace ObjektniKoncepti
             {
                 case ObjectsSections.Properties:
                     {
-                        Properties.CheckProperties();
+                        Properties.ExampleProperties();
                     }
                     break;
                 case ObjectsSections.Indexers:
                     {
-                        Indexers.TestIndexers();
+                        Indexers.ExampleIndexers();
                     }
                     break;
                 case ObjectsSections.BoxingUnboxing:
                     {
-                        BoxingUnboxing.TestBoxing();
+                        BoxingUnboxing.ExampleBoxing();
                     }
                     break;
                 case ObjectsSections.Inheritance:
@@ -50,20 +50,20 @@ namespace ObjektniKoncepti
                         // V namespace-u Inheritance smo naredili nov razdelek, 
                         // zato do ustrezne funkcije pridemo šele preko
                         // ustrezne poti
-                        Inheritance.Inheritance.TestInheritance1();
+                        Inheritance.Inheritance.ExampleInheritance();
                     }
                     break;
                 case ObjectsSections.InheritanceMasksExample:
                     {
-                        // V namespace-u Inheritance smo naredili nov razdelek, 
-                        // zato do ustrezne funkcije pridemo šele preko
-                        // ustrezne poti
+                        // Primer dedovanja z maškarami in kurenti
                         Inheritance.Inheritance.ExampleMasks();
                     }
                     break;
                 case ObjectsSections.InheritanceWithCasting:
                     {
-                        Inheritance.Inheritance.TestInheritanceWithCasting();
+                        // Primer dedovanja, ko na isto instanco
+                        // kaže še instanca tipa nadrazreda
+                        Inheritance.Inheritance.ExampleInheritanceWithCasting();
                     }
                     break;
                 case ObjectsSections.InheritanceWithCastingOnOverriden:
