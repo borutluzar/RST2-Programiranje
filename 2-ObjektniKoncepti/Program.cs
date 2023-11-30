@@ -68,17 +68,17 @@ namespace ObjektniKoncepti
                     break;
                 case ObjectsSections.InheritanceWithCastingOnOverriden:
                     {
-                        Inheritance.Inheritance.TestInheritanceWithOverridenMethod();
+                        Inheritance.Inheritance.ExampleInheritanceWithOverridenMethod();
                     }
                     break;
                 case ObjectsSections.InheritancePolymorphism:
                     {
-                        Inheritance.Inheritance.TestInheritanceWithPolymorphisms();
+                        Inheritance.Inheritance.ExampleInheritanceWithPolymorphisms();
                     }
                     break;
                 case ObjectsSections.InheritanceVirtualMethod:
                     {
-                        Inheritance.Inheritance.TestInheritanceWithVirtual();
+                        Inheritance.Inheritance.ExampleInheritanceWithVirtual();
                     }
                     break;
                 case ObjectsSections.Interfaces:
@@ -93,17 +93,17 @@ namespace ObjektniKoncepti
                     break;
                 case ObjectsSections.Abstraction:
                     {
-                        Abstraction.Abstraction.TestAbstraction();
+                        Abstraction.Abstraction.ExampleAbstraction();
                     }
                     break;
                 case ObjectsSections.InterfacesImplicitExplicit:
                     {
-                        InterfacesImplicitExplicit.ImplicitExplicit.TestImplicitExplicit();
+                        InterfacesImplicitExplicit.ImplicitExplicit.ExampleImplicitExplicit();
                     }
                     break;
                 case ObjectsSections.Extensions:
                     {
-                        Extensions.Extensions.TestExtensions();
+                        Extensions.Extensions.ExampleExtensions();
                     }
                     break;
             }

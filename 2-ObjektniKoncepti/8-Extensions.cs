@@ -10,7 +10,7 @@ namespace ObjektniKoncepti.Extensions
     /// </summary>
     public static class Extensions
     {
-        public static void TestExtensions()
+        public static void ExampleExtensions()
         {
             string filip = "Filip";
             Console.WriteLine($"Filip vsebuje? {filip.ContainsVowels()}");

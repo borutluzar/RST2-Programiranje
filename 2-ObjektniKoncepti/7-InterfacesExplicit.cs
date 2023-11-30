@@ -6,7 +6,7 @@ namespace ObjektniKoncepti.InterfacesImplicitExplicit
 {
     public static class ImplicitExplicit
     {
-        public static void TestImplicitExplicit()
+        public static void ExampleImplicitExplicit()
         {
             ChessBoardField fieldStart = new ChessBoardField() { X = 1, Y = 1 };
             ChessBoardField fieldEnd = new ChessBoardField() { X = 2, Y = 2 };

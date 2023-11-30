@@ -6,7 +6,7 @@ namespace ObjektniKoncepti.Abstraction
 {
     public static class Abstraction
     {
-        public static void TestAbstraction()
+        public static void ExampleAbstraction()
         {
             ChessBoardField fieldStart = new ChessBoardField() { X = 1, Y = 1 };
             ChessBoardField fieldEnd = new ChessBoardField() { X = 1, Y = 2 };
@@ -15,6 +15,10 @@ namespace ObjektniKoncepti.Abstraction
             //ChessPiece piece = new ChessPiece(fieldStart);
 
             ChessPiece rook = new Rook(fieldStart);
+            
+            // Če označimo lastnost kot virtual, jo lahko prepišemo v podrazredu,
+            // npr. tako, da umaknemo blok set
+            //rook.ChessWeight = 5;             
 
             Console.WriteLine($"Trenutna pozicija figure rook je {rook.Position}");
             Console.WriteLine();
@@ -91,7 +95,9 @@ namespace ObjektniKoncepti.Abstraction
     public abstract class ChessPiece : IPiece
     {
         /// <summary>
-        /// Konstruktorje abstraktnemu razredu lahko določimo
+        /// Konstruktorje abstraktnemu razredu lahko določimo.
+        /// 
+        /// Razmislite, zakaj jih sploh potrebujemo.
         /// </summary>
         public ChessPiece(ChessBoardField start)
         {
@@ -145,6 +151,31 @@ namespace ObjektniKoncepti.Abstraction
                 position = value;
             }
         }
+
+        public virtual ChessPiece Promote(ChessPiece piece)
+        {
+            throw new Exception("Figure ne moremo promovirati!");
+        }    
+    }
+        
+    public class Pawn : ChessPiece
+    {
+        public Pawn(ChessBoardField start) : base(start)
+        {
+            this.ChessWeight = 1.0;
+        }
+
+        public override void Move(ChessBoardField field)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override ChessPiece Promote(ChessPiece piece)
+        {
+            // Promoviramo ga v trdnjavo,
+            // ker nimamo razreda za definicijo kraljice
+            return new Rook(piece.Position);
+        }
     }
 
     /// <summary>
@@ -165,6 +196,11 @@ namespace ObjektniKoncepti.Abstraction
         public Rook(ChessBoardField start, double valCoeff) : base(start, valCoeff)
         {
             this.ChessWeight = 4.9;            
+        }
+
+        public override double ChessWeight 
+        { 
+            get => base.ChessWeight;   
         }
 
         public override string ToString()
@@ -188,6 +224,7 @@ namespace ObjektniKoncepti.Abstraction
             // V tem primeru bo metoda v nadrazredu virtualna.
             //base.Move(field);
             this.Position = field; // Paziti moramo, da ima lastnost ustrezno vidnost...
+            
             //Console.WriteLine("Premik je dovoljen, ampak nimam dostopa do this.Position! :(");
         }
     }

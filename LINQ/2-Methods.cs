@@ -70,6 +70,7 @@ namespace LINQ
                                 Tail = animal.HasTail 
                             });
                         Console.WriteLine("\nSplošna poizvedba z izbranimi lastnostmi");
+
                         // Izpis anonimnega objekta zraven pripiše tudi imena lastnosti!
                         queryGeneral2.ReadEnumerable();
                     }
@@ -91,6 +92,8 @@ namespace LINQ
                         Console.WriteLine("\nSplošna poizvedba z izbranimi lastnostmi");
                         // Izpis anonimnega objekta zraven pripiše tudi imena lastnosti!
                         queryGeneral2.ReadEnumerable();
+
+                        Console.WriteLine("\nPoizvedba s prilagoditvijo objektov funkciji");
                         queryGeneral3.ReadEnumerable();
                     }
                     break;
@@ -101,7 +104,7 @@ namespace LINQ
                                            select animal;*/
                         var queryOrdered = LINQDataSet.animals
                                                 .OrderByDescending(animal => animal.NumberOfLegs)
-                                                .ThenBy(animal => animal.Species)
+                                                .ThenBy(animal => animal.Species) // Za ureditev znotraj ureditve uporabimo ThenBy ali ThenByDescending
                                                 .Select(animal => new { animal.Species, animal.HasTail });
                         Console.WriteLine("\nSplošna urejena poizvedba");
                         queryOrdered.ReadEnumerable();
@@ -114,8 +117,7 @@ namespace LINQ
                                             where animal.HasTail
                                             select animal;*/
                         var queryFiltered = LINQDataSet.animals
-                                                .OrderBy(animal => animal.Species) // Uredimo. Imamo tudi OrderByDescending
-                                                                                   // Za ureditev znotraj ureditve uporabimo ThenBy ali ThenByDescending
+                                                .OrderBy(animal => animal.Species) // Uredimo. Imamo tudi OrderByDescending                                                                                   
                                                 .Where(animal => animal.HasTail) // Filtriramo
                                                 .Select(animal => animal); // Povemo, katere lastnosti želimo v rezultatu
                         Console.WriteLine("\nSplošna filtrirana poizvedba");

@@ -61,8 +61,8 @@ namespace ObjektniKoncepti.Inheritance
 
         public static void ExampleMasks() 
         {
-            // Še en primer dedovanja, ko imamo razred za splošno masko
-            // in razrede za specifične maske
+            // Še en primer dedovanja, ko imamo nadrazred za splošno masko
+            // in podrazrede za specifične maske
             Kurent kurent1 = new Kurent(48.3, 1610);
 
             Console.WriteLine($"{kurent1}");
@@ -73,7 +73,7 @@ namespace ObjektniKoncepti.Inheritance
             Console.WriteLine($"Tip: {parent.GetType()}");
         }
 
-        public static void TestInheritanceWithOverridenMethod()
+        public static void ExampleInheritanceWithOverridenMethod()
         {
             // Oglejmo si učinek cast-anja na povoženo metodo
             Rook rook = new Rook();
@@ -90,7 +90,7 @@ namespace ObjektniKoncepti.Inheritance
         /// Polimorfizmi nam omogočajo različno obnašanje objektov
         /// "istega" tipa.
         /// </summary>
-        public static void TestInheritanceWithPolymorphisms()
+        public static void ExampleInheritanceWithPolymorphisms()
         {
             Player player = new Player();
             
@@ -113,7 +113,7 @@ namespace ObjektniKoncepti.Inheritance
         /// Naredimo še primer z implementacijo virtualne metode
         /// in njenimi reimplementacijami
         /// </summary>
-        public static void TestInheritanceWithVirtual()
+        public static void ExampleInheritanceWithVirtual()
         {
             List<Animal> lstAnimals = new List<Animal>()
             {

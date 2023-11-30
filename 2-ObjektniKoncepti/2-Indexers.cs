@@ -16,12 +16,16 @@ namespace ObjektniKoncepti
             int[] tabelica = new int[3];
             tabelica[0] = 12;
 
-            // Ustvarimo nov objekt, ki vsebuje indekser.
-            IndexerExample ie = new IndexerExample();
-            ie["Jabolko"] = 12.0;
-            ie["Hruška"] = 17.0;
+            // Ustvarimo nov objekt, ki ima definiran indekser.
+            MyIndexerClass myIndexerClass = new MyIndexerClass();
+            
+            // Nastavimo dve vrednosti
+            myIndexerClass["Jabolko"] = 12.0;
+            myIndexerClass["Hruška"] = 17.0;
 
-            Console.WriteLine($"Cena jabolka={ie["Jabolko"]}, hruška={ie["Hruška"]}");
+            // Preberimo in izpišimo nastavljeni vrednosti
+            Console.WriteLine($"Cena jabolka={myIndexerClass["Jabolko"]}, " +
+                $"hruška={myIndexerClass["Hruška"]}");
         }
     }
 
@@ -30,7 +34,7 @@ namespace ObjektniKoncepti
     /// Indekserji ("Indexers") so podobni običajnim lastnostim,
     /// le da prejmejo dodaten parameter
     /// </summary>
-    internal class IndexerExample
+    internal class MyIndexerClass
     {
         /// <summary>
         /// Definiramo polje, ki bo hranilo vrednosti
@@ -46,7 +50,8 @@ namespace ObjektniKoncepti
         {
             get
             {
-                return this.dicPrice.ContainsKey(article) ? (double?)this.dicPrice[article] : null;
+                return this.dicPrice.ContainsKey(article) ? 
+                    (double?)this.dicPrice[article] : null;
             }
             set
             {
@@ -82,7 +87,8 @@ namespace ObjektniKoncepti
             {
                 // Študenta dodamo samo, če še ne obstaja.
                 if (dicStudents.ContainsKey(enrolmentNumber))
-                    throw new Exception($"A student with enrolment number {enrolmentNumber} already exists! Use Update method for changing his properties.");
+                    throw new Exception($"A student with enrolment number {enrolmentNumber} " +
+                        $"already exists! Use Update method for changing his properties.");
                 dicStudents[enrolmentNumber] = value;
             }
         }

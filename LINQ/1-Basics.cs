@@ -44,14 +44,15 @@ namespace LINQ
                 case BasicsSubsection.Select:
                     {
                         // Izberemo lahko le nekatere lastnosti
-                        // in jih postavimo v nov (anonimen) objekt
+                        // in jih postavimo v nov objekt anonimnega tipa
                         var queryGeneral2 = from animal in LINQDataSet.animals
                                             select new 
                                             { 
                                                 animal.Species, 
                                                 animal.HasTail 
-                                            }; // Pripravimo anonimen objekt. Več v Arh, Q19.
+                                            }; // Pripravimo objekt anonimnega tipa. Več v Arh, Q19.
                         Console.WriteLine("\nSplošna poizvedba z izbranimi lastnostmi");
+                        
                         // Izpis anonimnega objekta zraven pripiše tudi imena lastnosti!
                         queryGeneral2.ReadEnumerable();
                     }
