@@ -72,7 +72,7 @@ namespace LINQ
                         List<int> lstInputs = new() { 3, 5, 7, 12, 13, 14, 18, 23, 25, 28, 43, 55, 56, 57, 58, 82, 85, 89 };
 
                         // Pokličimo funkcijo CheckProperty za različne lastnosti
-                        var lstResults = CheckProperty(lstInputs, IsPrimeNumber);
+                        var lstResults = CheckProperty(lstInputs, IsOdd);
                         lstResults.ForEach(x => Console.WriteLine(x.ToString()));
                     }
                     break;

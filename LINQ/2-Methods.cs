@@ -53,7 +53,8 @@ namespace LINQ
                                            select animal; */
                         // Zgornjo kodo tako prepišemo v
                         var queryGeneral = LINQDataSet.animals
-                                            .Select(animal => animal);
+                                                .Select(animal => animal);
+
                         // Metoda Select 'projicira' vsak element zbirke v podano obliko
                         Console.WriteLine("\nSplošna poizvedba o vseh elementih");
                         queryGeneral.ReadEnumerable();
@@ -66,7 +67,8 @@ namespace LINQ
                         var queryGeneral2 = LINQDataSet.animals
                             .Select(animal => new 
                             { 
-                                Species = animal.Species, 
+                                animal.Species, 
+                                NumOfLegs = animal.NumberOfLegs,
                                 Tail = animal.HasTail 
                             });
                         Console.WriteLine("\nSplošna poizvedba z izbranimi lastnostmi");
@@ -86,8 +88,8 @@ namespace LINQ
                         // Še primer, ko prilagodimo objekte seznama funkciji,
                         // da so parametri pravega tipa
                         var queryGeneral3 = LINQDataSet.animals
-                            .Select(animal => animal.NumberOfLegs)
-                            .Select(PodKind2);
+                                                .Select(animal => animal.NumberOfLegs)
+                                                .Select(PodKind2);
                         
                         Console.WriteLine("\nSplošna poizvedba z izbranimi lastnostmi");
                         // Izpis anonimnega objekta zraven pripiše tudi imena lastnosti!
@@ -106,6 +108,7 @@ namespace LINQ
                                                 .OrderByDescending(animal => animal.NumberOfLegs)
                                                 .ThenBy(animal => animal.Species) // Za ureditev znotraj ureditve uporabimo ThenBy ali ThenByDescending
                                                 .Select(animal => new { animal.Species, animal.HasTail });
+
                         Console.WriteLine("\nSplošna urejena poizvedba");
                         queryOrdered.ReadEnumerable();
                     }
@@ -133,7 +136,7 @@ namespace LINQ
                         // v danem vrstnem redu.
                         var querySelectFirst = LINQDataSet.animals
                                                 .Select(animal => animal.Species)
-                                                //.OrderBy(animal => animal.Species)  // se ne prevede, ker smo izbrali le Species
+                                                //.OrderBy(x => x.Species)  // se ne prevede, ker smo izbrali le Species
                                                 .OrderBy(species => species);
                                                 //.Where(animal => animal.HasTail); // se ne prevede, ker smo izbrali le Species
                         Console.WriteLine("\nPoizvedba samo z vrsto živali");
@@ -175,11 +178,13 @@ namespace LINQ
                         // mi pa želimo narediti poizvedbo po teh seznamih (s tem se izognemo dvojnim zankam).
                         // Pri tem nas ne zanima, iz seznama katerega objekta smo zapise dobili.
                         var selectingMany = LINQDataSet.continents
-                                                .SelectMany(continent => continent.Animals)
+                                                .SelectMany(continent => continent.Animals);
+
+                        var querySelectMany = selectingMany
                                                 .Where(animalID => LINQDataSet.animals.Find(x => x.ID == animalID)?.NumberOfLegs == 4)
                                                 .Select(animalID => LINQDataSet.animals.Find(x => x.ID == animalID).Species);
                         Console.WriteLine($"\nŽivali na vseh celinah, ki imajo štiri noge, so: ");
-                        selectingMany.ReadEnumerable();
+                        querySelectMany.ReadEnumerable();
                     }
                     break;
                 case MethodsSubsection.Distinct:
@@ -222,7 +227,23 @@ namespace LINQ
                                                 (minLegs, animal) => (minLegs == int.MaxValue || minLegs > animal.NumberOfLegs) ? animal.NumberOfLegs : minLegs,
                                                 minLegs => minLegs // Rezultat
                                             );
-                        Console.WriteLine($"\nNajmanjše število nog je {queryAggMinLegsNumber}!");                        
+                        Console.WriteLine($"\nNajmanjše število nog je {queryAggMinLegsNumber}!");
+
+
+                        // Primer
+                        // Iščemo žival z repom, ki ima največ nog
+                        var queryAggMaxLegsWithTailAnimal = LINQDataSet.animals
+                            .OrderBy(animal => animal.Species)
+                            .Aggregate<Animal, Animal, string>( // Tip elementa seznama, tip iskane vrednosti, tip rezultata
+                                    seed: null, // Določitev začetne vrednosti iskane instance
+                                                // Prehod po vseh instancah z upoštevanjem pogoja
+                                    (maxLegsWithTail, animal) => ((maxLegsWithTail == null && animal.HasTail)
+                                                                    ||
+                                                        (maxLegsWithTail != null && maxLegsWithTail.NumberOfLegs < animal.NumberOfLegs && animal.HasTail)) 
+                                                                ? animal : maxLegsWithTail,
+                                    maxLegsWithTail => maxLegsWithTail?.Species // Rezultat, ki ni nujno instanca, ampak le kakšna izmed lastnosti
+                                        );
+                        Console.WriteLine($"\nNajmanj nog ima {queryAggMaxLegsWithTailAnimal}!");
                     }
                     break;
             }

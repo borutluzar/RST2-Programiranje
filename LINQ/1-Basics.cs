@@ -37,6 +37,7 @@ namespace LINQ
                         // Select je vedno na koncu (lahko izberemo posamezne lastnosti)
                         var queryGeneral = from animal in LINQDataSet.animals
                                            select animal;
+
                         Console.WriteLine("\nSplošna poizvedba o vseh elementih");
                         queryGeneral.ReadEnumerable();
                     }
@@ -49,7 +50,8 @@ namespace LINQ
                                             select new 
                                             { 
                                                 animal.Species, 
-                                                animal.HasTail 
+                                                animal.NumberOfLegs,
+                                                animal.HasTail
                                             }; // Pripravimo objekt anonimnega tipa. Več v Arh, Q19.
                         Console.WriteLine("\nSplošna poizvedba z izbranimi lastnostmi");
                         
