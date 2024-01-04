@@ -23,7 +23,7 @@ namespace LINQ
             NetSimplification = 4
         }
 
-        public static void DelegateTests()
+        public static void DelegateExamples()
         {
             switch (InterfaceFunctions.ChooseSection<DelegateSubsections>())
             {

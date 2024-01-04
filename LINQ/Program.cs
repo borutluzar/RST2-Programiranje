@@ -31,12 +31,12 @@ namespace LINQ
                     break;
                 case LINQSections.Delegates:
                     {
-                        Delegates.DelegateTests();
+                        Delegates.DelegateExamples();
                     }
                     break;
                 case LINQSections.LambdaExpressions:
                     {
-                        LambdaExpressions.LambdaTests();
+                        LambdaExpressions.LambdaExpressionExamples();
                     }
                     break;
             }

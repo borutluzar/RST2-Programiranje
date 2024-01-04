@@ -14,10 +14,11 @@ namespace LINQ
         enum LambdaSubsections
         {
             FunctionWithLambda = 1,
-            ThreeFunctionSyntaxes = 2
+            FunctionWithLambdaWithParameter = 2,
+            ThreeFunctionSyntaxes = 3
         }
 
-        public static void LambdaTests()
+        public static void LambdaExpressionExamples()
         {
             // V LINQ imamo dve vrsti razširitvenih metod
             // - metode za vmesnik IEnumerable<T>, ko po podatkih poizvedujemo lokalno
@@ -33,7 +34,7 @@ namespace LINQ
             {
                 case LambdaSubsections.FunctionWithLambda:
                     {
-                        // Celo definiramo jih lahko in kličemo na različnih mestih.
+                        // Celo definiramo jih lahko in kličemo na različnih mestih.                         
                         Func<int, int, (int, int)> sum = (x, y) => (x + y, x - y);
                         Func<int, int, int, bool> isPitagorean = (x, y, z) => x * x + y * y == z * z;
                         Func<double, int> roundUp = x => (int)Math.Round(x, 0, MidpointRounding.AwayFromZero);
@@ -47,6 +48,16 @@ namespace LINQ
                         Console.WriteLine($"Zaokrožimo število 4.5 navzdol: {roundDown(4.5)}");
                         Console.WriteLine($"Zaokrožimo število 4.5001 navzgor: {roundUp(4.5001)}");
                         Console.WriteLine($"Zaokrožimo število 4.5001 navzdol: {roundDown(4.5001)}");
+                    }
+                    break;
+                case LambdaSubsections.FunctionWithLambdaWithParameter:
+                    {
+                        // V definiciji lambda izraza lahko uporabimo tudi spremenljivke,
+                        // ki so v bloku definicije vidne
+                        int a = 11;
+                        Func<int, int, (int, int)> sumWithOffset = (x, y) => (x + y + a, x - y + a);
+                        var y = sumWithOffset(4, 3);
+                        Console.WriteLine($"Seštejmo in odštejmo 4 in 3 z odmikom: {y}");
                     }
                     break;
                 case LambdaSubsections.ThreeFunctionSyntaxes:
