@@ -53,6 +53,9 @@ namespace DesignPatterns
                             case CreditCardType.Platinum:
                                 card = new Platinum();
                                 break;
+                            case CreditCardType.Student:
+                                card = new Student();
+                                break;
                         }
 
                         // Izpišemo podatke

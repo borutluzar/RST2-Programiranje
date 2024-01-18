@@ -27,9 +27,10 @@ namespace DesignPatterns.StrategyPart3
             // da smo v njem morali povoziti metodo za govorjenje tujega jezika in
             // ji umakniti funkcionalnost, kar je spet slaba praksa.
 
-            Employee researcher = new Janitor("Borut", "Xy");
+            Employee researcher = new PublicRelationsPerson("Borut", "Xy");
             researcher.PaySalary(8000, "201314-1201");
             researcher.TrySpeakForeignLanguage("mandarinščina");
+            researcher.TryMonitorExam();
         }
     }
 
@@ -48,6 +49,8 @@ namespace DesignPatterns.StrategyPart3
 
         public string FamilyName { get; set; }
         public string GivenName { get; set; }
+
+        public string Gender { get; set; }
 
         /// <summary>
         /// Vsak zaposleni dobi plačo
@@ -72,12 +75,27 @@ namespace DesignPatterns.StrategyPart3
             SpeakForeign.SpeakForeignLanguage(language);
         }
 
+
+        // Sklop za akademike
         protected IAcademicPerformer AcademicPerformer { get; set; }
 
         public int GetHIndex()
         {
             return AcademicPerformer.HIndex;
         }
+
+
+        // Sklop za izpite
+        protected IExamination Examination { get; set; }
+
+        public void TryMonitorExam()
+        {
+            if (Examination != null)
+                Examination.MonitorExam("Programiranje");
+            else
+                Console.WriteLine("Tega ni v mojem opisu del in nalog.");
+        }
+
 
         public virtual void WorkDuties()
         {
@@ -90,12 +108,14 @@ namespace DesignPatterns.StrategyPart3
 
     public class Researcher : Employee
     {
-        public Researcher(string familyName, string givenName) : base(familyName, givenName) 
+        public Researcher(string familyName, string givenName) : base(familyName, givenName)
         {
             // Tukaj določimo ustrezno instanco vmesnika IForeignLanguageSpeaker za ta razred
             SpeakForeign = new SpeakForeignLanguageFluently();
             // In podobno za instanco vmesnika IAcademicPerformer
             AcademicPerformer = new AcademicInNaturalSciences();
+
+            Examination = new ExaminationPerson();
         }
 
         public override void WorkDuties()
@@ -116,13 +136,15 @@ namespace DesignPatterns.StrategyPart3
 
     public class Lecturer : Employee
     {
-        public Lecturer(string familyName, string givenName) : base(familyName, givenName) 
+        public Lecturer(string familyName, string givenName) : base(familyName, givenName)
         {
             // Tukaj določimo ustrezno instanco vmesnika IForeignLanguageSpeaker za ta razred
             SpeakForeign = new SpeakForeignLanguageSoSo();
 
             // In podobno za instanco vmesnika IAcademicPerformer
             AcademicPerformer = new AcademicInSocialSciences();
+
+            Examination = new ExaminationPerson();
         }
 
         public override void WorkDuties()
@@ -143,13 +165,15 @@ namespace DesignPatterns.StrategyPart3
 
     public class PublicRelationsPerson : Employee
     {
-        public PublicRelationsPerson(string familyName, string givenName) : base(familyName, givenName) 
+        public PublicRelationsPerson(string familyName, string givenName) : base(familyName, givenName)
         {
             // Tukaj določimo ustrezno instanco vmesnika IForeignLanguageSpeaker za ta razred
             SpeakForeign = new SpeakForeignLanguageFluently();
 
             // In podobno za instanco vmesnika IAcademicPerformer
             AcademicPerformer = new NotAcademic();
+
+            Examination = null;
         }
 
         public override void WorkDuties()
@@ -170,13 +194,15 @@ namespace DesignPatterns.StrategyPart3
 
     public class Janitor : Employee
     {
-        public Janitor(string familyName, string givenName) : base(familyName, givenName) 
+        public Janitor(string familyName, string givenName) : base(familyName, givenName)
         {
             // Tukaj določimo ustrezno instanco vmesnika IForeignLanguageSpeaker za ta razred
             SpeakForeign = new SpeakForeignLanguageNot();
 
             // In podobno za instanco vmesnika IAcademicPerformer
             AcademicPerformer = new NotAcademic();
+
+            Examination = null;
         }
 
         public override void WorkDuties()
@@ -206,7 +232,7 @@ namespace DesignPatterns.StrategyPart3
     {
         void SpeakForeignLanguage(string language);
 
-        void ReadForeignLanguage();
+        void ReadForeignLanguage(string language);
     }
 
     /// <summary>
@@ -219,7 +245,7 @@ namespace DesignPatterns.StrategyPart3
             Console.WriteLine($"Tuj jezik {language} govorim tekoče dva dni skupaj!");
         }
 
-        public void ReadForeignLanguage()
+        public void ReadForeignLanguage(string language)
         {
             Console.WriteLine($"V tujem jeziku izvrstno berem!");
         }
@@ -235,7 +261,7 @@ namespace DesignPatterns.StrategyPart3
             Console.WriteLine($"Tuj jezik {language} govorim bolj tako tako.");
         }
 
-        public void ReadForeignLanguage()
+        public void ReadForeignLanguage(string language)
         {
             Console.WriteLine($"V tujem jeziku berem bolje kot pišem!");
         }
@@ -248,10 +274,10 @@ namespace DesignPatterns.StrategyPart3
     {
         public void SpeakForeignLanguage(string language)
         {
-            Console.WriteLine($"Nič ne bo.");
+            Console.WriteLine($"Tega jezika ne govorim.");
         }
 
-        public void ReadForeignLanguage()
+        public void ReadForeignLanguage(string language)
         {
             Console.WriteLine($"V tujem jeziku berem, ampak nič ne razumem!");
         }
@@ -264,9 +290,9 @@ namespace DesignPatterns.StrategyPart3
 
     public class AcademicInNaturalSciences : IAcademicPerformer
     {
-        public int HIndex 
+        public int HIndex
         {
-            get 
+            get
             {
                 return 12; // After rigorous computations
             }
@@ -292,6 +318,34 @@ namespace DesignPatterns.StrategyPart3
             {
                 return 0;
             }
+        }
+    }
+
+
+    public interface IExamination
+    {
+        public string PrepareExamQuestions(string subject);
+
+        public void MonitorExam(string subject);
+
+        public void GradeExams(string subject);
+    }
+
+    public class ExaminationPerson : IExamination
+    {
+        public string PrepareExamQuestions(string subject)
+        {
+            return $"Vprašanja za izpit is {subject} so naslednja: Kdo?";
+        }
+
+        public void MonitorExam(string subject)
+        {
+            Console.WriteLine($"Pazimo izpit is {subject}.");
+        }
+
+        public void GradeExams(string subject)
+        {
+            Console.WriteLine($"Vsi so naredili.");
         }
     }
 }

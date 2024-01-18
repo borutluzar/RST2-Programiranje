@@ -37,7 +37,13 @@ namespace DesignPatterns
 
         public double Limit => 800;
 
-        public double AnnualCharge => 20;
+        public double AnnualCharge
+        {
+            get
+            {
+                return 20;
+            }
+        }
     }
 
     class Gold : ICreditCard
@@ -59,7 +65,7 @@ namespace DesignPatterns
     }
 
     class Student : ICreditCard
-    {        
+    {
         public CreditCardType CreditCardType => CreditCardType.Student;
 
         public double Limit => 200;
@@ -67,7 +73,7 @@ namespace DesignPatterns
         public double AnnualCharge => 5;
     }
 
-    class Diamond : ICreditCard
+    file class Diamond : ICreditCard
     {
         public CreditCardType CreditCardType => CreditCardType.Diamond;
 
@@ -85,7 +91,7 @@ namespace DesignPatterns
     /// Logiko iz uporabniškega vmesnika, ki se tiče izbire tipa kartice 
     /// prenesemo v razred CreditCardFactory.
     /// </summary>
-    static class CreditCardFactory
+    public static class CreditCardFactory
     {
         public static ICreditCard GetCreditCard(CreditCardType type)
         {

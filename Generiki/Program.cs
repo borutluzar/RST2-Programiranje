@@ -7,7 +7,8 @@ namespace Generics
     {
         Basics = 1,
         GenericClass = 2,
-        GenericMethod = 3
+        GenericMethod = 3,
+        GenericExample = 4
     }
 
     /// <summary>

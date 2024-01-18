@@ -84,9 +84,9 @@ namespace PodatkovneStrukture
             stateArray = new byte[this.numDiscs];
             canMoveArray = new bool[this.numPegs];
 
-            setPrev = new();
-            setCurrent = new();
-            setNew = new();
+            setPrev = new(); // Prejšnja stanja, v katera se nočemo vrniti
+            setCurrent = new(); // Trenutna stanja, iz katerih gledamo naslednje poteze
+            setNew = new(); // Vsa stanja, do katerih lahko pridemo iz trenutnih vozlišč
 
             // Set initial and final states for each case
             {
@@ -175,6 +175,15 @@ namespace PodatkovneStrukture
             long initialState = StateToLong(stateArray);
             setCurrent.Add(initialState);
 
+            /*
+            [ 0-9  |  0-9  |  0-9  |  0-9  |  0-9 ]
+            [  1   |   4   |   1   |   7   |   0  ]
+            14170
+
+            [ 0-3  |  0-3  |  0-3  |  0-3  |  0-3 ]
+            12301 -> št. v 4-tiškem sistemu => pretvorimo v desetiški
+            */
+
             path = "";
 
             long maxCardinality = 0;
@@ -197,8 +206,6 @@ namespace PodatkovneStrukture
                     switch (type)
                     {
                         case HanoiType.K13_01:
-                            MakeMoveForSmallDimension_K13_01_Fast(tmpState);
-                            break;
                         case HanoiType.K13_12:
                             MakeMoveForSmallDimension_K13(tmpState);
                             break;

@@ -17,7 +17,7 @@ namespace PodatkovneStrukture
         public static void MethodsOfICollection(StructuresSections section)
         {
             // Definirajmo zbirko 
-            ICollection<string> zbirka = new List<string>() { "Luka", "Jernej", "Dejan", "Denis", "Tilen", "Jernej", "Jakob", "Samo" };
+            ICollection<string> zbirka = new HashSet<string>() { "Blaž", "Luka", "Jernej", "Dejan", "Denis", "Tilen", "Jernej", "Jakob", "Samo" };
             Console.WriteLine($"{zbirka.WriteCollection()}\n");
 
             switch (section)

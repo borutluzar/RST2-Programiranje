@@ -7,6 +7,7 @@ namespace PodatkovneStrukture
 {
     enum StructuresSections
     {
+        InsertExample = 0,
         ICollection = 1,
         IList = 2,
         ISet = 3,
@@ -23,6 +24,35 @@ namespace PodatkovneStrukture
             var section = InterfaceFunctions.ChooseSection<StructuresSections>();
             switch (section)
             {
+                case StructuresSections.InsertExample:
+                    {
+                        List<int> lstNumbers = new();
+                        Random rnd = new(23);
+                        int countNum = 500_000;
+                        int upperBound = 10_000_000;
+
+                        // Napolnimo seznam s 500 000 števili
+                        while (lstNumbers.Count < countNum)
+                        {
+                            lstNumbers.Add(rnd.Next(upperBound));
+                        }
+                        Console.WriteLine($"V seznamu imamo {lstNumbers.Count} vrednosti");
+
+                        // Dodamo 1000 vrednosti,
+                        // ampak samo če vrednost še ni bila v seznamu
+                        Stopwatch sw = Stopwatch.StartNew();
+                        for (int i = 0; i < 10_000; i++)
+                        {
+                            int newNumber = rnd.Next(upperBound);
+
+                            // Ozko grlo podatkovnih struktur - HashSet je v tem primeru najhitrejša
+                            if (!lstNumbers.Contains(newNumber))
+                                lstNumbers.Add(newNumber);
+                        }
+                        Console.WriteLine($"V seznamu imamo {lstNumbers.Count} vrednosti, " +
+                            $"trajalo je {sw.Elapsed.TotalSeconds:0.##} sekund.");
+                    }
+                    break;
                 case StructuresSections.ICollection:
                 case StructuresSections.IList:
                 case StructuresSections.ISet:

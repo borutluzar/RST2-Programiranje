@@ -35,12 +35,14 @@ namespace LINQ
                 case LambdaSubsections.FunctionWithLambda:
                     {
                         // Celo definiramo jih lahko in kličemo na različnih mestih.                         
+                        // (x, y) => (x + y, x - y)
                         Func<int, int, (int, int)> sum = (x, y) => (x + y, x - y);
                         Func<int, int, int, bool> isPitagorean = (x, y, z) => x * x + y * y == z * z;
                         Func<double, int> roundUp = x => (int)Math.Round(x, 0, MidpointRounding.AwayFromZero);
                         Func<double, int> roundDown = x => (int)Math.Round(x, 0);
                         double x = Math.PI;
                         var y = sum(4, 3);
+                        
                         Console.WriteLine($"Seštejmo in odštejmo 4 in 3: {y}");
                         Console.WriteLine($"{(isPitagorean(5,12,13) ? "5, 12 in 13 je pitagorejska trojica" : "5, 12, 13 ni pitagorejska trojica!")}");
                         Console.WriteLine($"Zaokrožimo število {x}: {roundUp(x)}");
@@ -73,7 +75,7 @@ namespace LINQ
                         Console.WriteLine($"\nAnonimna metoda:");
                         queryDelegate.ReadEnumerable();
 
-                        var queryFunction = LINQDataSet.animals.Where(LessThan4Long);
+                        var queryFunction = LINQDataSet.animals.Where(LessThan4Legs);
                         Console.WriteLine($"\nPosebej definirana funkcija:");
                         queryFunction.ReadEnumerable();
 
@@ -105,7 +107,7 @@ namespace LINQ
         /// </summary>
         private static bool LessThan4(Animal animal) => animal.NumberOfLegs < 4;
 
-        private static bool LessThan4Long(Animal animal)
+        private static bool LessThan4Legs(Animal animal)
         {
             return animal.NumberOfLegs < 4;
         }
