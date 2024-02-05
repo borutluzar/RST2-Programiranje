@@ -3,12 +3,12 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net7.0</TargetFramework>
-    <AssemblyName>Serializacija</AssemblyName>
-    <RootNamespace>Serializacija</RootNamespace>
+    <AssemblyName>ParallelAndAsync</AssemblyName>
+    <RootNamespace>ParallelAndAsync</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CommonFunctions\0-CommonFunctions.csproj" />
+    <ProjectReference Include="..\0-CommonFunctions\0-CommonFunctions.csproj" />
   </ItemGroup>
 
 </Project>

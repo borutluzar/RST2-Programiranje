@@ -25,6 +25,7 @@ namespace ParallelAndAsync
             // Najprej preizkusimo običajni pristop
             Stopwatch sw = Stopwatch.StartNew();
             int testAdd = 0;
+
             DataForParallel.Instance().ForEach(i =>
                     {
                         if (CommonFunctions.IsPrime(i))
@@ -34,24 +35,20 @@ namespace ParallelAndAsync
 
             primes.Clear();
             sw = Stopwatch.StartNew();
-            int testWhere = DataForParallel.Instance().Where(CommonFunctions.IsPrime).Count();
+            int testWhere = DataForParallel.Instance().Where(x => CommonFunctions.IsPrime(x)).Count();
             Console.WriteLine($"Čas zaporednega iskanja z Where: {sw.Elapsed.TotalSeconds}, " +
                 $"našli smo {testWhere} praštevil.");
 
-            Console.WriteLine($"Gremo!");
+            Console.WriteLine($"Gremo paralelno!");
             sw = Stopwatch.StartNew();
-            var testWhereParallel = DataForParallel.Instance().AsParallel().Where(CommonFunctions.IsPrime);
+            var testWhereParallel = DataForParallel.Instance().AsParallel().Where(x => CommonFunctions.IsPrime(x));
             Console.WriteLine($"Čas vzporednega iskanja z Where: {sw.Elapsed.TotalSeconds}, " +
-                $"našli smo {testWhereParallel.Count()} praštevil.");
+                $"našli smo {testWhereParallel.Count()} praštevil."); // Hitro, ker se čas izpiše, preden se evaluira Count.
 
-            // Hitro, ker se čas izpiše, preden se evaluira Count.
-
-            /*
             sw = Stopwatch.StartNew();
             int testWhereParallelCount = DataForParallel.Instance().AsParallel().Where(CommonFunctions.IsPrime).Count();
             Console.WriteLine($"Čas vzporednega iskanja z Where: {sw.Elapsed.TotalSeconds}, " +
-                $"našli smo {testWhereParallel} praštevil.");
-            */
+                $"našli smo {testWhereParallelCount} praštevil.");
 
             Thread.Sleep(1000);
 
@@ -93,7 +90,8 @@ namespace ParallelAndAsync
             // lahko uporabimo razred Parallel
             primes.Clear();
             var options = new ParallelOptions();
-            options.MaxDegreeOfParallelism = 8;
+            options.MaxDegreeOfParallelism = 4;
+            
             sw = Stopwatch.StartNew();
             Parallel.ForEach(DataForParallel.Instance(),
                 options,
@@ -138,6 +136,13 @@ namespace ParallelAndAsync
                             });
                 Console.WriteLine($"Čas vzporednega iskanja z {i} jedri od {Environment.ProcessorCount}: {sw.Elapsed.TotalSeconds}, našli smo {primes.Count} praštevil.");
             }
+
+
+
+            // -> pridobi podatke poaralelno po 50 000 -> seznam
+            // for(seznam) ....
+
+
         }
 
         /// <summary>

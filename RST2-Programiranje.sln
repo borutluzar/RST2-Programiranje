@@ -3,25 +3,25 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33103.184
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "1-Uvod", "RST2-Programiranje\1-Uvod.csproj", "{E60DF962-831D-4307-A808-44230C81FACE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "1-Uvod", "1-Uvod\1-Uvod.csproj", "{E60DF962-831D-4307-A808-44230C81FACE}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "2-ObjektniKoncepti", "2-ObjektniKoncepti\2-ObjektniKoncepti.csproj", "{892DDBBC-452E-487E-B42C-786CD4153A00}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "4-NacrtovalskiVzorci", "NacrtovalskiVzorci\4-NacrtovalskiVzorci.csproj", "{837FECD4-898C-42AE-B86D-7B50A9485508}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "4-NacrtovalskiVzorci", "4-NacrtovalskiVzorci\4-NacrtovalskiVzorci.csproj", "{837FECD4-898C-42AE-B86D-7B50A9485508}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "6-PodatkovneStrukture", "PodatkovneStrukture\6-PodatkovneStrukture.csproj", "{77BEA7D8-5A07-4C1E-8E5A-720A80581034}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "6-PodatkovneStrukture", "6-PodatkovneStrukture\6-PodatkovneStrukture.csproj", "{77BEA7D8-5A07-4C1E-8E5A-720A80581034}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "3-LINQ", "LINQ\3-LINQ.csproj", "{55BCD2F0-4184-4C3F-89D6-5ECEF02DF921}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "3-LINQ", "3-LINQ\3-LINQ.csproj", "{55BCD2F0-4184-4C3F-89D6-5ECEF02DF921}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "7-ParallelAndAsync", "ParallelAndAsync\7-ParallelAndAsync.csproj", "{F65098F4-A3BE-4A91-BF56-04D5BBADE0DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "7-ParallelAndAsync", "7-ParallelAndAsync\7-ParallelAndAsync.csproj", "{F65098F4-A3BE-4A91-BF56-04D5BBADE0DD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "8-Serializacija", "Serializacija\8-Serializacija.csproj", "{0A706318-1E2B-46A2-B6D0-4D3175E7F1A9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "8-Serializacija", "8-Serializacija\8-Serializacija.csproj", "{0A706318-1E2B-46A2-B6D0-4D3175E7F1A9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "0-CommonFunctions", "CommonFunctions\0-CommonFunctions.csproj", "{0BA3D101-D1EC-4F71-A073-40748A478D56}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "0-CommonFunctions", "0-CommonFunctions\0-CommonFunctions.csproj", "{0BA3D101-D1EC-4F71-A073-40748A478D56}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "99-MathLibrary", "MathLibrary\99-MathLibrary.csproj", "{B011E686-BADE-4283-A6C4-3828B61EB717}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "99-MathLibrary", "99-MathLibrary\99-MathLibrary.csproj", "{B011E686-BADE-4283-A6C4-3828B61EB717}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "5-Generiki", "Generiki\5-Generiki.csproj", "{B43D4083-8DCC-4F4A-8349-2D2B1444E7AF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "5-Generiki", "5-Generiki\5-Generiki.csproj", "{B43D4083-8DCC-4F4A-8349-2D2B1444E7AF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
