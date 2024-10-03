@@ -199,7 +199,7 @@ namespace Uvod
 
         /// <summary>
         /// V tej funkciji naredimo novo instanco tipa Student 
-        /// in  ji določimo nekaj lastnosti
+        /// in ji določimo nekaj lastnosti
         /// </summary>
         static void CreateStudents()
         {
