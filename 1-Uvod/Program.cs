@@ -44,6 +44,8 @@ namespace Uvod
                     { // V tem primeru si ogledamo vračanje vrednosti z uporabo določila out
                         int upToNumber = 90;
                         int numPrimes = MyStaticFunctions.CountPrimes(upToNumber, out int largest);
+                        // Če ne želimo izhodne vrednosti, napišemo podčrtaj
+                        int numPrimes2 = MyStaticFunctions.CountPrimes(upToNumber, out _);
                         Console.WriteLine($"Od 1 do {upToNumber} je {numPrimes} praštevil, največje pa je {largest}.");
                     }
                     break;
@@ -178,8 +180,8 @@ namespace Uvod
             Console.WriteLine($@"\tŠtevilo praštevil med 1 in {n} je {primes}.");
 
             // Z njim lahko definiramo tudi imena spremenljivk iz rezerviranih besed
-            int @class = 3;
-            Console.WriteLine($"\tVrednost spremenljivke {nameof(@class)} je {@class}.");
+            int @int = 3;
+            Console.WriteLine($"\tVrednost spremenljivke {nameof(@int)} je {@int}.");
 
             // Pri interpolaciji imamo še dodatne možnosti, npr. zamike
             Console.WriteLine();
@@ -194,7 +196,7 @@ namespace Uvod
             Console.WriteLine("Določanje formata izpisa pri interpolaciji");
             // Določamo lahko tudi format izpisa, ki ga zapišemo za dvopičjem
             Console.WriteLine($"\t|{"Ime in priimek",-20}|{"Ocena",6}|{"Datum opravljanja",-20}|");
-            Console.WriteLine($"\t|{"Borut Lužar",-20}|{"6  ",6}|{DateTime.Now,-20:d. M. yyyy}|");
+            Console.WriteLine($"\t|{"Borut Lužar",-20}|{"6  ",6}|{DateTime.Now:d. M. yyyy}|");
         }
 
         /// <summary>
@@ -206,11 +208,11 @@ namespace Uvod
             // Kreiramo novo instanco
             Student marko = new Student("Marko", "Markantni", new DateTime(1980, 1, 1))
             {
-                Subjects = new System.Collections.Generic.List<Subject>() 
-                    { 
+                Subjects = new System.Collections.Generic.List<Subject>()
+                    {
                         Subject.DiskretnaMatematika,
                         Subject.Programiranje
-                    }   
+                    }
             };
 
             //Console.WriteLine($"{marko.FirstName} je rojen {marko.BirthDate.Day}. {marko.BirthDate.Month}. {marko.BirthDate.Year}");
