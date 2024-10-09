@@ -78,7 +78,7 @@ namespace Uvod
                       // - uporabo seznamov
                       // - uporabo neobveznih parametrov
                       // - uporabo lambda izrazov (k njim se vrnemo še kasneje)
-                        List<int> lstRnd = MyStaticFunctions.MakeRandomList(13, out int odds, true);
+                        List<int> lstRnd = MyStaticFunctions.MakeRandomList(13, out int odds, debug:true);
                         Console.WriteLine($"\nŠtevilo vnosov je {lstRnd.Count}, od teh je lihih {odds}");
                     }
                     break;
@@ -100,12 +100,12 @@ namespace Uvod
                     break;
                 case IntroductorySection.WritingInFile:
                     { // V tem primeru si ogledamo zapisovanje v datoteko
-                        MyStaticFunctions.WriteFile("PrvaPredavanjaTest3.txt");
+                        MyStaticFunctions.WriteFile("PrvaPredavanjaTest1.txt");
                     }
                     break;
                 case IntroductorySection.ReadingFromFile:
                     { // V tem primeru si ogledamo branje iz datoteke
-                        int numLines = MyStaticFunctions.ReadFile("PrvaPredavanjaTest3.txt");
+                        int numLines = MyStaticFunctions.ReadFile("PrvaPredavanjaTest1.txt");
                         Console.WriteLine($"\nDatoteka vsebuje {numLines} vrstic");
                     }
                     break;

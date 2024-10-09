@@ -19,7 +19,7 @@ namespace ObjektniKoncepti
             // Pripravimo si spremenljivko vrednostnega tipa
             int valType = 1;
 
-            // Boxing - tipa ni potrebno zapisati eksplicitno            
+            // Boxing - tipa ni treba zapisati eksplicitno
             object refType = valType;
 
             Console.WriteLine($"1. valType={valType}, refType={refType}");

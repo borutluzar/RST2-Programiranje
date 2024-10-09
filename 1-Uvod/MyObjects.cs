@@ -5,7 +5,7 @@ using System.Text;
 namespace Uvod
 {
     /// <summary>
-    /// Object for saving the read file's attibutes
+    /// Object for saving the read file's attributes
     /// </summary>
     public class FileData
     {

@@ -157,7 +157,7 @@ namespace Uvod
         /// </summary>
         /// <param name="capacity">Number of elements</param>
         /// <returns>List with random entries</returns>
-        public static List<int> MakeRandomList(int capacity, out int numOdd, bool debug = false, int seed = 0)
+        public static List<int> MakeRandomList(int capacity, out int numOdd, bool debug = false, int seed = 0) // parametra debug in seed sta opcijska, saj imata določeno privzeto vrednost
         {
             // Ustvarimo nov objekt za generiranje naključnih števil
             // Določimo tudi "seed", da bo "naključnost" v naših primerih vedno enaka
@@ -295,21 +295,22 @@ namespace Uvod
             StreamReader srData = new StreamReader(fileName);
 
             int countLines = 0;
+            string delicateWord = "Jurij";
 
             // Dodaten podatek, za katerega želimo, da ga funkcija vrne
-            bool checkContainsMyName = default;
+            bool checkDelicate = default;
             while (!srData.EndOfStream)
             {
                 string line = srData.ReadLine();
                 countLines++;
 
-                if (line.Contains("Borut"))
-                    checkContainsMyName = true;
+                if (line.Contains(delicateWord))
+                    checkDelicate = true;
             }
             srData.Close();
 
             // Ustvarimo nov objekt
-            FileData fd = new FileData(checkContainsMyName)
+            FileData fd = new FileData(checkDelicate)
             {
                 NumberOfLines = countLines,
                 //ContainsSensitiveInfo = checkContainsMyName

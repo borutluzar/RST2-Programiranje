@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.SqlTypes;
-using System.Text;
 
 namespace ObjektniKoncepti
 {
@@ -26,6 +24,13 @@ namespace ObjektniKoncepti
             // Preberimo in izpišimo nastavljeni vrednosti
             Console.WriteLine($"Cena jabolka={myIndexerClass["Jabolko"]}, " +
                 $"hruška={myIndexerClass["Hruška"]}");
+
+
+            StudentGeneration sg = new StudentGeneration();
+            sg.FirstEnrolmentYear = 2024;
+            sg.ProgramName = "RST";
+
+            // Dodajmo nekaj študentov
         }
     }
 
