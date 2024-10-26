@@ -6,7 +6,7 @@ namespace ObjektniKoncepti
 {
     /// <summary>
     /// Arh, Q13
-    /// 'Boxing' (mi bomo to prevajali kot 'zavijanje') je proces preoblikovanja ('cast') vrednostnega tipa v referenčnega.
+    /// 'Boxing' (mi bomo to prevajali kot 'zavijanje') je proces preoblikovanja ('cast') vrednostnega tipa v sklicnega.
     /// Obratni proces je 'unboxing' (oz. 'odvijanje').
     /// 
     /// ! Oba procesa sta počasna, zato se odsvetuje njuno izvajanje na veliki količini objektov!

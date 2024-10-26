@@ -28,6 +28,8 @@ namespace Uvod
         /// </summary>
         public int NumberOfLines { get; set; }
 
+        public int NumberOfCharacters { get; set; }
+
         /// <summary>
         /// Is true if the file contains my name
         /// </summary>

@@ -49,14 +49,22 @@ namespace ObjektniKoncepti.Inheritance
             child.Property1 = 11;
             child.PropertyParent = 3;
             childAsParent.Property1 = 12;
+
+            // Preverimo, če je instanca ustreznega tipa
             if (childAsParent2 is ChildClass)
             {                
-                ((ChildClass)childAsParent2).ChildMethod();
+                ((ChildClass)childAsParent2).ChildMethod();                
             }            
 
-            // Instanca childAsParent se obnaša kot instanca razreda ParentClass
+            // Instanca childAsParent se obnaša kot instanca razreda ParentClass,
+            // vendar le, če metode ne "povozimo" v podrazredu!
             Console.WriteLine($"Vrednost funkcije SquareField za child = {child.SquareField()}");
             Console.WriteLine($"Vrednost funkcije SquareField za childAsParent = {childAsParent.SquareField()}");
+
+            // Če metodo "povozimo" v podrazredu, potem se definicija metode poišče tako
+            // globoko po drevesu dedovanja, dokler ne pridemo kar najbližje osnovnemu razredu instance!
+            Console.WriteLine($"Vrednost funkcije SquareRootField za child = {child.SquareRootField()}");
+            Console.WriteLine($"Vrednost funkcije SquareRootField za childAsParent = {childAsParent.SquareRootField()}");
         }
 
         public static void ExampleMasks() 
@@ -176,12 +184,19 @@ namespace ObjektniKoncepti.Inheritance
         }
 
         /// <summary>
-        /// Javna metoda, ki vrača kvadrat vrednosti polja field1
+        /// Metoda, ki vrača kvadrat vrednosti polja field1
         /// </summary>
-        /// <returns>Kvadrat vrednosti field1</returns>
-        public virtual double SquareField()
+        public double SquareField()
         {
             return this.field1 * this.field1;
+        }
+
+        /// <summary>
+        /// Metoda, ki vrača kvadratni koren vrednosti polja field1
+        /// </summary>
+        public virtual double SquareRootField()
+        {
+            return Math.Sqrt(this.field1);
         }
     }
 
@@ -216,11 +231,20 @@ namespace ObjektniKoncepti.Inheritance
         new public int Property1 { get; set; }
 
         /// <summary>
-        /// Podobno pri lastnosti lahko definiramo novo metodo, ki povozi metodo nadrazreda.
+        /// Podobno pri lastnosti lahko definiramo NOVO metodo, ki ima enako ime kot metoda v nadrazredu
         /// </summary>
-        public override double SquareField()
+        new public double SquareField()
         {
+            // Kvadrat še dodatno pomnožimo
             return base.SquareField() * this.field2;
+        }
+
+        /// <summary>
+        /// Lahko pa metodo iz nadrazreda povozimo - jo predefiniramo za potrebe podrazreda
+        /// </summary>
+        public override double SquareRootField()
+        {
+            return base.SquareRootField() * this.field2;
         }
 
         public bool ChildMethod()

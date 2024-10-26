@@ -113,10 +113,12 @@ namespace Uvod
                     { // V tem primeru si ogledamo branje iz datoteke in
                       // - zapisovanje lastnosti v poseben objekt
                       // - lastnosti in njihove posebnosti (k njim se vrnemo malo kasneje)
-                        FileData fileData = MyStaticFunctions.ReadFile2("PrvaPredavanjaTest.txt");
+                        FileData fileData = MyStaticFunctions.ReadFile2("Besedilo.txt");
 
-                        Console.WriteLine($"Datoteka vsebuje {fileData.NumberOfLines} vrstic in " +
-                                $"{(fileData.ContainsSensitiveInfo ? "vsebuje moje ime!" : "ne vsebuje mojega imena!")}");
+                        Console.WriteLine($"Datoteka vsebuje {fileData.NumberOfLines} vrstic, " +
+                            $"{fileData.NumberOfCharacters} znakov in " +
+                                $"{(fileData.ContainsSensitiveInfo ? 
+                                "vsebuje občutljive podatke!" : "ne vsebuje občutljivih podatkov!")}");
                     }
                     break;
                 case IntroductorySection.RecallingObjects:

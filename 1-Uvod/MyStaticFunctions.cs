@@ -295,6 +295,7 @@ namespace Uvod
             StreamReader srData = new StreamReader(fileName);
 
             int countLines = 0;
+            int numChars = 0;
             string delicateWord = "Jurij";
 
             // Dodaten podatek, za katerega želimo, da ga funkcija vrne
@@ -303,6 +304,7 @@ namespace Uvod
             {
                 string line = srData.ReadLine();
                 countLines++;
+                numChars += line.Length;
 
                 if (line.Contains(delicateWord))
                     checkDelicate = true;
@@ -313,7 +315,8 @@ namespace Uvod
             FileData fd = new FileData(checkDelicate)
             {
                 NumberOfLines = countLines,
-                //ContainsSensitiveInfo = checkContainsMyName
+                NumberOfCharacters = numChars,
+                //ContainsSensitiveInfo = checkDelicate
             };
 
             return fd;

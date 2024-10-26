@@ -16,7 +16,7 @@ namespace ObjektniKoncepti
 
             // Ustvarimo nov objekt, ki ima definiran indekser.
             MyIndexerClass myIndexerClass = new MyIndexerClass();
-            
+
             // Nastavimo dve vrednosti
             myIndexerClass["Jabolko"] = 12.0;
             myIndexerClass["Hruška"] = 17.0;
@@ -24,6 +24,22 @@ namespace ObjektniKoncepti
             // Preberimo in izpišimo nastavljeni vrednosti
             Console.WriteLine($"Cena jabolka={myIndexerClass["Jabolko"]}, " +
                 $"hruška={myIndexerClass["Hruška"]}");
+
+
+            // Indekser lahko definiramo tudi s tabelo ali seznamom
+            MyIndexerClassWithArray myIndexerWithArray = new MyIndexerClassWithArray(10);
+            myIndexerWithArray[9] = 13.4;
+            Console.WriteLine($"Cena jabolka={myIndexerWithArray[0]}, " +
+                $"hruška={myIndexerWithArray[9]}");
+
+
+            // Primer več-dimenzionalnega indekserja
+            MyIndexerMultiDimTuple appleStore = new();
+            appleStore["Jabolko", "Jonagold"] = 13.2;
+            appleStore["Jabolko", "Topaz"] = 11.2;
+            appleStore["Hruška", "Viljamovka"] = 17.2;
+
+            Console.WriteLine($"Cena jabolko Jonagold={appleStore["Jabolko","Jonagold"]}");
 
 
             StudentGeneration sg = new StudentGeneration();
@@ -44,8 +60,8 @@ namespace ObjektniKoncepti
         /// <summary>
         /// Definiramo polje, ki bo hranilo vrednosti
         /// </summary>
-        private Dictionary<string, double> dicPrice = new Dictionary<string, double>();
-        
+        private Dictionary<string, double> dicPrices = new Dictionary<string, double>();
+
         /// <summary>
         /// Indekserji vzamejo vrednosti neposredno iz slovarja
         /// </summary>
@@ -55,20 +71,119 @@ namespace ObjektniKoncepti
         {
             get
             {
-                return this.dicPrice.ContainsKey(article) ? 
-                    (double?)this.dicPrice[article] : null;
+                return this.dicPrices.ContainsKey(article) ?
+                    (double?)this.dicPrices[article] : null;
             }
             set
             {
                 // Popravljanje vnosa
-                if (this.dicPrice.ContainsKey(article))
-                    this.dicPrice[article] = (double)value;
+                if (this.dicPrices.ContainsKey(article))
+                    this.dicPrices[article] = (double)value;
                 // Dodajanje novega vnosa
                 else
-                    this.dicPrice.Add(article, (double)value);
+                    this.dicPrices.Add(article, (double)value);
             }
         }
     }
+
+
+    /// <summary>
+    /// Indekserje lahko definiramo tudi s tabelo ali seznamom,
+    /// vendar moramo takrat za ključe uporabiti cela števila tipa int
+    /// </summary>
+    internal class MyIndexerClassWithArray
+    {
+        /// <summary>
+        /// Definiramo polje, ki bo hranilo vrednosti
+        /// </summary>
+        private double[] dicPrices;
+
+        public MyIndexerClassWithArray(int size)
+        {
+            this.dicPrices = new double[size];
+        }
+
+        /// <summary>
+        /// Indekserji vzamejo vrednosti neposredno iz slovarja
+        /// </summary>
+        /// <param name="article">Parameter, ki predstavlja indeks v slovarju</param>
+        /// <returns>Vrednost na danem indeksu</returns>
+        public double? this[int index]
+        {
+            get
+            {
+                if (index < 0 || index > dicPrices.Length - 1)
+                    return null;
+                return this.dicPrices[index];
+            }
+            set
+            {
+                // Popravljanje vnosa
+                if (index < dicPrices.Length && index >= 0)
+                    this.dicPrices[index] = (double)value;
+                // Dodajanje novega vnosa
+                else
+                    throw new Exception("The index is out of range!");
+            }
+        }
+    }
+
+    internal class MyIndexerMultiDim
+    {
+        /// <summary>
+        /// Definiramo polje, ki bo hranilo vrednosti
+        /// </summary>
+        private double[,] dicPrices;
+
+        public MyIndexerMultiDim(int sizeType, int sizeId)
+        {
+            this.dicPrices = new double[sizeType, sizeId];
+        }
+
+        /// <summary>
+        /// Indekserji vzamejo vrednosti neposredno iz slovarja
+        /// </summary>
+        /// <param name="article">Parameter, ki predstavlja indeks v slovarju</param>
+        /// <returns>Vrednost na danem indeksu</returns>
+        public double? this[int type, int id]
+        {
+            get
+            {
+                return this.dicPrices[type, id];
+            }
+            set
+            {
+                this.dicPrices[type, id] = (double)value;
+            }
+        }
+    }
+
+
+    internal class MyIndexerMultiDimTuple
+    {
+        /// <summary>
+        /// Definiramo polje, ki bo hranilo vrednosti
+        /// </summary>
+        private Dictionary<(string, string), double> dicPrices = new();
+
+        /// <summary>
+        /// Indekserji vzamejo vrednosti neposredno iz slovarja
+        /// </summary>
+        /// <param name="article">Parameter, ki predstavlja indeks v slovarju</param>
+        /// <returns>Vrednost na danem indeksu</returns>
+        public double? this[string type, string name]
+        {
+            get
+            {
+                return this.dicPrices[(type, name)];
+            }
+            set
+            {
+                this.dicPrices[(type, name)] = (double)value;
+            }
+        }
+    }
+
 
     /// <summary>
     /// Še en primer razreda, ki uporablja indekserje. Imamo objekt, ki predstavlja generacijo študentov.
@@ -82,11 +197,11 @@ namespace ObjektniKoncepti
         public int FirstEnrolmentYear { get; set; }
 
         private Dictionary<int, Student> dicStudents = new Dictionary<int, Student>();
-        public Student this[int enrolmentNumber] 
+        public Student this[int enrolmentNumber]
         {
-            get 
+            get
             {
-                return dicStudents.ContainsKey(enrolmentNumber) ? dicStudents[enrolmentNumber]  : null;
+                return dicStudents.ContainsKey(enrolmentNumber) ? dicStudents[enrolmentNumber] : null;
             }
             set
             {
@@ -102,9 +217,9 @@ namespace ObjektniKoncepti
     public class Student
     {
         public string EnrolmentNumber { get; set; }
-        
+
         public string LastName { get; set; }
-        
+
         public string FirstName { get; set; }
 
         public string Email { get; set; }
