@@ -52,8 +52,9 @@ namespace ObjektniKoncepti.Inheritance
 
             // Preverimo, če je instanca ustreznega tipa
             if (childAsParent2 is ChildClass)
-            {                
-                ((ChildClass)childAsParent2).ChildMethod();                
+            {
+                //childAsParent2.ChildMethod();
+                ((ChildClass)childAsParent2).ChildMethod();
             }            
 
             // Instanca childAsParent se obnaša kot instanca razreda ParentClass,
@@ -83,7 +84,10 @@ namespace ObjektniKoncepti.Inheritance
 
         public static void ExampleInheritanceWithOverridenMethod()
         {
-            // Oglejmo si učinek cast-anja na povoženo metodo
+            ChessPiece generalPiece = new ChessPiece();
+            Console.WriteLine($"ToString za {nameof(generalPiece)} = {generalPiece.ToString()}");
+
+            // Oglejmo si učinek cast-anja na povoženo metodo            
             Rook rook = new Rook();
             ChessPiece piece = rook;
 
@@ -260,11 +264,12 @@ namespace ObjektniKoncepti.Inheritance
     /// </summary>
     public class ChessPiece
     {
-        public double ChessWeight { get; protected set; }
+        public double Weight { get; protected set; }
 
         public override string ToString()
         {
-            return $"Sem šahovska figura z vrednostjo {this.ChessWeight}.";
+            //return base.ToString();
+            return $"Sem šahovska figura z vrednostjo {this.Weight}.";
         }
     }
 
@@ -278,7 +283,7 @@ namespace ObjektniKoncepti.Inheritance
 
         public Rook()
         {
-            this.ChessWeight = chessWeight;
+            this.Weight = chessWeight;
         }
 
         public override string ToString()
@@ -296,7 +301,7 @@ namespace ObjektniKoncepti.Inheritance
 
         public King()
         {
-            this.ChessWeight = chessWeight;
+            this.Weight = chessWeight;
         }
 
         public override string ToString()

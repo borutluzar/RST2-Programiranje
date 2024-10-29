@@ -19,9 +19,9 @@ namespace ObjektniKoncepti
             InheritanceWithCastingOnOverriden = 7,
             InheritancePolymorphism = 8,
             InheritanceVirtualMethod = 9,
-            Interfaces = 10,
-            InterfacesExampleMetadata = 11,
-            Abstraction = 12,
+            Abstraction = 10,
+            Interfaces = 11,
+            InterfacesExampleMetadata = 12,
             InterfacesImplicitExplicit = 13,
             Extensions = 14
         }
@@ -81,6 +81,13 @@ namespace ObjektniKoncepti
                         Inheritance.Inheritance.ExampleInheritanceWithVirtual();
                     }
                     break;
+
+                case ObjectsSections.Abstraction:
+                    {
+                        Abstraction.Abstraction.ExampleAbstraction();
+                    }
+                    break;
+
                 case ObjectsSections.Interfaces:
                     {
                         Interfaces.Interfaces.InterfacesExample();
@@ -91,11 +98,7 @@ namespace ObjektniKoncepti
                         Interfaces.Interfaces.ExampleMetaData();
                     }
                     break;
-                case ObjectsSections.Abstraction:
-                    {
-                        Abstraction.Abstraction.ExampleAbstraction();
-                    }
-                    break;
+                
                 case ObjectsSections.InterfacesImplicitExplicit:
                     {
                         InterfacesImplicitExplicit.ImplicitExplicit.ExampleImplicitExplicit();

@@ -37,29 +37,7 @@ namespace ObjektniKoncepti.Abstraction
             }
         }
     }
-
-
-    /// <summary>
-    /// V prejšnjem primeru smo se ukvarjali z vmesniki.
-    /// Podoben koncept predstavljajo abstraktni razredi
-    /// </summary>
-    interface IPiece
-    {
-        /// <summary>
-        /// Vsaka figura se zna premakniti na neko polje
-        /// </summary>
-        /// <param name="field">Polje, kamor se naj figura premakne</param>
-        void Move(ChessBoardField field);
-
-        /// <summary>
-        /// Vmesniki definirajo tudi lastnosti v enaki obliki, 
-        /// kot v razredu definiramo samodejno implementirane lastnosti.
-        /// Vendar moramo lastnosti vmesnika dejansko implementirati v razredu.
-        /// </summary>
-        bool IsAlive { get; set; }
-
-        ChessBoardField Position { get; }
-    }
+            
 
     /// <summary>
     /// Definiramo si struct za shranjevanje koordinat na šahovski plošči
@@ -92,7 +70,7 @@ namespace ObjektniKoncepti.Abstraction
     /// označimo razred za abstrakten.
     /// https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/abstract?f1url=%3FappId%3DDev16IDEF1%26l%3DEN-US%26k%3Dk(abstract_CSharpKeyword);k(DevLang-csharp)%26rd%3Dtrue
     /// </summary>
-    public abstract class ChessPiece : IPiece
+    public abstract class ChessPiece
     {
         /// <summary>
         /// Konstruktorje abstraktnemu razredu lahko določimo.
