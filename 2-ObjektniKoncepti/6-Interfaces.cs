@@ -35,7 +35,8 @@ namespace ObjektniKoncepti.Interfaces
 
             // Premaknimo trdnjavo
             Console.WriteLine("\n");
-            Rook rook = new Rook(fieldStart);
+            //Rook rook = new Rook(fieldStart);
+            IPiece rook = new Rook(fieldStart);
             Console.WriteLine($"Trenutna pozicija figure rook je {rook.Position}");
             Console.WriteLine();
 
@@ -147,6 +148,28 @@ namespace ObjektniKoncepti.Interfaces
         public override string ToString()
         {
             return $"({this.X},{this.Y})";
+        }
+    }
+
+    public class GoPiece : IPiece
+    {
+        public bool IsAlive 
+        { 
+            get => throw new NotImplementedException(); 
+            set => throw new NotImplementedException(); 
+        }
+
+        public double ChessWeight => throw new NotImplementedException();
+
+        public ChessBoardField Position 
+        { 
+            get => throw new NotImplementedException(); 
+            set => throw new NotImplementedException(); 
+        }
+
+        public void Move(ChessBoardField field)
+        {
+            throw new NotImplementedException();
         }
     }
 
@@ -315,16 +338,29 @@ namespace ObjektniKoncepti.Interfaces
         public string Organization { get; set; }
     }
 
+    interface IEvaluatable
+    {
+        List<string> Committee { get; set; }
+
+        void Present();
+    }
+
     /// <summary>
     /// Razred, ki definira magistrsko nalogo
     /// </summary>
-    internal class MastersThesis : IDocumentMetaData
+    internal class MastersThesis : IDocumentMetaData, IEvaluatable
     {
         public string Title { get; set; }
         public DateTime DateModified { get; set; }
         public string Author { get; set; }
         public DateTime DateCreated { get; set; }
         public string Organization { get; set; }
+        public List<string> Committee { get; set ; }
+
+        public void Present()
+        {
+            Console.WriteLine("I will present my master's thesis now!");
+        }
     }
 
     /// <summary>
@@ -336,4 +372,8 @@ namespace ObjektniKoncepti.Interfaces
         public DateTime DateCreated { get; set; }
         public string Organization { get; set; }
     }
+
+
+
+
 }

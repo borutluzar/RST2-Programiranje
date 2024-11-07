@@ -15,6 +15,8 @@ namespace ObjektniKoncepti.Extensions
             string filip = "téma";
             
             Console.WriteLine($"Filip vsebuje? {filip.ContainsVowels()}");
+            Console.WriteLine($"Filip vsebuje? {ExtensionsClass.ContainsVowels(filip)}");
+            
 
             char c = 'e';
             int numChars = filip.CountChars(c);
@@ -35,7 +37,7 @@ namespace ObjektniKoncepti.Extensions
             // Do razširitvene metode pridemo neposredno preko razreda
             Console.WriteLine($"Klic (razširitvene?) metode ToString čez statični razred {ExtensionsClass.ToString(field)}");
 
-            // Obe funkciji lahko kličemo v statičnem smislu, ne pa kot razširitvene na instanci
+            // Obe funkciji lahko kličemo v statičnem smislu, ne pa kot razširitveni na instanci
             // Napaka je šele ob klicu na instanci (ambiguity), ker ne vemo, katero od obeh uporabiti.
             // Pred tem ne, ker lahko imamo razširitvi definirani v različnih projektih, ki jih referenciramo v našem
             // in seveda nočemo napake že ob vključitvi dodatne kode, temveč šele ko izvedemo dvoumen klic!

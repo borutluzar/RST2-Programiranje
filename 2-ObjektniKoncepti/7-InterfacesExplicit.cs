@@ -82,6 +82,11 @@ namespace ObjektniKoncepti.InterfacesImplicitExplicit
         void IPiece.Promote(ChessPiece toPiece)
         {
             Console.WriteLine($"(EKSPLICITNO iz IPiece) Jaz, figura kmet, se želim promovirati v figuro:\n {toPiece.GetType()}");
+        }                
+
+        void ICareerObject.Promote(ChessPiece toPiece)
+        {
+            Console.WriteLine($"(EKSPLICITNO iz ICareerObject) Jaz, figura kmet, se želim promovirati v figuro:\n {toPiece.GetType()}");
         }
 
         /// <summary>
@@ -90,11 +95,6 @@ namespace ObjektniKoncepti.InterfacesImplicitExplicit
         public void Promote(ChessPiece toPiece)
         {
             Console.WriteLine($"(Metoda iz ChessPiece) Jaz, figura kmet, se želim promovirati v figuro:\n {toPiece.GetType()}");
-        }
-
-        void ICareerObject.Promote(ChessPiece toPiece)
-        {
-            Console.WriteLine($"(EKSPLICITNO iz ICareerObject) Jaz, figura kmet, se želim promovirati v figuro:\n {toPiece.GetType()}");
         }
 
         public bool IsAlive { get; set; }
