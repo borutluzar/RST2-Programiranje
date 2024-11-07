@@ -178,8 +178,8 @@ namespace ObjektniKoncepti.Interfaces
         /// <param name="field">Polje, kamor naj se figura premakne</param>
         public virtual void Move(ChessBoardField field)
         {
-            position = field;
-            //this.Position = field;
+            //position = field;
+            this.Position = field;
         }
 
         public bool IsAlive { get; set; }
@@ -280,7 +280,7 @@ namespace ObjektniKoncepti.Interfaces
 
         DateTime DateCreated { get; set; }
 
-        string? Organization { get; set; }
+        string Organization { get; set; }
     }
 
     /// <summary>
@@ -305,6 +305,9 @@ namespace ObjektniKoncepti.Interfaces
         public string Organization { get; set; }
     }
 
+    /// <summary>
+    /// Razred, ki definira datoteko
+    /// </summary>
     internal class File : IMetaData
     {
         public string Author { get; set; }
@@ -312,6 +315,9 @@ namespace ObjektniKoncepti.Interfaces
         public string Organization { get; set; }
     }
 
+    /// <summary>
+    /// Razred, ki definira magistrsko nalogo
+    /// </summary>
     internal class MastersThesis : IDocumentMetaData
     {
         public string Title { get; set; }
@@ -321,6 +327,9 @@ namespace ObjektniKoncepti.Interfaces
         public string Organization { get; set; }
     }
 
+    /// <summary>
+    /// Razred, ki definira razstavo
+    /// </summary>
     internal class Exhibition : IMetaData
     {
         public string Author { get; set; }
