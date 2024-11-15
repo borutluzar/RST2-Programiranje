@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Xml;
 
 namespace LINQ
 {
@@ -75,6 +77,19 @@ namespace LINQ
                 Console.Write($"{item}{(count == list.Count() ? "" : ",")} ");
             }
             Console.WriteLine();
+        }
+
+        public static string ToString<T>(this IEnumerable<T> list)
+        {
+            StringBuilder result = new StringBuilder();
+            result.Append("{");
+            int count = 0;
+            foreach (var item in list)
+            {
+                count++;
+                result.Append($"{item}{(count == list.Count() ? "}" : ",")} ");
+            }
+            return result.ToString();
         }
     }
 }

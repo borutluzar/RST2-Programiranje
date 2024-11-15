@@ -1,6 +1,8 @@
 ﻿using CommonFunctions;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 
 namespace LINQ
 {
@@ -11,14 +13,15 @@ namespace LINQ
     /// 
     /// Več o delegatih in njihovi uporabi najdete v [Arh, Q29]
     /// </summary>
-    class Delegates
+    public class Delegates
     {
         enum DelegateSubsections
         {
             Definition = 1,
             MultipleFunctionReferences = 2,
             DelegatesAsParameters = 3,
-            NetSimplification = 4
+            NetSimplification = 4,
+            Reflections
         }
 
         public static void DelegateExamples()
@@ -58,16 +61,20 @@ namespace LINQ
                         // Dodajmo še nekaj funkcij
                         property += IsOdd;
                         property += IsDivisibleBy11;
-                        Console.WriteLine($"\nSpremenljivka {nameof(property)} se sklicuje na funkcije {nameof(IsPrimeNumber)}, {nameof(IsOdd)} in {nameof(IsDivisibleBy11)}");
+                        // Te funkcije se zbirajo v seznamu GetInvocationList
+                        Console.WriteLine($"\nSpremenljivka {nameof(property)} se sklicuje na funkcije " +                            
+                            $"{property.GetInvocationList().Select(x => x.Method.Name).ToList().ToString<string>()}, " +
+                            $"zadnja funkcija pa je {property.Method.Name}");
                         Console.WriteLine($"Za število {input} lastnost {(property(input) ? "drži" : "ne drži")}");
                     }
                     break;
                 case DelegateSubsections.DelegatesAsParameters:
                     {
                         // Ključna uporaba delegatov je v primeru njihovega podajanja kot parametrov
-                        // funkcijam, da jih s tem naredimo bolj splošne.
+                        // funkcijam, da funkcije s tem naredimo bolj splošne.
 
                         List<int> lstInputs = new() { 3, 5, 7, 12, 13, 14, 18, 23, 25, 28, 43, 55, 56, 57, 58, 82, 85, 89 };
+                                                
 
                         // Pokličimo funkcijo CheckProperty za različne lastnosti
                         var lstResults = CheckProperty(lstInputs, IsOdd);
@@ -105,6 +112,26 @@ namespace LINQ
                         // Običajno tipe Func, Action in Predicate zapisujemo kar v obliki lambda izrazov...
                     }
                     break;
+                case DelegateSubsections.Reflections:
+                    {
+                        // Včasih želimo metodo poklicati na podlagi njenega imena.
+                        // Npr., ime metode preberemo iz baze ali iz danega seznama.
+                        // Pridobimo jih (javne!) s pomočjo paketa System.Reflection
+
+                        // Najprej povemo, v katerem razredu iščemo metode
+                        Type type = typeof(Delegates);  // ali: Type.GetType("LINQ.Delegates"); 
+                        Console.WriteLine($"Javne metode v razredu {type.Name} " +
+                            $"so: {type.GetMethods().Select(m => m.Name).ToString<string>()}");
+
+                        // Pridobimo željeno metodo
+                        MethodInfo method = type.GetMethod("IsOdd");
+                        // Priredimo vrednost delegatu
+                        NumberProperty property = Delegate.CreateDelegate(typeof(NumberProperty), method) as NumberProperty;
+
+                        int input = 10;
+                        Console.WriteLine($"Za število {input} lastnost {property.Method.Name} {(property(input) ? "drži" : "ne drži")}");
+                    }
+                    break;
             }
         }
 
@@ -114,13 +141,13 @@ namespace LINQ
         //
         // Ker je delegat sklic na funkcijo, se držimo konvencije
         // in ga označimo z veliko začetnico.
-        delegate bool NumberProperty(int n);
+        public delegate bool NumberProperty(int n);
 
         // Pripravimo si še nekaj funkcij, ki jih bomo podajali kot
         // vrednost delegata.
-        static bool IsPrimeNumber(int n)
+        public static bool IsPrimeNumber(int n)
         {
-            Console.WriteLine("Poteka izvajanje funkcije IsPrimeNumber...");
+            Console.WriteLine("\nPoteka izvajanje funkcije IsPrimeNumber...");
 
             for (int i = 2; i <= (int)Math.Sqrt(n); i++)
                 if (n % i == 0)
@@ -129,21 +156,21 @@ namespace LINQ
             return true;
         }
 
-        static bool IsOdd(int n)
+        public static bool IsOdd(int n)
         {
-            Console.WriteLine("Poteka izvajanje funkcije IsOdd...");
+            Console.WriteLine("\nPoteka izvajanje funkcije IsOdd...");
             return n % 2 == 1;
         }
 
-        static bool IsDivisibleBy11(int n)
+        public static bool IsDivisibleBy11(int n)
         {
-            Console.WriteLine("Poteka izvajanje funkcije IsDivisibleBy11...");
+            Console.WriteLine("\nPoteka izvajanje funkcije IsDivisibleBy11...");
             return n % 11 == 0;
         }
-                
+
 
         // Definirajmo funkcijo, ki kot parameter prejme seznam števil in delegata za preverjanje izbrane lastnosti.
-        static List<(int, bool)> CheckProperty(List<int> lstNumbers, NumberProperty property)
+        public static List<(int, bool)> CheckProperty(List<int> lstNumbers, NumberProperty property)
         {
             List<(int, bool)> lstChecked = new List<(int, bool)>();
             foreach (int n in lstNumbers)
@@ -156,7 +183,7 @@ namespace LINQ
         /// <summary>
         /// Namesto posebnega delegata, lahko funkciji kot parameter podamo pred-pripravljen tip Predicate.
         /// </summary>
-        static List<(int, bool)> CheckProperty2(List<int> lstNumbers, Predicate<int> property)
+        public static List<(int, bool)> CheckProperty2(List<int> lstNumbers, Predicate<int> property)
         {
             List<(int, bool)> lstChecked = new List<(int, bool)>();
             foreach (int n in lstNumbers)
