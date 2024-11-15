@@ -106,6 +106,12 @@ namespace ObjektniKoncepti
         {
             //this.AutoImplementedProperty = 44;
             this.ReadOnlyAutoImplementedProperty = 12;
+
+            // Če lastnost, ki je določena samo za branje,  definiramo explicitno,
+            // je ne moremo nastaviti niti v konstruktorju. 
+            // Namesto tega nastavljamo vrednost v pomožnem polju
+            //this.ReadOnlyAutoImplementedPropertyExplicit = 12;
+            this.readOnlyExplicitField = 12;
         }
 
         public void MethodExample()
@@ -119,6 +125,15 @@ namespace ObjektniKoncepti
         /// potem izpustimo določilo 'set' in vrednost nastavimo takoj ob definiranju ali v konstruktorju
         /// </summary>
         public uint ReadOnlyAutoImplementedProperty { get; } = 57;
+
+        private uint readOnlyExplicitField;
+        public uint ReadOnlyAutoImplementedPropertyExplicit 
+        {
+            get
+            {
+                return readOnlyExplicitField;
+            } 
+        }
     }
 
 }

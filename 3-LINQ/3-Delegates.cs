@@ -1,8 +1,6 @@
 ﻿using CommonFunctions;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace LINQ
 {
@@ -37,14 +35,14 @@ namespace LINQ
                         // Poglejmo izpis
                         int input = 2;
                         var result = property(input);
-                        Console.WriteLine($"\nSpremenljivka {nameof(property)} ima vrednost {nameof(IsPrimeNumber)}");
+                        Console.WriteLine($"\nSpremenljivka {nameof(property)} ima vrednost {property.Method.Name}");
                         Console.WriteLine($"Za število {input} lastnost {(result ? "drži" : "ne drži")}");
 
 
                         // Zamenjajmo vrednost
                         property = IsOdd;
                         result = property(input);
-                        Console.WriteLine($"\nSpremenljivka {nameof(property)} ima vrednost {nameof(IsOdd)}");
+                        Console.WriteLine($"\nSpremenljivka {nameof(property)} ima vrednost {property.Method.Name}");
                         Console.WriteLine($"Za število {input} lastnost {(result ? "drži" : "ne drži")}");
                     }
                     break;

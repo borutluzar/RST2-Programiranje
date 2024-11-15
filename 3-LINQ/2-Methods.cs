@@ -169,7 +169,7 @@ namespace LINQ
                     {
                         // Metoda All preveri, če vsi elementi v zbirki ustrezajo danemu pogoju
                         bool allWithTail = LINQDataSet.animals.All(x => x.HasTail);
-                        Console.WriteLine($"\n{(allWithTail ? "Vse živali imajo rep!" : "Nimajo vse živali repa!")}");
+                        Console.WriteLine($"\n{(allWithTail ? "Vse živali imajo rep!" : "Vse živali nimajo repa!")}");
                     }
                     break;
                 case MethodsSubsection.SelectMany:
@@ -180,6 +180,9 @@ namespace LINQ
                         var selectingMany = LINQDataSet.continents
                                                 .SelectMany(continent => continent.Animals);
 
+                        // Pozor! Rezultat zbere vse elemente, ki jih najde, tudi če so enaki.
+
+                        // Poiščimo živali, ki imajo štiri noge
                         var querySelectMany = selectingMany
                                                 .Where(animalID => LINQDataSet.animals.Find(x => x.ID == animalID)?.NumberOfLegs == 4)
                                                 .Select(animalID => LINQDataSet.animals.Find(x => x.ID == animalID).Species);
@@ -209,8 +212,25 @@ namespace LINQ
                         // Brez argumenta metodi vrneta število vseh instanc v naboru.
 
                         // Na voljo imamo tudi metode Min, Max, Average ter Sum, ki vračajo to, kar povejo njihova imena.
+                        //var queryCount = LINQDataSet.animals.Max(x => x.ID);
+                        //var queryCountBy = LINQDataSet.animals.MaxBy(x => x.ID);
+
                         // Bolj zanimiva je metoda Aggregate. 
-                        // Poiščimo žival, ki ima najmanj nog
+                        // To je metoda, ki izvede ukaz na vseh elementih zaporedja,
+                        // pri čemer upošteva informacije iz predhodnih ukazov na elementih zaporedja
+                        
+                        // Poiščimo vsoto nog vseh živali:
+                        var queryAggNumLegs = LINQDataSet.animals
+                                        .Aggregate<Animal, int, int>( // Tip elementa seznama, tip iskane vrednosti, tip rezultata
+                                                seed: default(int), // Določitev začetne vrednosti iskane instance
+                                                            // Prehod po vseh instancah z upoštevanjem pogoja
+                                                (numLegs, animal) => numLegs + animal.NumberOfLegs,
+                                                numLegs => numLegs // Rezultat
+                                            );
+                        Console.WriteLine($"\nŽivali imajo skupno {queryAggNumLegs} nog!");
+
+                        // Poiščimo žival, ki ima najmanj nog (razmislite, s katero drugo funkcijo
+                        // bi lahko dobili enak rezultat)
                         var queryAggMinLegsAnimal = LINQDataSet.animals
                                         .Aggregate<Animal, Animal, string>( // Tip elementa seznama, tip iskane vrednosti, tip rezultata
                                                 seed: null, // Določitev začetne vrednosti iskane instance
