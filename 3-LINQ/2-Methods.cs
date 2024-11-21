@@ -66,8 +66,8 @@ namespace LINQ
                                             select new { animal.Species, animal.HasTail };*/
                         var queryGeneral2 = LINQDataSet.animals
                             .Select(animal => new 
-                            { 
-                                animal.Species, 
+                            {
+                                Species = animal.Species, 
                                 NumOfLegs = animal.NumberOfLegs,
                                 Tail = animal.HasTail 
                             });
@@ -83,7 +83,7 @@ namespace LINQ
                         // (samo njeno ime!), vendar mora kot parameter prejeti objekt 
                         // takšnega tipa, kot je v prejšnjem seznamu.
                         var queryGeneral2 = LINQDataSet.animals
-                            .Select(PodKind);
+                            .Select(PodKind /* animal => return vrednost funkcije PodKind */);
 
                         // Še primer, ko prilagodimo objekte seznama funkciji,
                         // da so parametri pravega tipa
@@ -138,7 +138,7 @@ namespace LINQ
                                                 .Select(animal => animal.Species)
                                                 //.OrderBy(x => x.Species)  // se ne prevede, ker smo izbrali le Species
                                                 .OrderBy(species => species);
-                                                //.Where(animal => animal.HasTail); // se ne prevede, ker smo izbrali le Species
+                                                //.Where(x => x.HasTail); // se ne prevede, ker smo izbrali le Species
                         Console.WriteLine("\nPoizvedba samo z vrsto živali");
                         querySelectFirst.ReadEnumerable();
                     }
@@ -174,7 +174,8 @@ namespace LINQ
                     break;
                 case MethodsSubsection.SelectMany:
                     {
-                        // Metodo SelectMany uporabimo, ko imajo objekti osnovnega predikata za lastnost sezname, 
+                        // Metodo SelectMany uporabimo, ko imajo objekti osnovnega predikata (podatkovne zbirke)
+                        // za lastnost sezname, 
                         // mi pa želimo narediti poizvedbo po teh seznamih (s tem se izognemo dvojnim zankam).
                         // Pri tem nas ne zanima, iz seznama katerega objekta smo zapise dobili.
                         var selectingMany = LINQDataSet.continents
@@ -188,6 +189,13 @@ namespace LINQ
                                                 .Select(animalID => LINQDataSet.animals.Find(x => x.ID == animalID).Species);
                         Console.WriteLine($"\nŽivali na vseh celinah, ki imajo štiri noge, so: ");
                         querySelectMany.ReadEnumerable();
+
+                        // Na koliko kontinentih živi žival z izbranim id-jem?
+                        int idZivali = 6;
+                        //int numberOfContinents = selectingMany.Where(x => x == idZivali).Count();
+                        int numberOfContinents = selectingMany.Count(x => x == idZivali);
+                        Console.WriteLine($"\nŽival {LINQDataSet.animals.Find(x => x.ID == idZivali).Species} " +
+                            $"živi na {numberOfContinents} kontinentih!");
                     }
                     break;
                 case MethodsSubsection.Distinct:
@@ -271,6 +279,10 @@ namespace LINQ
 
         private static Pod PodKind(Animal animal)
         {
+            // Tega ne uporabimo, ker številske vrednosti 
+            // niso neposredno prirejene imenom podov
+            // return (Pod)animal.NumberOfLegs;
+            
             switch (animal.NumberOfLegs)
             {
                 case 1: return Pod.Monopod;
@@ -279,7 +291,7 @@ namespace LINQ
                 case 6: return Pod.Hexapod;
                 case 8: return Pod.Octopod;
                 default: return Pod.Uknownopod;
-            }
+            }             
         }
 
         private static Pod PodKind2(int numberOfLegs)

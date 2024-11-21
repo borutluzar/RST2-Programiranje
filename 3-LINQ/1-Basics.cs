@@ -49,9 +49,9 @@ namespace LINQ
                         var queryGeneral2 = from animal in LINQDataSet.animals
                                             select new 
                                             { 
-                                                animal.Species, 
-                                                animal.NumberOfLegs,
-                                                animal.HasTail
+                                                animal.Species,
+                                                animal.HasTail,
+                                                animal.NumberOfLegs,                                                
                                             }; // Pripravimo objekt anonimnega tipa. Več v Arh, Q19.
                         Console.WriteLine("\nSplošna poizvedba z izbranimi lastnostmi");
                         
