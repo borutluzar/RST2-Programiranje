@@ -77,7 +77,7 @@ namespace LINQ
                                                 
 
                         // Pokličimo funkcijo CheckProperty za različne lastnosti
-                        var lstResults = CheckProperty(lstInputs, IsOdd);
+                        var lstResults = CheckProperty(lstInputs, IsPrimeNumber);
                         lstResults.ForEach(x => Console.WriteLine(x.ToString()));
                     }
                     break;

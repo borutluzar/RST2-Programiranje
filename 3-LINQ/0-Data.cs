@@ -54,14 +54,15 @@ namespace LINQ
                     new Animal(){ ID=9, Species = "Orangutan",  HasTail = false,    NumberOfLegs = 2 },
                     new Animal(){ ID=10, Species = "Lev",       HasTail = true,     NumberOfLegs = 4 },
                     new Animal(){ ID=11, Species = "Tiger",     HasTail = true,     NumberOfLegs = 4 },
+                    new Animal(){ ID=12, Species = "Kača",     HasTail = true,     NumberOfLegs = 0 },
                 };
 
         public static List<Continent> continents = new List<Continent>()
                 {
-                    new Continent(){ Name="Afrika", Animals = new List<int>(){ 1, 2, 3, 4, 5, 7, 10 } },
-                    new Continent(){ Name="Evropa", Animals = new List<int>(){ 1, 2, 3, 4, 5, 6, 7, 11 } },
+                    new Continent(){ Name="Afrika", Animals = new List<int>(){ 0, 1, 2, 3, 4, 5, 7, 10 } },
+                    new Continent(){ Name="Evropa", Animals = new List<int>(){ 0, 1, 2, 3, 4, 5, 6, 7, 11 } },
                     new Continent(){ Name="Azija", Animals = new List<int>(){ 1, 2, 3, 4, 5, 6, 7, 9, 10 } },
-                    new Continent(){ Name="Severna Amerika", Animals = new List<int>(){ 1, 2, 3, 4, 5, 6, 7, 8 } },
+                    new Continent(){ Name="Severna Amerika", Animals = new List<int>(){ 0, 1, 2, 3, 4, 5, 6, 7, 8 } },
                 };
     }
 

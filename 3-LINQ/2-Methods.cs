@@ -229,11 +229,11 @@ namespace LINQ
                         
                         // Poiščimo vsoto nog vseh živali:
                         var queryAggNumLegs = LINQDataSet.animals
-                                        .Aggregate<Animal, int, int>( // Tip elementa seznama, tip iskane vrednosti, tip rezultata
+                                            .Aggregate<Animal, int, int>( // Tip elementa seznama, tip iskane vrednosti, tip rezultata
                                                 seed: default(int), // Določitev začetne vrednosti iskane instance
                                                             // Prehod po vseh instancah z upoštevanjem pogoja
-                                                (numLegs, animal) => numLegs + animal.NumberOfLegs,
-                                                numLegs => numLegs // Rezultat
+                                                (totalNumLegs, currentAnimal) => totalNumLegs + currentAnimal.NumberOfLegs,
+                                                totalNumLegs => totalNumLegs // Rezultat
                                             );
                         Console.WriteLine($"\nŽivali imajo skupno {queryAggNumLegs} nog!");
 
@@ -258,7 +258,7 @@ namespace LINQ
                         Console.WriteLine($"\nNajmanjše število nog je {queryAggMinLegsNumber}!");
 
 
-                        // Primer
+                        // Primer:
                         // Iščemo žival z repom, ki ima največ nog
                         var queryAggMaxLegsWithTailAnimal = LINQDataSet.animals
                             .OrderBy(animal => animal.Species)
