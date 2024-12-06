@@ -1,8 +1,6 @@
 ﻿using CommonFunctions;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace LINQ
 {
@@ -78,6 +76,7 @@ namespace LINQ
                         var queryFunction = LINQDataSet.animals.Where(LessThan4Legs);
                         Console.WriteLine($"\nPosebej definirana funkcija:");
                         queryFunction.ReadEnumerable();
+                                                
 
                         // Razlika med zgornjimi tremi klici je zgolj v sintaksi,
                         // pri izvedbi pa se bodo obnašale enako, če smo na IEnumerable<T> instanci,

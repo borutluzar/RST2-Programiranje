@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\0-CommonFunctions\0-CommonFunctions.csproj" />
+    <ProjectReference Include="..\4-NacrtovalskiVzorci\4-NacrtovalskiVzorci.csproj" />
   </ItemGroup>
 
 </Project>

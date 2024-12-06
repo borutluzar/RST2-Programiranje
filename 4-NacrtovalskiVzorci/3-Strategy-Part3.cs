@@ -21,16 +21,11 @@ namespace DesignPatterns.StrategyPart3
             // zato si želimo čim bolj fleksibilnega modela, ki ga bo enostavno dopolnjevati na eni strani
             // in se mu koda ne podvaja na drugi strani.
 
-            // V tem delu smo razredoma Researcher in Lecturer dodali lastnost HIndex
-            // (samo njima), kar pomeni, da smo kodo (npr. implementacijo izračuna indeksa) podvojili.
-            // Dodali smo še tip Janitor, ki ne zna tujega jezika, kar pomeni,
-            // da smo v njem morali povoziti metodo za govorjenje tujega jezika in
-            // ji umakniti funkcionalnost, kar je spet slaba praksa.
-
-            Employee researcher = new PublicRelationsPerson("Borut", "Xy");
-            researcher.PaySalary(8000, "201314-1201");
+            Employee researcher = new Janitor("Borut", "Xy");
+            researcher.PaySalary(10_000, "201314-1201");
             researcher.TrySpeakForeignLanguage("mandarinščina");
-            researcher.TryMonitorExam();
+            
+            Console.WriteLine($"H-index: {researcher.GetHIndex()}");
         }
     }
 
@@ -75,6 +70,11 @@ namespace DesignPatterns.StrategyPart3
             SpeakForeign.SpeakForeignLanguage(language);
         }
 
+        public void TryReadForeignLanguage(string language)
+        {
+            SpeakForeign.ReadForeignLanguage(language);
+        }
+
 
         // Sklop za akademike
         protected IAcademicPerformer AcademicPerformer { get; set; }
@@ -111,11 +111,12 @@ namespace DesignPatterns.StrategyPart3
         public Researcher(string familyName, string givenName) : base(familyName, givenName)
         {
             // Tukaj določimo ustrezno instanco vmesnika IForeignLanguageSpeaker za ta razred
-            SpeakForeign = new SpeakForeignLanguageFluently();
-            // In podobno za instanco vmesnika IAcademicPerformer
-            AcademicPerformer = new AcademicInNaturalSciences();
+            this.SpeakForeign = new SpeakForeignLanguageFluently();
 
-            Examination = new ExaminationPerson();
+            // In podobno za instanco vmesnika IAcademicPerformer
+            this.AcademicPerformer = new AcademicInNaturalSciences();
+
+            this.Examination = new ExaminationPerson();
         }
 
         public override void WorkDuties()

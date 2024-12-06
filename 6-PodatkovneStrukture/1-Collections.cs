@@ -17,7 +17,7 @@ namespace PodatkovneStrukture
         public static void MethodsOfICollection(StructuresSections section)
         {
             // Definirajmo zbirko 
-            ICollection<string> zbirka = new HashSet<string>() { "Blaž", "Luka", "Jernej", "Dejan", "Denis", "Tilen", "Jernej", "Jakob", "Samo" };
+            ICollection<string> zbirka = new List<string>() { "Blaž", "Luka", "Jernej", "Dejan", "Denis", "Tilen", "Jernej", "Jakob", "Samo" };
             Console.WriteLine($"{zbirka.WriteCollection()}\n");
 
             switch (section)
@@ -44,7 +44,7 @@ namespace PodatkovneStrukture
                     {
                         // Spremenimo zbirko v instanco IList
                         // Seznami so v resnici tabele, le da si rezervirajo več prostora in
-                        // skrijejo operacije, ki jih v tabelah moramo izvesti sami (npr. dodajanje novega elementa na konec)
+                        // skrijejo operacije, ki jih moramo v tabelah izvesti sami (npr. dodajanje novega elementa na konec)
                         IList<string> seznam = (IList<string>)zbirka;
                         
                         Console.WriteLine($"seznam[0]: {seznam[0]}");

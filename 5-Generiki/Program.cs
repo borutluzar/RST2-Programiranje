@@ -1,5 +1,5 @@
 ﻿using CommonFunctions;
-using System.Diagnostics;
+using DesignPatterns.StrategyPart3;
 
 namespace Generics
 {
@@ -55,14 +55,21 @@ namespace Generics
                         // Že ves čas na primer uporabljamo metodo
                         // ChooseSection iz razreda InterfaceFunctions
                         // Več primerov v Arh, Q40
-                        var choice = InterfaceFunctions.ChooseSection<GenericsSection>();
-
+                        var choice = InterfaceFunctions.ChooseSection<GenericsSection>();                        
+                        
                         // Ali pa razširitveno metodo WriteCollection
                         List<string> lstArticles = new List<string>() { "A", "B", "#", "D" };
-                        var msg = lstArticles.WriteCollection<string>();
+                        var msg = lstArticles.WriteCollection();
                         Console.WriteLine(msg);
                     }
                     break;
+                case GenericsSection.GenericExample:
+                    {
+                        ForeignSpeaker<SpeakForeignLanguageSoSo> negovorec = new ForeignSpeaker<SpeakForeignLanguageSoSo>();
+                        negovorec.SpeakForeignGenericly();
+
+                        break;
+                    }
             }
 
             Console.WriteLine();
@@ -125,6 +132,16 @@ namespace Generics
         public override string ToString()
         {
             return $"{ID}";
+        }
+    }
+
+
+    public class ForeignSpeaker<T> where T : IForeignLanguageSpeaker, new()
+    {
+        public void SpeakForeignGenericly()
+        {
+            T objSpeaker = new T();
+            objSpeaker.SpeakForeignLanguage("francoščina");
         }
     }
 }

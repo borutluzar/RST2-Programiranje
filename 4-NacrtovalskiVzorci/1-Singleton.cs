@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
 
@@ -16,17 +14,17 @@ namespace DesignPatterns
 
             // Pokličimo funkcijo enkrat
             
-            Singleton single1 = Singleton.Instance();
+            Singleton single1 = Singleton.GetInstance();
             Console.WriteLine($"Naključni ID prve instance je: {single1.RandomID}");
 
             // In ponovno
-            Singleton single2 = Singleton.Instance();
+            Singleton single2 = Singleton.GetInstance();
             Console.WriteLine($"Naključni ID druge instance je: {single2.RandomID}");
         }
 
         public static void CreateLog()
         {
-            EventLog log = EventLog.Instance();
+            EventLog log = EventLog.GetInstance();
 
             log.WriteEvent("Kreiramo nov dogodek.");
             Thread.Sleep(1000);
@@ -40,7 +38,7 @@ namespace DesignPatterns
             // spet pokličemo instanco
             Thread.Sleep(2000);
 
-            EventLog log2 = EventLog.Instance();
+            EventLog log2 = EventLog.GetInstance();
             log2.WriteEvent("Kreiramo nov dogodek - tadabum!");
         }
     }
@@ -52,7 +50,7 @@ namespace DesignPatterns
     /// namesto konstruktorja pa razred izpostavi javno statično metodo, 
     /// ki skrbi za instanco razreda.
     /// 
-    /// Ker pa gre za razred, ki ni statičen, lahko deduje lastnosti in metode nekega razreda 
+    /// Ker gre za razred, ki ni statičen, lahko deduje lastnosti in metode nekega razreda 
     /// ali implementira vmesnike!
     /// </summary>
     public sealed class Singleton
@@ -83,7 +81,7 @@ namespace DesignPatterns
         /// če še ne obstaja in jo vrne.
         /// </summary>
         /// <returns>Vrača edino instanco razreda</returns>
-        public static Singleton Instance()
+        public static Singleton GetInstance()
         {
             // Če instanca še ni bila inicializirana, pokličemo konstruktor
             if (uniqueInstance == null)
@@ -148,7 +146,7 @@ namespace DesignPatterns
         /// <summary>
         /// Statična funkcija, ki vrača edino instanco razreda.
         /// </summary>
-        public static EventLog Instance()
+        public static EventLog GetInstance()
         {
             if (instance == null)
             {
