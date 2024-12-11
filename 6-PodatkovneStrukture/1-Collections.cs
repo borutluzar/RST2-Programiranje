@@ -78,8 +78,10 @@ namespace PodatkovneStrukture
                         ((ICollection<string>)mnozica2).Add("Borut");
                         Console.WriteLine($"{mnozica2.WriteCollection()}\n");
 
-                        ((ICollection<string>)mnozica2).Add("Borut"); // TODO: Borut
+                        /*
+                        ((ICollection<string>)mnozica2).Add("Borut");
                         Console.WriteLine($"{mnozica2.WriteCollection()}\n");
+                        */
                     }
                     break;
                 case StructuresSections.IDictionary:

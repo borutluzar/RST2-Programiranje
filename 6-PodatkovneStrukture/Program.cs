@@ -27,21 +27,43 @@ namespace PodatkovneStrukture
                 case StructuresSections.InsertExample:
                     {
                         List<int> lstNumbers = new();
+                        HashSet<int> hshNumbers = new();
+                        SortedSet<int> srtNumbers = new();
+                        
                         Random rnd = new(23);
                         int countNum = 500_000;
                         int upperBound = 10_000_000;
+                        int numAdditional = 20_000;
 
-                        // Napolnimo seznam s 500 000 števili
+                        // Napolnimo seznam in zgoščeno tabelo s 500 000 števili
+                        Stopwatch sw = Stopwatch.StartNew();
                         while (lstNumbers.Count < countNum)
                         {
                             lstNumbers.Add(rnd.Next(upperBound));
                         }
-                        Console.WriteLine($"V seznamu imamo {lstNumbers.Count} vrednosti");
+                        Console.WriteLine($"V seznam smo {lstNumbers.Count} števil " +
+                            $"vstavili v {sw.Elapsed.TotalSeconds:0.##} sekundah.");
 
-                        // Dodamo 1000 vrednosti,
-                        // ampak samo če vrednost še ni bila v seznamu
-                        Stopwatch sw = Stopwatch.StartNew();
-                        for (int i = 0; i < 10_000; i++)
+                        sw = Stopwatch.StartNew();
+                        while (srtNumbers.Count < countNum)
+                        {
+                            srtNumbers.Add(rnd.Next(upperBound));
+                        }
+                        Console.WriteLine($"V urejeno množico smo {srtNumbers.Count} števil " +
+                            $"vstavili v {sw.Elapsed.TotalSeconds:0.##} sekundah.");
+
+                        sw = Stopwatch.StartNew();
+                        while (hshNumbers.Count < countNum)
+                        {
+                            hshNumbers.Add(rnd.Next(upperBound));
+                        }
+                        Console.WriteLine($"V zgoščeno tabelo smo {hshNumbers.Count} števil " +
+                            $"vstavili v {sw.Elapsed.TotalSeconds:0.##} sekundah.");
+
+                        // Dodamo dodatne vrednosti,
+                        // ampak samo če vrednost še ni bila v seznamu.
+                        sw = Stopwatch.StartNew();
+                        for (int i = 0; i < numAdditional; i++)
                         {
                             int newNumber = rnd.Next(upperBound);
 
@@ -50,6 +72,28 @@ namespace PodatkovneStrukture
                                 lstNumbers.Add(newNumber);
                         }
                         Console.WriteLine($"V seznamu imamo {lstNumbers.Count} vrednosti, " +
+                            $"trajalo je {sw.Elapsed.TotalSeconds:0.##} sekund.");
+
+                        sw = Stopwatch.StartNew();
+                        for (int i = 0; i < numAdditional; i++)
+                        {
+                            int newNumber = rnd.Next(upperBound);
+
+                            // Urejena množica ima srednjo učinkovitost
+                            srtNumbers.Add(newNumber);
+                        }
+                        Console.WriteLine($"V urejeni množici imamo {srtNumbers.Count} vrednosti, " +
+                            $"trajalo je {sw.Elapsed.TotalSeconds:0.##} sekund.");
+
+                        sw = Stopwatch.StartNew();
+                        for (int i = 0; i < numAdditional; i++)
+                        {
+                            int newNumber = rnd.Next(upperBound);
+
+                            // HashSet je v tem primeru najhitrejša
+                            hshNumbers.Add(newNumber);
+                        }
+                        Console.WriteLine($"V zgoščeni tabeli imamo {hshNumbers.Count} vrednosti, " +
                             $"trajalo je {sw.Elapsed.TotalSeconds:0.##} sekund.");
                     }
                     break;
