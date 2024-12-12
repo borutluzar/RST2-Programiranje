@@ -29,11 +29,11 @@ namespace PodatkovneStrukture
                         List<int> lstNumbers = new();
                         HashSet<int> hshNumbers = new();
                         SortedSet<int> srtNumbers = new();
-                        
-                        Random rnd = new(23);
+
+                        Random rnd = new(3);
                         int countNum = 500_000;
                         int upperBound = 10_000_000;
-                        int numAdditional = 20_000;
+                        int numAdditional = 200_000;
 
                         // Napolnimo seznam in zgoščeno tabelo s 500 000 števili
                         Stopwatch sw = Stopwatch.StartNew();
@@ -57,6 +57,10 @@ namespace PodatkovneStrukture
                         {
                             hshNumbers.Add(rnd.Next(upperBound));
                         }
+                        /*for (int i = 0; i < countNum; i++)
+                        {
+                            hshNumbers.Add(rnd.Next(upperBound));
+                        }*/
                         Console.WriteLine($"V zgoščeno tabelo smo {hshNumbers.Count} števil " +
                             $"vstavili v {sw.Elapsed.TotalSeconds:0.##} sekundah.");
 
@@ -68,7 +72,7 @@ namespace PodatkovneStrukture
                             int newNumber = rnd.Next(upperBound);
 
                             // Ozko grlo podatkovnih struktur - HashSet je v tem primeru najhitrejša
-                            if (!lstNumbers.Contains(newNumber))
+                            if (!lstNumbers.Contains(newNumber)) // linearno iskanje
                                 lstNumbers.Add(newNumber);
                         }
                         Console.WriteLine($"V seznamu imamo {lstNumbers.Count} vrednosti, " +
@@ -79,7 +83,7 @@ namespace PodatkovneStrukture
                         {
                             int newNumber = rnd.Next(upperBound);
 
-                            // Urejena množica ima srednjo učinkovitost
+                            // Urejena množica ima srednjo učinkovitost - log(n)
                             srtNumbers.Add(newNumber);
                         }
                         Console.WriteLine($"V urejeni množici imamo {srtNumbers.Count} vrednosti, " +
@@ -90,7 +94,7 @@ namespace PodatkovneStrukture
                         {
                             int newNumber = rnd.Next(upperBound);
 
-                            // HashSet je v tem primeru najhitrejša
+                            // HashSet je v tem primeru najhitrejša - O(1)
                             hshNumbers.Add(newNumber);
                         }
                         Console.WriteLine($"V zgoščeni tabeli imamo {hshNumbers.Count} vrednosti, " +
