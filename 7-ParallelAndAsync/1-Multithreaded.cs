@@ -31,7 +31,7 @@ namespace ParallelAndAsync
     class Multithreads
     {
         private static long x = 0;
-        private const int WAIT_INTERVAL = 5000; // V milisekundah
+        private const int WAIT_INTERVAL = 6000; // V milisekundah
 
         /// <summary>
         /// Za enostavno večnitno programiranje lahko uporabimo razred Thread (iz paketa System.Threading).
@@ -110,6 +110,7 @@ namespace ParallelAndAsync
                 else
                     break;
             }
+            Console.WriteLine($"Prišli smo do konca zanke z x = {x}");
         }
 
         private static void ComputeLongWithIncrement(object increment)
@@ -156,17 +157,17 @@ namespace ParallelAndAsync
 
                 // Prekinimo prvi task
                 tokenSource.Cancel();
-                task1.Wait(tokenSource.Token);
-                //task2.Wait(tokenSource.Token);
-                //task3.Wait(tokenSource.Token);
+                task1.Wait();
+                //task2.Wait();
+                //task3.Wait();
             }
             catch (OperationCanceledException)
             {
                 Console.WriteLine($"Prišlo je do izjeme OperationCanceledException");
             }
             finally
-            {
-                Console.WriteLine($"Status taska 1 (po prekinitvi): {task1.Status}");
+            {                
+                Console.WriteLine($"Status taska 1 (po prekinitvi): {task1.Status}");                
                 task1.Dispose();                
                 Console.WriteLine($"\n{nameof(task1)} smo uspešno zaključili!");                
             }
@@ -188,8 +189,8 @@ namespace ParallelAndAsync
             //var task = Task.Run(ComputeLong);
             //Console.WriteLine($"\nTip {nameof(task)} je {task.GetType().Name}");
 
-            //var task = Task.Run(ComputeLongAndReturn); // Poglejmo si razliko v tipu, če funkcija ne vrača ničesar
-            //Console.WriteLine($"\nTip {nameof(task)} je {task.GetType().Name}");
+            var task = Task.Run(ComputeLongAndReturn); // Poglejmo si razliko v tipu, če funkcija ne vrača ničesar
+            Console.WriteLine($"\nTip {nameof(task)} je {task.GetType().Name}");
 
             // Drug način klica funkcije je lambda izraz, kjer funkciji lahko damo tudi parameter
             //var task = Task.Run(() => ComputeLongWithIncrementAndReturn(2));
@@ -200,12 +201,12 @@ namespace ParallelAndAsync
             Console.WriteLine("\nMoj program še vedno teče vzporedno.");
 
             
-            /*
+            
             // Če funkcija, ki jo task izvaja, vrača rezultat, ga dobimo z lastnostjo Result.
             var result = task.Result;
             // Ko se rezultat pojavi, se naša koda izvaja naprej
-            Console.WriteLine($"\nRezultat taska je {result}.");            
-            */
+            Console.WriteLine($"\nRezultat taska je {result}.");
+            
 
             // Ponovimo: tako metoda Wait kot lastnost Result blokirata izvajanje trenutne niti, dokler se task ne izvede.
         }
