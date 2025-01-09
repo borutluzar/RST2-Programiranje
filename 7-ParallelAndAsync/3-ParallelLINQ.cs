@@ -22,6 +22,9 @@ namespace ParallelAndAsync
             // Praštevila iz množice si shranimo v drug seznam
             List<int> primes = new List<int>();
 
+            // Inicializirajmo instanco kandidatov - da ne merimo časa kreiranja
+            DataForParallel.Instance();
+
             // Najprej preizkusimo običajni pristop
             Stopwatch sw = Stopwatch.StartNew();
             int testAdd = 0;
@@ -39,12 +42,17 @@ namespace ParallelAndAsync
             Console.WriteLine($"Čas zaporednega iskanja z Where: {sw.Elapsed.TotalSeconds}, " +
                 $"našli smo {testWhere} praštevil.");
 
+
+            // Naš seznam prevedemo v instanco ParallelQuery<T> s klicem funkcije AsParallel.
             Console.WriteLine($"Gremo paralelno!");
+
+            primes.Clear();
             sw = Stopwatch.StartNew();
-            var testWhereParallel = DataForParallel.Instance().AsParallel().Where(x => CommonFunctions.IsPrime(x));
+            var testWhereParallel = DataForParallel.Instance().AsParallel().Where(CommonFunctions.IsPrime);
             Console.WriteLine($"Čas vzporednega iskanja z Where: {sw.Elapsed.TotalSeconds}, " +
                 $"našli smo {testWhereParallel.Count()} praštevil."); // Hitro, ker se čas izpiše, preden se evaluira Count.
 
+            primes.Clear();
             sw = Stopwatch.StartNew();
             int testWhereParallelCount = DataForParallel.Instance().AsParallel().Where(CommonFunctions.IsPrime).Count();
             Console.WriteLine($"Čas vzporednega iskanja z Where: {sw.Elapsed.TotalSeconds}, " +
@@ -52,11 +60,11 @@ namespace ParallelAndAsync
 
             Thread.Sleep(1000);
 
-            // Sedaj pa jih preverimo paralelno
+            // Sedaj pa jih preverimo paralelno še na drug način
             Console.WriteLine($"\nIn še vzporedno:");
             primes.Clear();
             sw = Stopwatch.StartNew();
-            // Naš seznam prevedemo v instanco ParallelQuery<T> s klicem funkcije AsParallel.
+
             // Nato uporabimo funkcijo ForAll, ki naredi enako kot ForEach zgoraj, 
             // le da uporabi več paralelnih niti.
             DataForParallel.Instance().AsParallel().ForAll(i =>
@@ -91,7 +99,7 @@ namespace ParallelAndAsync
             primes.Clear();
             var options = new ParallelOptions();
             options.MaxDegreeOfParallelism = 4;
-            
+
             sw = Stopwatch.StartNew();
             Parallel.ForEach(DataForParallel.Instance(),
                 options,
@@ -125,7 +133,7 @@ namespace ParallelAndAsync
                             {
                                 if (CommonFunctions.IsPrime(i))
                                 {
-                                    // Ker vzoredno dodajamo elemente v seznam,
+                                    // Ker vzporedno dodajamo elemente v seznam,
                                     // ga moramo ob vsakem dodajanju 'zakleniti', 
                                     // da ga ne uporabi hkrati druga nit in ne pride do manjkajočih vnosov
                                     lock (primes)
@@ -151,16 +159,36 @@ namespace ParallelAndAsync
         /// </summary>
         public static void PLINQExampleOrdered()
         {
+            // Inicializacija instance
+            Console.WriteLine($"Prvih 100 elementov množice:");
+            var instance = DataForParallel.Instance();
+            instance.Take(100).ReadEnumerable();
+
+            Console.WriteLine($"Prvih 100 elementov množice po klicu AsParallel:");
+            var parallel = DataForParallel.Instance().AsParallel();
+            parallel.Take(100).ReadEnumerable();
+
+            Console.WriteLine($"Prvih 100 elementov množice po klicu AsParallel().AsOrdered():");
+            var ordered = DataForParallel.Instance().AsParallel().AsOrdered();
+            ordered.Take(100).ReadEnumerable();
+
+
             Console.WriteLine($"Poiščimo praštevila v veliki množici:");
 
-            // Praštevila iz množice si shranimo v drug seznam
+            // Praštevila iz množice si shranimo v drug seznam            
             List<int> primes = new List<int>();
 
             // Paralelizacija razdeli našo množico na več delov.
             // To lahko pomeni, da elementi niso obravnavani zaporedoma, 
             // temveč po sklopih, ki so izbrani za vsako nit.
-            // Urejenost končnega rezultata zahtevamo s klicem funkcije AsOrdered.
+            // Urejenost izbire elementov zahtevamo s klicem funkcije AsOrdered.
+            // Pozor! Uporabimo ga samo, ko je res potrebno, saj upočasni izvajanje
+            primes = DataForParallel.Instance().AsParallel().AsOrdered().Where(CommonFunctions.IsPrime).ToList();
+            Console.WriteLine($"Prvih 100 praštevil z uporabo AsOrdered in Where:");
+            primes.Take(100).ReadEnumerable();
+
             // !Ta klic na metodo ForAll nima vpliva, ker ne vrača rezultata!
+            primes.Clear();
             DataForParallel.Instance().AsParallel().AsOrdered().ForAll(i =>
             {
                 if (CommonFunctions.IsPrime(i))
