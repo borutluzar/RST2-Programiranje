@@ -1,13 +1,9 @@
 ﻿using CommonFunctions;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -49,13 +45,15 @@ namespace ParallelAndAsync
             var result = backgroundTask.Result;
             Console.WriteLine($"Čakamo, da task konča izračun.");
             Console.WriteLine($"In čakamo...");
+            Thread.Sleep(100);
             Console.WriteLine($"In čakamo...");
+            Thread.Sleep(100);
             Console.WriteLine($"Našli smo {result} praštevil v {sw.Elapsed.TotalSeconds} sekundah.");            
             */
 
             // PRIMER 2: Namesto čakanja lahko uporabimo rezervirano besedo await, 
             //           vendar nam v funkciji to ne spremeni obnašanja.
-            //           Se  pa bo sprostila trenutna nit za ostale aktivnosti
+            //           Se pa bo sprostila trenutna nit za ostale aktivnosti
             
             Console.WriteLine($"Task smo zagnali, zdaj čakamo na rezultat.");            
             var result = await backgroundTask;
@@ -137,7 +135,7 @@ namespace ParallelAndAsync
         {
             var backgroundTasks = new[]
             {
-                Task.Run(() => OccurencesOnPage(keyword.ToLower(), "https://www.researchgate.net/profile/Borut_Luar")),
+                Task.Run(() => OccurencesOnPage(keyword.ToLower(), @"https://scholar.google.si/citations?user=JZ1KGTIAAAAJ&hl=sl&oi=ao")),
                 Task.Run(() => OccurencesOnPage(keyword.ToLower(), "https://sl.wikipedia.org/wiki/Deseti_brat")),
                 Task.Run(() => OccurencesOnPage(keyword.ToLower(), "https://www.delo.si/novice/slovenija/vecni-vandrovec-v-bitki-proti-dolgcasu/")),
                 Task.Run(() => OccurencesOnPage(keyword.ToLower(), "https://www.fis.unm.si/znanstvene-usmeritve/"))
@@ -146,16 +144,16 @@ namespace ParallelAndAsync
             Console.WriteLine($"Taske smo zagnali, zdaj čakamo na rezultat.");
 
             // PRIMER 1: Počakamo, da konča vsaj en od taskov
-            /*
+            
             var firstCompleted = await Task.WhenAny(backgroundTasks);
             Console.WriteLine($"\nPrvi je končal task (ID: {firstCompleted.Id}) z rezultatom {firstCompleted.Result}.\n");
-            */
+            
 
             // PRIMER 2: Počakamo, da končajo vsi taski
-            
+            /*
             var whichIsCompleted = await Task.WhenAll(backgroundTasks);
             Console.WriteLine($"\nVsi taski so se uspešno zaključili, prvi rezultat je bil {whichIsCompleted[0]}.\n");
-            
+            */
         }
 
         private static int OccurencesOnPage(string keyword, string url)

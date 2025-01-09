@@ -45,14 +45,12 @@ namespace ParallelAndAsync
 
             // Naš seznam prevedemo v instanco ParallelQuery<T> s klicem funkcije AsParallel.
             Console.WriteLine($"Gremo paralelno!");
-
-            primes.Clear();
+                        
             sw = Stopwatch.StartNew();
             var testWhereParallel = DataForParallel.Instance().AsParallel().Where(CommonFunctions.IsPrime);
             Console.WriteLine($"Čas vzporednega iskanja z Where: {sw.Elapsed.TotalSeconds}, " +
                 $"našli smo {testWhereParallel.Count()} praštevil."); // Hitro, ker se čas izpiše, preden se evaluira Count.
 
-            primes.Clear();
             sw = Stopwatch.StartNew();
             int testWhereParallelCount = DataForParallel.Instance().AsParallel().Where(CommonFunctions.IsPrime).Count();
             Console.WriteLine($"Čas vzporednega iskanja z Where: {sw.Elapsed.TotalSeconds}, " +
@@ -147,7 +145,7 @@ namespace ParallelAndAsync
 
 
 
-            // -> pridobi podatke poaralelno po 50 000 -> seznam
+            // -> pridobi podatke paralelno po 50 000 -> seznam
             // for(seznam) ....
 
 

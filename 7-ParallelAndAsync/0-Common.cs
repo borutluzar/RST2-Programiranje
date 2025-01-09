@@ -23,6 +23,7 @@ namespace ParallelAndAsync
         }
 
         private static List<int> instance = null;
+        
         public static List<int> Instance()
         {
             if (instance == null)

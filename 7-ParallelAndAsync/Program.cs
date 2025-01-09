@@ -62,12 +62,12 @@ namespace ParallelAndAsync
                     break;
                 case ConcurrentSection.Async:
                     {
-                        Asynchronous.AsyncTest();
+                        Asynchronous.AsyncTest(); // asinhrona funkcija
                         // Ker await ne blokira izvajalne niti, pred izračunom pridemo iz funkcije
-                        //Thread.Sleep(3_000);
+                        Thread.Sleep(1_000);
                         Console.WriteLine("Smo na koncu primera!");
                         // Vrstni red čakanja na input ni popolnoma jasen...                        
-                        Thread.Sleep(5_000);
+                        //Thread.Sleep(5_000);
                         Console.ReadLine();
                     }
                     break;
