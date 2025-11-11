@@ -16,17 +16,17 @@
             int valType = 1;
 
             // Boxing - tipa ni treba zapisati eksplicitno
-            object refType = valType;
-            object refType3 = valType;
+            object refType1 = valType;
+            object refType2 = valType;
 
-            Console.WriteLine($"1. valType={valType}, refType={refType}, refType3={refType3}");
+            Console.WriteLine($"1. valType={valType}, refType1={refType1}, refType2={refType2}");
             Console.WriteLine();
                         
             // Ob predelavi se ustvari kopija vrednosti
             valType = 2;
-            refType3 = valType;
-            Console.WriteLine($"Predelamo vrednost {nameof(valType)} v 2, {nameof(refType)} pa pustimo.");
-            Console.WriteLine($"2. valType={valType}, refType={refType}");
+            refType2 = valType;
+            Console.WriteLine($"Predelamo vrednost {nameof(valType)} v 2, {nameof(refType1)} pa pustimo.");
+            Console.WriteLine($"2. valType={valType}, refType1={refType1}, refType2={refType2}");
             Console.WriteLine();
 
             /*
@@ -41,25 +41,27 @@
             */
 
             // Unboxing - tip moramo povedati eksplicitno
-            valType = (int)refType;
+            valType = (int)refType1;
 
-            Console.WriteLine($"3. valType={valType}, refType={refType}");
+            Console.WriteLine($"3. valType={valType}, refType1={refType1} , refType2={refType2}");
             Console.WriteLine();
 
             // Če uporabimo napačno preoblikovanje, se ob izvajanju sproži napaka
-            object refType2 = 3;
-            int l = (int)refType2;
+            object refType3 = 3;
+            int l = (int)refType3;
             //int l = (long)refType2;
             //long l = (long)refType2; // Runtime exception - najprej moramo pretvoriti v int
             //long l = (int)refType2;
 
-            Console.WriteLine($"4. valType={l}, refType={refType2}");
+            Console.WriteLine($"4. valType={l}, refType={refType3}");
             Console.WriteLine();
 
 
             // Tip objekta lahko preverimo s funkcijo GetType()
-            Console.WriteLine($"Tip objekta {nameof(refType)}: {refType2.GetType().Name}");
+            Console.WriteLine($"Tip objekta {nameof(refType1)}: " +
+                $"{refType3.GetType().Name}");
             Console.WriteLine();
+
         }
     }
 }

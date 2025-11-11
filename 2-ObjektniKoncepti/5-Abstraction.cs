@@ -77,7 +77,7 @@ namespace ObjektniKoncepti.Abstraction
         /// 
         /// Razmislite, zakaj jih sploh potrebujemo.
         /// </summary>
-        public ChessPiece(ChessBoardField start)
+        protected ChessPiece(ChessBoardField start)
         {
             this.position = start;
         }
@@ -86,7 +86,7 @@ namespace ObjektniKoncepti.Abstraction
         /// Konstruktor, ki nam omogoča določitev konstante VAL_COEFFICIENT tudi v 
         /// podrazredih.
         /// </summary>
-        public ChessPiece(ChessBoardField start, double valCoeff)
+        protected ChessPiece(ChessBoardField start, double valCoeff)
         {
             this.position = start;
             VAL_COEFFICIENT = valCoeff;
