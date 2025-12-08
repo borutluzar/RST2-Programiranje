@@ -53,8 +53,8 @@ namespace LINQ
                     {
                         // Posameznemu delegatu lahko pripišemo več funkcij,
                         // vendar moramo biti pozorni na to, da vračajo samo vrednost
-                        // zadnje klicane funkcije. Zato jim je na tak način smiselno 
-                        // pripisovati void funkcije (Actions)
+                        // zadnje klicane funkcije.
+                        // Zato jim je na tak način smiselno pripisovati void funkcije (Actions)
                         NumberProperty property = IsPrimeNumber;
                         int input = 121;
 
@@ -108,7 +108,6 @@ namespace LINQ
                         // Če imamo več vhodnih parametrov, njihove tipe naštejemo po vrsti,
                         // zadnji je tip rezultata.
                         Func<int, int, int> funcMax = Math.Max;
-
                         // Običajno tipe Func, Action in Predicate zapisujemo kar v obliki lambda izrazov...
                     }
                     break;

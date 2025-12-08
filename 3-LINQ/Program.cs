@@ -7,10 +7,10 @@ namespace LINQ
 {
     enum LINQSections
     {
-        Basics = 1,
-        MethodSyntax = 2,
-        Delegates = 3,
-        LambdaExpressions = 4
+        Delegates = 1,
+        LambdaExpressions = 2,
+        Basics = 3,
+        MethodSyntax = 4,
     }
 
     class Program
@@ -19,16 +19,6 @@ namespace LINQ
         {
             switch (InterfaceFunctions.ChooseSection<LINQSections>())
             {
-                case LINQSections.Basics:
-                    {
-                        Basics.BasicLINQSyntax();
-                    }
-                    break;
-                case LINQSections.MethodSyntax:
-                    {
-                        Methods.MethodLINQSyntax();
-                    }
-                    break;
                 case LINQSections.Delegates:
                     {
                         Delegates.DelegateExamples();
@@ -37,6 +27,16 @@ namespace LINQ
                 case LINQSections.LambdaExpressions:
                     {
                         LambdaExpressions.LambdaExpressionExamples();
+                    }
+                    break;
+                case LINQSections.Basics:
+                    {
+                        Basics.BasicLINQSyntax();
+                    }
+                    break;
+                case LINQSections.MethodSyntax:
+                    {
+                        Functions.FunctionLINQSyntax();
                     }
                     break;
             }

@@ -18,11 +18,6 @@ namespace LINQ
 
         public static void LambdaExpressionExamples()
         {
-            // V LINQ imamo dve vrsti razširitvenih metod
-            // - metode za vmesnik IEnumerable<T>, ko po podatkih poizvedujemo lokalno
-            // - metode za vmesnik IQueryable<T>, ko poizvedujemo po podatkih na zunanjem viru
-
-            // Preden si ogledamo razlike med njima, definirajmo lambda-izraz.
             // Lambda izrazi so oblike
             // (vhodni parametri) => ukaz   ali
             // (vhodni parameter) => {zaporedje ukazov}

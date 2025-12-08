@@ -16,9 +16,9 @@ namespace LINQ
     /// 
     /// Ne pozabite vključiti paketa System.Linq!
     /// </summary>
-    static class Methods
+    static class Functions
     {
-        enum MethodsSubsection
+        enum FunctionsSubsection
         {
             Basic = 1,
             Select = 2,
@@ -36,18 +36,18 @@ namespace LINQ
 
         /// <summary>
         /// Arh, Q50
-        /// Za vse ukaze, ki smo si jih ogledali v metodi BasicLINQSyntax,
-        /// imamo na voljo tudi razširitvene metode, 
-        /// ki nam omogočijo klice metod za posamezno akcijo
+        /// Za vse ukaze, ki smo si jih ogledali v funkciji BasicLINQSyntax,
+        /// imamo na voljo tudi razširitvene funkcije, 
+        /// ki nam omogočijo klice funkcije za posamezno akcijo
         /// </summary>
-        public static void MethodLINQSyntax()
+        public static void FunctionLINQSyntax()
         {
             // LINQ sintaksa, ki smo jo predstavili zgoraj, 
             // se prevede v klice funkcij. Te lahko uporabimo tudi mi.
 
-            switch (InterfaceFunctions.ChooseSection<MethodsSubsection>())
+            switch (InterfaceFunctions.ChooseSection<FunctionsSubsection>())
             {
-                case MethodsSubsection.Basic:
+                case FunctionsSubsection.Basic:
                     {
                         /*var queryGeneral = from animal in LINQDataSet.animals
                                            select animal; */
@@ -60,7 +60,7 @@ namespace LINQ
                         queryGeneral.ReadEnumerable();
                     }
                     break;
-                case MethodsSubsection.Select:
+                case FunctionsSubsection.Select:
                     {
                         /*var queryGeneral2 = from animal in LINQDataSet.animals
                                             select new { animal.Species, animal.HasTail };*/
@@ -77,7 +77,7 @@ namespace LINQ
                         queryGeneral2.ReadEnumerable();
                     }
                     break;
-                case MethodsSubsection.SelectWithFunction:
+                case FunctionsSubsection.SelectWithFunction:
                     {
                         // V klicu Select funkcije lahko podamo kar funkcijo 
                         // (samo njeno ime!), vendar mora kot parameter prejeti objekt 
@@ -99,7 +99,7 @@ namespace LINQ
                         queryGeneral3.ReadEnumerable();
                     }
                     break;
-                case MethodsSubsection.Sort:
+                case FunctionsSubsection.Sort:
                     {
                         /*var queryOrdered = from animal in LINQDataSet.animals
                                            orderby animal.NumberOfLegs, animal.Species
@@ -113,7 +113,7 @@ namespace LINQ
                         queryOrdered.ReadEnumerable();
                     }
                     break;
-                case MethodsSubsection.Filter:
+                case FunctionsSubsection.Filter:
                     {
                         /*var queryFiltered = from animal in LINQDataSet.animals
                                             orderby animal.Species
@@ -127,7 +127,7 @@ namespace LINQ
                         queryFiltered.ReadEnumerable();
                     }
                     break;
-                case MethodsSubsection.CallOrder:
+                case FunctionsSubsection.CallOrder:
                     {
                         // V standardni LINQ sintaksi je vrstni red ukazov pomemben
                         // oziroma moramo select zapisati na koncu.
@@ -143,7 +143,7 @@ namespace LINQ
                         querySelectFirst.ReadEnumerable();
                     }
                     break;
-                case MethodsSubsection.SkipAndTake:
+                case FunctionsSubsection.SkipAndTake:
                     {
                         // Poleg osnovnih metod, ki omogočajo klice
                         // funkcij iz standardne sintakse, pa imamo na voljo še nekaj
@@ -158,21 +158,21 @@ namespace LINQ
                         // Metodi Take in Skip sta lahko uporabni npr. pri implementaciji listanja po zapisih (paginaciji)
                     }
                     break;
-                case MethodsSubsection.Any:
+                case FunctionsSubsection.Any:
                     {
                         // Metoda Any preveri, če v zbirki obstaja vsaj en element za dani pogoj
                         bool existsWithTail = LINQDataSet.animals.Any(x => x.HasTail);
                         Console.WriteLine($"\n{(existsWithTail ? "Obstaja vsaj ena žival z repom!" : "Ne obstaja žival z repom!")}");
                     }
                     break;
-                case MethodsSubsection.All:
+                case FunctionsSubsection.All:
                     {
                         // Metoda All preveri, če vsi elementi v zbirki ustrezajo danemu pogoju
                         bool allWithTail = LINQDataSet.animals.All(x => x.HasTail);
                         Console.WriteLine($"\n{(allWithTail ? "Vse živali imajo rep!" : "Vse živali nimajo repa!")}");
                     }
                     break;
-                case MethodsSubsection.SelectMany:
+                case FunctionsSubsection.SelectMany:
                     {
                         // Metodo SelectMany uporabimo, ko imajo objekti osnovnega predikata (podatkovne zbirke)
                         // za lastnost sezname, 
@@ -198,7 +198,7 @@ namespace LINQ
                             $"živi na {numberOfContinents} kontinentih!");
                     }
                     break;
-                case MethodsSubsection.Distinct:
+                case FunctionsSubsection.Distinct:
                     {
                         // Paziti moramo na to, da se izbor ne naredi po različnih vnosih (dobili smo več enakih ID-jev)
                         // Da poskrbimo za to, uporabimo metodo Distinct. Tej metodi lahko kot parameter podamo tudi 
@@ -213,7 +213,7 @@ namespace LINQ
                         selectingManyDistinct.ReadEnumerable();
                     }
                     break;
-                case MethodsSubsection.Aggregate:
+                case FunctionsSubsection.Aggregate:
                     {
                         // Podobno kot metodi All in Any, lahko uporabimo metodi Count in CountLong 
                         // za vračanje števila instanc, ki ustrezajo pogoju podanemu kot argument obeh metod.
