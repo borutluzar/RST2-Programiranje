@@ -31,7 +31,8 @@ namespace LINQ
             All = 9,
             SelectMany = 10,
             Distinct = 11,
-            Aggregate = 12
+            GroupBy = 12,
+            Aggregate = 13
         }
 
         /// <summary>
@@ -213,6 +214,19 @@ namespace LINQ
                         selectingManyDistinct.ReadEnumerable();
                     }
                     break;
+                case FunctionsSubsection.GroupBy:
+                    {
+                        // Če želimo pridobiti množice elementov,
+                        // ki imajo enako lastnost, uporabimo GroupBy
+                        var result = LINQDataSet.animals
+                                    .GroupBy(x => x.NumberOfLegs);
+                        
+                        foreach (var item in result)
+                        {
+                            Console.WriteLine(item.Key.ToString() + " " + item.Index().Select(x => x.Item.Species).ToString<string>());
+                        }
+                    }
+                    break;
                 case FunctionsSubsection.Aggregate:
                     {
                         // Podobno kot metodi All in Any, lahko uporabimo metodi Count in CountLong 
@@ -271,7 +285,7 @@ namespace LINQ
                                                                 ? animal : maxLegsWithTail,
                                     maxLegsWithTail => maxLegsWithTail?.Species // Rezultat, ki ni nujno instanca, ampak le kakšna izmed lastnosti
                                         );
-                        Console.WriteLine($"\nNajmanj nog ima {queryAggMaxLegsWithTailAnimal}!");
+                        Console.WriteLine($"\nNajmanj nog ima {queryAggMaxLegsWithTailAnimal}!");                                                
                     }
                     break;
             }
