@@ -22,7 +22,7 @@ namespace DesignPatterns
             Console.WriteLine($"Naključni ID druge instance je: {single2.RandomID}");
         }
 
-        public static void CreateLog()
+        public static void CreateLog1()
         {
             EventLog log = EventLog.GetInstance();
 
@@ -32,14 +32,18 @@ namespace DesignPatterns
             Thread.Sleep(1000);
             log.WriteEvent("Počasi zaključujemo program.");
 
-            Console.WriteLine("Konec zapisovanja v dnevnik");
+            Console.WriteLine("Konec zapisovanja v dnevnik v funkciji CreateLog1");
+        }
 
-            // Čez dva dni v isti funkciji
-            // spet pokličemo instanco
-            Thread.Sleep(2000);
+        public static void CreateLog2()
+        {
+            EventLog log = EventLog.GetInstance();
 
-            EventLog log2 = EventLog.GetInstance();
-            log2.WriteEvent("Kreiramo nov dogodek - tadabum!");
+            log.WriteEvent("Kreiramo nov dogodek.");
+            Thread.Sleep(1000);
+            log.WriteEvent("Zaključujemo program tudi v CreateLog2.");
+
+            Console.WriteLine("Konec zapisovanja v dnevnik v funkciji CreateLog2");
         }
     }
 

@@ -28,7 +28,8 @@ namespace DesignPatterns
                 case DesignPatternsSections.SingletonLog:
                     {
                         // Primer uporabe singletona za kreiranje objekta log (dnevnik dogodkov)
-                        SingletonTests.CreateLog();
+                        SingletonTests.CreateLog1();
+                        SingletonTests.CreateLog2();
                     }
                     break;
                 case DesignPatternsSections.FactoryBad:
