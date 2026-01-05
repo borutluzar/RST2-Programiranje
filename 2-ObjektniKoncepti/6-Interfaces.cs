@@ -17,8 +17,8 @@ namespace ObjektniKoncepti.Interfaces
         public static void InterfacesExample()
         {
             // Ustvarimo dve polji na plošči
-            ChessBoardField fieldStart = new ChessBoardField() { X = 1, Y = 1 };
-            ChessBoardField fieldEnd = new ChessBoardField() { X = 2, Y = 2 };
+            BoardField fieldStart = new BoardField() { X = 1, Y = 1 };
+            BoardField fieldEnd = new BoardField() { X = 2, Y = 2 };
 
             // Razred ChessPiece implementira vmesnik IPiece,
             // ki določa, katere metode mora razred implementirati
@@ -65,10 +65,10 @@ namespace ObjektniKoncepti.Interfaces
         {
             // Ustvarimo štiri instance različnih tipov,
             // ki imajo skupno lastnost, da nosijo neke tipe metapodatkov
-            Application app = new Application() { Organization = "FIŠ", Author = "Borut", DateCreated = DateTime.Now };
-            File file = new File();
-            MastersThesis ms = new MastersThesis();
-            Exhibition ex = new Exhibition();
+            Application app = new Application() { Organization = "FIŠ", Author = "Tone" };
+            File file = new File() { Organization = "Apple", Author = "Janez" };
+            Exhibition ex = new Exhibition() { Organization = "Galerija", Author = "Ivana" };
+            MastersThesis ms = new MastersThesis();            
 
             // Dodajmo jih v seznam, ki kot vrednosti dobi tip IMetaData
             List<IMetaData> lstObjects = new List<IMetaData>()
@@ -116,7 +116,7 @@ namespace ObjektniKoncepti.Interfaces
         /// Vsaka figura se zna premakniti na neko polje
         /// </summary>
         /// <param name="field">Polje, kamor se naj figura premakne</param>
-        void Move(ChessBoardField field);
+        void Move(BoardField field);
 
         /// <summary>
         /// Vmesniki definirajo tudi lastnosti v enaki obliki, 
@@ -127,13 +127,13 @@ namespace ObjektniKoncepti.Interfaces
 
         double ChessWeight { get; }
 
-        ChessBoardField Position { get; set; }
+        BoardField Position { get; }
     }
 
     /// <summary>
     /// Definiramo si struct za shranjevanje koordinat na šahovski plošči
     /// </summary>
-    public struct ChessBoardField
+    public struct BoardField
     {
         /// <summary>
         /// Vodoravna koordinata
@@ -161,13 +161,13 @@ namespace ObjektniKoncepti.Interfaces
 
         public double ChessWeight => throw new NotImplementedException();
 
-        public ChessBoardField Position 
+        public BoardField Position 
         { 
             get => throw new NotImplementedException(); 
             set => throw new NotImplementedException(); 
         }
 
-        public void Move(ChessBoardField field)
+        public void Move(BoardField field)
         {
             throw new NotImplementedException();
         }
@@ -179,7 +179,7 @@ namespace ObjektniKoncepti.Interfaces
     /// </summary>
     internal class ChessPiece : IPiece
     {
-        public ChessPiece(ChessBoardField start)
+        public ChessPiece(BoardField start)
         {
             this.position = start;
         }
@@ -199,7 +199,7 @@ namespace ObjektniKoncepti.Interfaces
         /// https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/virtual?f1url=%3FappId%3DDev16IDEF1%26l%3DEN-US%26k%3Dk(virtual_CSharpKeyword);k(DevLang-csharp)%26rd%3Dtrue
         /// </summary>
         /// <param name="field">Polje, kamor naj se figura premakne</param>
-        public virtual void Move(ChessBoardField field)
+        public virtual void Move(BoardField field)
         {
             //position = field;
             this.Position = field;
@@ -207,15 +207,18 @@ namespace ObjektniKoncepti.Interfaces
 
         public bool IsAlive { get; set; }
 
-        private ChessBoardField position;
+        private BoardField position;
 
-        public ChessBoardField Position
+        /// <summary>
+        /// V vmesniku ne predvidimo elementa set, vseeno pa ga lahko lastnosti dodamo
+        /// </summary>
+        public BoardField Position
         {
             get
             {
                 return position;
             }
-            set 
+            private set 
             {
                 position = value;
             }
@@ -228,7 +231,7 @@ namespace ObjektniKoncepti.Interfaces
     /// </summary>
     internal class Rook : ChessPiece
     {
-        public Rook(ChessBoardField start) : base(start)
+        public Rook(BoardField start) : base(start)
         {
             this.ChessWeight = 4.9;
         }
@@ -242,7 +245,7 @@ namespace ObjektniKoncepti.Interfaces
         /// Trdnjava se premika samo po linijah in vrstah
         /// </summary>
         /// <param name="field">Polje na plošči</param>
-        public override void Move(ChessBoardField field)
+        public override void Move(BoardField field)
         {
             // Pravilo za premik trdnjave
             if (this.Position.X != field.X && this.Position.Y != field.Y)
@@ -256,7 +259,7 @@ namespace ObjektniKoncepti.Interfaces
 
     internal class Queen : ChessPiece
     {
-        public Queen(ChessBoardField start) : base(start)
+        public Queen(BoardField start) : base(start)
         {
             this.ChessWeight = 4.9;
         }
@@ -270,7 +273,7 @@ namespace ObjektniKoncepti.Interfaces
         /// Kraljica se premika samo po diagonalah, linijah in vrstah
         /// </summary>
         /// <param name="field">Polje na plošči</param>
-        public override void Move(ChessBoardField field)
+        public override void Move(BoardField field)
         {
             // Pravilo za premik kraljice
             if (this.Position.X != field.X && this.Position.Y != field.Y)
@@ -301,7 +304,7 @@ namespace ObjektniKoncepti.Interfaces
     {
         string Author { get; set; }
 
-        DateTime DateCreated { get; set; }
+        DateOnly DateCreated { get; set; }
 
         string Organization { get; set; }
     }
@@ -314,7 +317,7 @@ namespace ObjektniKoncepti.Interfaces
     {
         string Title { get; set; }
 
-        DateTime DateModified { get; set; }
+        DateOnly DateModified { get; set; }
     }
 
 
@@ -324,7 +327,7 @@ namespace ObjektniKoncepti.Interfaces
     internal class Application : IMetaData
     {
         public string Author { get; set; }
-        public DateTime DateCreated { get; set; }
+        public DateOnly DateCreated { get; set; }
         public string Organization { get; set; }
     }
 
@@ -334,7 +337,7 @@ namespace ObjektniKoncepti.Interfaces
     internal class File : IMetaData
     {
         public string Author { get; set; }
-        public DateTime DateCreated { get; set; }
+        public DateOnly DateCreated { get; set; }
         public string Organization { get; set; }
     }
 
@@ -351,9 +354,9 @@ namespace ObjektniKoncepti.Interfaces
     internal class MastersThesis : IDocumentMetaData, IEvaluatable
     {
         public string Title { get; set; }
-        public DateTime DateModified { get; set; }
+        public DateOnly DateModified { get; set; }
         public string Author { get; set; }
-        public DateTime DateCreated { get; set; }
+        public DateOnly DateCreated { get; set; }
         public string Organization { get; set; }
         public List<string> Committee { get; set ; }
 
@@ -369,7 +372,7 @@ namespace ObjektniKoncepti.Interfaces
     internal class Exhibition : IMetaData
     {
         public string Author { get; set; }
-        public DateTime DateCreated { get; set; }
+        public DateOnly DateCreated { get; set; }
         public string Organization { get; set; }
     }
 

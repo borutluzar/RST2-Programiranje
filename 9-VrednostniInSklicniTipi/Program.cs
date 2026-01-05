@@ -67,6 +67,7 @@ namespace VrednostniInSklicniTipi
                         Console.WriteLine($"\nVrednostni tip na začetku:");
                         Console.WriteLine($"Stranica a = {rect_val.a}");
                         Console.WriteLine($"Stranica b = {rect_val.b}");
+                                              
 
                         // Pokličemo funkcijo, ki spremeni vrednosti podanega pravokotnika
                         IncreaseRectangle(rect_val, 1);

@@ -17,7 +17,7 @@ namespace PodatkovneStrukture
         public static void MethodsOfICollection(StructuresSections section)
         {
             // Definirajmo zbirko 
-            ICollection<string> zbirka = new List<string>() { "Blaž", "Luka", "Jernej", "Dejan", "Denis", "Tilen", "Jernej", "Jakob", "Samo" };
+            ICollection<string> zbirka = new SortedSet<string>() { "Borut", "Blaž", "Luka", "Jernej", "Dejan", "Denis", "Tilen", "Jernej", "Jakob", "Samo" };
             Console.WriteLine($"{zbirka.WriteCollection()}\n");
 
             switch (section)
@@ -26,15 +26,15 @@ namespace PodatkovneStrukture
                     {
                         // Preizkusimo metode, ki jih ponuja ICollection
                         Console.WriteLine($"Count pred Add: {zbirka.Count}");
-                        
                         zbirka.Add("Borut");
+
                         Console.WriteLine($"{zbirka.WriteCollection()}\n");
                         Console.WriteLine($"Count pred Remove: {zbirka.Count}");
                         
                         zbirka.Remove("Borut");
                         Console.WriteLine($"{zbirka.WriteCollection()}\n");
                         Console.WriteLine($"Count pred Clear: {zbirka.Count}");
-                        
+
                         zbirka.Clear();
                         Console.WriteLine($"{zbirka.WriteCollection()}\n");
                         Console.WriteLine($"Count na koncu: {zbirka.Count}");

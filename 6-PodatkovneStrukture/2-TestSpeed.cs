@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -9,7 +10,7 @@ namespace PodatkovneStrukture
 
     public enum TestAction
     {
-        Insert = 1,        
+        Insert = 1,
         Find = 2
     }
 
@@ -43,7 +44,7 @@ namespace PodatkovneStrukture
             HashSet<int> zgoscenaTabela = new HashSet<int>();
 
             List<IReadOnlyCollection<int>> dataStructures = new List<IReadOnlyCollection<int>>()
-                {                    
+                {
                     vrsta,
                     seznam,
                     povezanSeznam,
@@ -106,7 +107,7 @@ namespace PodatkovneStrukture
 
             Console.WriteLine($"> Iskanje {FINDNUM} elementov");
             // Poiščemo nekaj vrednosti
-            Random rnd = new Random(2);
+            Random rnd = new Random();
             bool containsAll = true;
 
             Stopwatch swTimer = Stopwatch.StartNew();
