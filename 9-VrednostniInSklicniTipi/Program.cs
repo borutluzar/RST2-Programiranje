@@ -67,7 +67,7 @@ namespace VrednostniInSklicniTipi
                         Console.WriteLine($"\nVrednostni tip na začetku:");
                         Console.WriteLine($"Stranica a = {rect_val.a}");
                         Console.WriteLine($"Stranica b = {rect_val.b}");
-                                              
+
 
                         // Pokličemo funkcijo, ki spremeni vrednosti podanega pravokotnika
                         IncreaseRectangle(rect_val, 1);
@@ -84,6 +84,29 @@ namespace VrednostniInSklicniTipi
                         BoxingUnboxing.ExampleBoxing();
                     }
                     break;
+                case ValueAndReferenceTypes.RefKeyword:
+                    {
+                        int x = 1;
+
+                        // Vrednost vrednostnega tipa lahko spremenimo v funkciji,
+                        // če uporabimo rezervirano besedo ref
+                        Console.WriteLine($"Vrednost {nameof(x)} pred spremembo: {x}");
+                        ChangeValueBy(ref x, 1);
+                        Console.WriteLine($"Vrednost {nameof(x)} po spremembi: {x}");
+                    }
+                    break;
+                case ValueAndReferenceTypes.RefKeywordForReferenceTypes:
+                    {
+                        List<int> lst = new() { 1, 2, 3 };
+
+                        Console.WriteLine($"Vrednost {nameof(lst)} pred spremembo: {lst.WriteCollection()}");
+                        ChangeList1(ref lst);
+                        //ChangeList2(lst);
+                        //ChangeList3(ref lst);
+                        //ChangeList4(lst);
+                        Console.WriteLine($"Vrednost {nameof(lst)} po spremembi: {lst.WriteCollection()}");
+                    }
+                    break;
             }
             Console.Read();
         }
@@ -93,7 +116,9 @@ namespace VrednostniInSklicniTipi
             Basics = 1,
             DefaultValue = 2,
             StructsAndClasses = 3,
-            BoxingAndUnboxing = 4
+            BoxingAndUnboxing = 4,
+            RefKeyword = 5,
+            RefKeywordForReferenceTypes = 6,
         }
 
         public static void IncreaseRectangle(Rectangle_Class rect, int increaseBy)
@@ -113,6 +138,35 @@ namespace VrednostniInSklicniTipi
             Console.WriteLine($"Stranica a = {rect.a}");
             Console.WriteLine($"Stranica b = {rect.b}");
         }
-    }    
+
+        private static void ChangeValueBy(ref int x, int change)
+        {
+            x += change;            
+        }
+
+        private static void ChangeList1(ref List<int> lst)
+        {
+            lst.Add(4);
+            Console.WriteLine($"Vrednost {nameof(lst)} v funkciji: {lst.WriteCollection()}");
+        }
+
+        private static void ChangeList2(List<int> lst)
+        {
+            lst.Add(4);
+            Console.WriteLine($"Vrednost {nameof(lst)} v funkciji: {lst.WriteCollection()}");
+        }
+
+        private static void ChangeList3(ref List<int> lst)
+        {
+            lst = new List<int>(lst) { 4 };
+            Console.WriteLine($"Vrednost {nameof(lst)} v funkciji: {lst.WriteCollection()}");
+        }
+
+        private static void ChangeList4(List<int> lst)
+        {
+            lst = new List<int>(lst) { 4 };
+            Console.WriteLine($"Vrednost {nameof(lst)} v funkciji: {lst.WriteCollection()}");
+        }
+    }
 }
 

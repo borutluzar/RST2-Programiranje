@@ -55,23 +55,6 @@ namespace Uvod
                         int numPrimes = MyStaticFunctions.CountPrimes(ref upToNumber, out int largest);
                         Console.WriteLine($"Od 1 do {upToNumber} je {numPrimes} praštevil, največje pa je {largest}.");
                         Console.WriteLine($"Vrednost parametra {nameof(upToNumber)} je {upToNumber}!");
-
-                        int x = 1;
-                        int y = x; // y dobi vrednost x, torej 1
-                        x = 2; // x dobi vrednost 2, y pa ohrani 1
-                        Console.WriteLine($"x = {x}, y = {y}");
-
-                        List<int> z = new List<int>() { 1, 2, 3 };
-                        List<int> w = z;
-                        z.Add( 4 );
-                        Console.WriteLine($"Elements in z: {z.Count}, elements in w: {w.Count}");
-
-                        /*
-                        object z = 1;
-                        object w = z;
-                        z = 2;
-                        */
-
                     }
                     break;
                 case IntroductorySection.CountingPrimesAndTuples:
