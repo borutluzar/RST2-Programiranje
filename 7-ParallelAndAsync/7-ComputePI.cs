@@ -99,7 +99,9 @@ namespace ParallelAndAsync
             return step * sum;
         }
 
-        /// <summary>Izračuna približek PI s Parallel.ForEach in delilcem intervala.</summary>
+        /// <summary>
+        /// Izračuna približek PI s Parallel.ForEach in delilcem intervala.
+        /// </summary>
         static decimal ParallelPartitionerPi()
         {
             decimal sum = 0.0m;

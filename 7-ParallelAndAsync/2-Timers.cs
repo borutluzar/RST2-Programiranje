@@ -37,7 +37,7 @@ namespace ParallelAndAsync
 
             // Spremenimo še intervale z metodo Change 
             Console.WriteLine("Sprememba intervalov v timerju.");
-            timer.Change(5000, 1000);
+            //timer.Change(5000, 1000);
 
             // Kaj naredi spodnja koda?
             var stopper = new System.Threading.Timer(

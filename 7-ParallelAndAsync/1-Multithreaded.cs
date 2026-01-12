@@ -32,6 +32,10 @@ namespace ParallelAndAsync
     {
         private static long x = 0;
         private const int WAIT_INTERVAL = 6000; // V milisekundah
+        
+        // Z volatile označimo, da lahko spremenljivko popravimo v več threadih
+        // V praksi se uporabe volatile izogibamo
+        volatile static bool stop = false;
 
         /// <summary>
         /// Za enostavno večnitno programiranje lahko uporabimo razred Thread (iz paketa System.Threading).
@@ -72,6 +76,7 @@ namespace ParallelAndAsync
 
             // Druga možnost je, da metodi Join povemo,
             // koliko časa smo pripravljeni čakati, ona pa pove, če se je v tem času proces zaključil     
+            /*
             bool isDone = thread1.Join(WAIT_INTERVAL);
             if (isDone)
                 Console.WriteLine("\nProces 1 se je zaključil!");
@@ -91,13 +96,30 @@ namespace ParallelAndAsync
                 Console.WriteLine("\nVsi procesi so ustavljeni. (Ne bo držalo...)");
                 return;
             }
+            */
+
+            stop = true;
+            while (thread1.IsAlive) 
+            {
+                Console.WriteLine($"Proces {nameof(thread1)} še ni končan!");
+                Thread.Sleep(1000);
+            }
+            Console.WriteLine($"Proces {nameof(thread1)} je končan!");
+            while (thread3.IsAlive)
+            {
+                Console.WriteLine($"Proces {nameof(thread3)} še ni končan!");
+                Thread.Sleep(1000);
+            }
+            Console.WriteLine($"Proces {nameof(thread3)} je končan!");
         }
 
         private static void ComputeLong()
         {
             long limit = long.MaxValue;
-            while (x < limit)
+            while (x < limit && !stop)
                 x++;
+
+            Console.WriteLine($"Prišli smo do konca zanke z x = {x}");
         }
 
         private static void ComputeLong(CancellationToken token)
@@ -108,7 +130,10 @@ namespace ParallelAndAsync
                 if (!token.IsCancellationRequested)
                     x++;
                 else
+                {
+                    Console.WriteLine($"Zahtevana je prekinitev!");
                     break;
+                }
             }
             Console.WriteLine($"Prišli smo do konca zanke z x = {x}");
         }
@@ -133,7 +158,7 @@ namespace ParallelAndAsync
             Console.WriteLine($"\nPočakamo {WAIT_INTERVAL / 1000} sekund.");
 
             // Definiramo še "flag", ki nam omogoči predčasno končanje procesa
-            CancellationTokenSource tokenSource = new CancellationTokenSource(); // Arh, Q63
+            CancellationTokenSource tokenSource = new CancellationTokenSource();
 
             Thread.Sleep(WAIT_INTERVAL); // Zamrznemo izvajanje programa v naši trenutni niti.            
             Console.WriteLine("\nZačenjamo s prvim opravilom:");
@@ -158,7 +183,7 @@ namespace ParallelAndAsync
                 // Prekinimo prvi task
                 tokenSource.Cancel();
                 task1.Wait();
-                //task2.Wait();
+                task2.Wait();
                 //task3.Wait();
             }
             catch (OperationCanceledException)
@@ -167,7 +192,7 @@ namespace ParallelAndAsync
             }
             finally
             {                
-                Console.WriteLine($"Status taska 1 (po prekinitvi): {task1.Status}");                
+                Console.WriteLine($"Status taska 1 (po prekinitvi): {task1.Status}");            
                 task1.Dispose();                
                 Console.WriteLine($"\n{nameof(task1)} smo uspešno zaključili!");                
             }
@@ -186,11 +211,14 @@ namespace ParallelAndAsync
         public static void TasksResult()
         {
             Console.WriteLine("\nZaženimo task vzporedno.");
-            //var task = Task.Run(ComputeLong);
-            //Console.WriteLine($"\nTip {nameof(task)} je {task.GetType().Name}");
-
+            /*
+            var task = Task.Run(ComputeLong);
+            Console.WriteLine($"\nTip {nameof(task)} je {task.GetType().Name}");
+            */
+            
             var task = Task.Run(ComputeLongAndReturn); // Poglejmo si razliko v tipu, če funkcija ne vrača ničesar
             Console.WriteLine($"\nTip {nameof(task)} je {task.GetType().Name}");
+            
 
             // Drug način klica funkcije je lambda izraz, kjer funkciji lahko damo tudi parameter
             //var task = Task.Run(() => ComputeLongWithIncrementAndReturn(2));
@@ -207,7 +235,7 @@ namespace ParallelAndAsync
             // Ko se rezultat pojavi, se naša koda izvaja naprej
             Console.WriteLine($"\nRezultat taska je {result}.");
             
-
+            
             // Ponovimo: tako metoda Wait kot lastnost Result blokirata izvajanje trenutne niti, dokler se task ne izvede.
         }
 

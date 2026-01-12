@@ -34,12 +34,12 @@ namespace ParallelAndAsync
                         if (CommonFunctions.IsPrime(i))
                             primes.Add(i);
                     });
-            Console.WriteLine($"Čas zaporednega iskanja: {sw.Elapsed.TotalSeconds}, našli smo {primes.Count} praštevil.");
+            Console.WriteLine($"Čas zaporednega iskanja: {sw.Elapsed.TotalSeconds:0.00}, našli smo {primes.Count} praštevil.");
 
             primes.Clear();
             sw = Stopwatch.StartNew();
             int testWhere = DataForParallel.Instance().Where(x => CommonFunctions.IsPrime(x)).Count();
-            Console.WriteLine($"Čas zaporednega iskanja z Where: {sw.Elapsed.TotalSeconds}, " +
+            Console.WriteLine($"Čas zaporednega iskanja z Where: {sw.Elapsed.TotalSeconds:0.00}, " +
                 $"našli smo {testWhere} praštevil.");
 
 
@@ -48,18 +48,17 @@ namespace ParallelAndAsync
                         
             sw = Stopwatch.StartNew();
             var testWhereParallel = DataForParallel.Instance().AsParallel().Where(CommonFunctions.IsPrime);
-            Console.WriteLine($"Čas vzporednega iskanja z Where: {sw.Elapsed.TotalSeconds}, " +
+            Console.WriteLine($"Čas vzporednega iskanja z Where: {sw.Elapsed.TotalSeconds:0.00}, " +
                 $"našli smo {testWhereParallel.Count()} praštevil."); // Hitro, ker se čas izpiše, preden se evaluira Count.
 
             sw = Stopwatch.StartNew();
             int testWhereParallelCount = DataForParallel.Instance().AsParallel().Where(CommonFunctions.IsPrime).Count();
-            Console.WriteLine($"Čas vzporednega iskanja z Where: {sw.Elapsed.TotalSeconds}, " +
+            Console.WriteLine($"Čas vzporednega iskanja z Where: {sw.Elapsed.TotalSeconds:0.00}, " +
                 $"našli smo {testWhereParallelCount} praštevil.");
 
             Thread.Sleep(1000);
 
-            // Sedaj pa jih preverimo paralelno še na drug način
-            Console.WriteLine($"\nIn še vzporedno:");
+            // Sedaj pa jih preverimo paralelno še na drug način            
             primes.Clear();
             sw = Stopwatch.StartNew();
 
@@ -78,7 +77,7 @@ namespace ParallelAndAsync
                     }
                 }
             });
-            Console.WriteLine($"Čas vzporednega iskanja: {sw.Elapsed.TotalSeconds}, našli smo {primes.Count} praštevil.");
+            Console.WriteLine($"Čas vzporednega iskanja: {sw.Elapsed.TotalSeconds:0.00}, našli smo {primes.Count} praštevil.");
 
             // Če ne uporabimo 'lock', nam nekaj vnosov zmanjka
             primes.Clear();
@@ -90,7 +89,7 @@ namespace ParallelAndAsync
                     primes.Add(i);
                 }
             });
-            Console.WriteLine($"Čas vzporednega iskanja brez lock-a: {sw.Elapsed.TotalSeconds}, našli smo {primes.Count} praštevil.");
+            Console.WriteLine($"Čas vzporednega iskanja brez lock-a: {sw.Elapsed.TotalSeconds:0.00}, našli smo {primes.Count} praštevil.");
 
             // Če želimo preprosto paralelno izvedbo na neki podatkovni strukturi,
             // lahko uporabimo razred Parallel

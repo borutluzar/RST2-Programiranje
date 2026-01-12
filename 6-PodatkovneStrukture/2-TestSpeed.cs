@@ -23,7 +23,7 @@ namespace PodatkovneStrukture
     static class TestSpeed
     {
         private const int BOUND = 10_000_000;
-        private const int FINDNUM = 1_000;
+        private const int FINDNUM = 100; //1_000;
         public static int NUMBERS_UP_TO = 100_001;
 
         public static void TestDataStructures(TestAction action)
@@ -38,9 +38,9 @@ namespace PodatkovneStrukture
         /// </summary>
         public static void CreateTests(TestAction action, bool allDistinct = false)
         {
-            Stack<int> sklad = new Stack<int>();
-            Queue<int> vrsta = new Queue<int>();
-            List<int> seznam = new List<int>();
+            Stack<int> sklad = new Stack<int>(BOUND);
+            Queue<int> vrsta = new Queue<int>(BOUND);
+            List<int> seznam = new List<int>(BOUND);
             LinkedList<int> povezanSeznam = new LinkedList<int>();
             SortedSet<int> urejenaMnozica = new SortedSet<int>();
             HashSet<int> zgoscenaTabela = new HashSet<int>();
@@ -142,13 +142,19 @@ namespace PodatkovneStrukture
                 int x = i;
                 if (!allDistinct) // Insert random numbers unless specified otherwise
                     x = rnd.Next(0, BOUND);
+
                 if (dataStructure is ICollection<int>)
                     ((ICollection<int>)dataStructure).Add(x);
                 else if (dataStructure is Stack<int>)
-                    (dataStructure as Stack<int>).Add(x);
+                {
+                    //(dataStructure as Stack<int>).Add(x);
+                    (dataStructure as Stack<int>).Push(x);
+                }
                 else if (dataStructure is Queue<int>)
-                    ((Queue<int>)dataStructure).Add(x);
-
+                {
+                    //(dataStructure as Queue<int>).Add(x);
+                    (dataStructure as Queue<int>).Enqueue(x);
+                }
             }
             Console.WriteLine($"> Čas vstavljanja v {dataStructure.GetType().Name}: \t {swTimer.Elapsed.TotalSeconds}");
             Console.WriteLine($"> Struktura vsebuje {dataStructure.Count} elementov");
@@ -158,7 +164,7 @@ namespace PodatkovneStrukture
         {
             // Najprej dodamo elemente v strukturo
             Console.WriteLine($"> Vstavljanje elementov");
-            Insert(dataStructure, false);
+            Insert(dataStructure, true);
 
             Console.WriteLine($"> Iskanje {FINDNUM} elementov");
             // Poiščemo nekaj vrednosti
@@ -168,8 +174,8 @@ namespace PodatkovneStrukture
             Stopwatch swTimer = Stopwatch.StartNew();
             for (int i = 0; i < FINDNUM; i++)
             {
-                //int x = rnd.Next(0, BOUND);
-                int x = rnd.Next(0, NUMBERS_UP_TO);
+                int x = rnd.Next(0, BOUND);
+                //int x = rnd.Next(0, NUMBERS_UP_TO);
                 //int x = rnd.Next(BOUND - NUMBERS_UP_TO, BOUND);
 
                 if (dataStructure.Contains(x))
