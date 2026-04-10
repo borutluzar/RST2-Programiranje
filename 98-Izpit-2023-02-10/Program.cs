@@ -1,9 +1,16 @@
-﻿namespace Izpit_2023_02_10
+﻿using LINQ;
+
+namespace Izpit_2023_02_10
 {
     public class Program
     {
         public static void Main(string[] args)
         {
+            var numbers = new[] { 2, 4, 1, 3 };
+            int result = numbers.Aggregate(1, (acc, x) => acc * x, r => r);
+            Console.WriteLine(result);
+
+
             Console.WriteLine("Izvajanje programa za prvi izpit iz Programiranja z dne 10. 2. 2023!");
 
             Tekmovanje fisPrvenstvo = new("Prvenstvo FIŠ", "Novo mesto", 2024);
