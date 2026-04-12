@@ -12,7 +12,8 @@ namespace DesignPatterns
             SingletonLog = 2,
             FactoryBad = 3,
             FactoryGood = 4,
-            Strategy = 5
+            Builder = 5,
+            Strategy = 6
         }
 
         static void Main()
@@ -83,6 +84,11 @@ namespace DesignPatterns
                         Console.WriteLine($"  Tip: {card.CreditCardType}");
                         Console.WriteLine($"  Limit: {card.Limit}");
                         Console.WriteLine($"  Letni strošek: {card.AnnualCharge}");
+                    }
+                    break;
+                case DesignPatternsSections.Builder:
+                    {
+                        // ... 
                     }
                     break;
                 case DesignPatternsSections.Strategy:
