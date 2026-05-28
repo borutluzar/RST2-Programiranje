@@ -64,8 +64,8 @@ namespace ParallelAndAsync
                     {
                         Asynchronous.AsyncTest(); // asinhrona funkcija
                         // Ker await ne blokira izvajalne niti, pred izračunom pridemo iz funkcije
-                        Thread.Sleep(1_000);
-                        Console.WriteLine("Smo na koncu primera!");
+                        //Thread.Sleep(1_000);
+                        Console.WriteLine("\n*****\nSmo na koncu primera!\n******\n");
                         Console.ReadLine();
                     }
                     break;

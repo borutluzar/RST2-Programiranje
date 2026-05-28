@@ -36,20 +36,20 @@ namespace ParallelAndAsync
 
             // Ponovimo primer iz drugega razdelka tega poglavja:
             Stopwatch sw = Stopwatch.StartNew();
-            var backgroundTask = Task.Run(() => CountPrimes(InterfaceFunctions.ChooseSection<ExecutionType>()));
+            //var backgroundTask = Task.Run(() => CountPrimes(InterfaceFunctions.ChooseSection<ExecutionType>()));
 
 
             // PRIMER 1: Ko dostopimo do rezultata, bo trenutna nit počakala na rezultat (enako kot pri metodi Wait).            
-            
+            /*
             Console.WriteLine($"Task smo zagnali, zdaj čakamo na rezultat.");
-            var result = backgroundTask.Result;
             Console.WriteLine($"Čakamo, da task konča izračun.");
             Console.WriteLine($"In čakamo...");
+            var result = backgroundTask.Result;
             Thread.Sleep(100);
             Console.WriteLine($"In čakamo...");
             Thread.Sleep(100);
             Console.WriteLine($"Našli smo {result} praštevil v {sw.Elapsed.TotalSeconds} sekundah.");            
-            
+            */
 
             // PRIMER 2: Namesto čakanja lahko uporabimo rezervirano besedo await, 
             //           vendar nam v funkciji to ne spremeni obnašanja.
@@ -70,16 +70,16 @@ namespace ParallelAndAsync
 
             // PRIMER 3: Implementirajmo našo logiko v ločeni metodi
             //           Klic deluje podobno kot pri await - le da se izvajanje nadaljuje samo znotraj metode
-            /*
+
             Console.WriteLine($"Task smo zagnali, zdaj čakamo na rezultat.");
             var result = ResultAsync();
             //var result = ResultAsyncResult();
             Console.WriteLine($"Čakamo, da task konča izračun.");
             Console.WriteLine($"In čakamo...");
             Console.WriteLine($"In čakamo...");
-            Console.WriteLine($"Našli smo {result} praštevil v {sw.Elapsed.TotalSeconds} sekundah.");
+            Console.WriteLine($"Našli smo {result.Result} praštevil v {sw.Elapsed.TotalSeconds} sekundah.");
             Console.WriteLine($"Do tukaj pridemo šele, ko imamo rezultat");
-            */
+
 
             // Za konec velja pripomniti, da lahko z enim taskom opravimo več zaporednih opravil,
             // kar nam omogoča metoda ContinueWith. Ko se eno opravilo konča, lahko začnemo z naslednjim.
@@ -99,8 +99,8 @@ namespace ParallelAndAsync
 
         private static int CountPrimes(ExecutionType type)
         {
-            Int32 count = 0;
-
+            Int32 count = 0;            
+            
             switch (type)
             {
                 // Neparalelno
@@ -133,7 +133,7 @@ namespace ParallelAndAsync
                                 });
                         }
                     break;
-            }
+            }            
             return count;
         }
 
@@ -161,10 +161,10 @@ namespace ParallelAndAsync
             */
 
             // PRIMER 2: Počakamo, da končajo vsi taski
-            /*
+            
             var whichIsCompleted = await Task.WhenAll(backgroundTasks);
-            Console.WriteLine($"\nVsi taski so se uspešno zaključili, prvi rezultat je bil {whichIsCompleted[0]}.\n");
-            */
+            Console.WriteLine($"\nVsi taski so se uspešno zaključili, prvi rezultat je bil ??.\n");
+            
         }
 
         private static int OccurencesOnPage(string keyword, string url)
