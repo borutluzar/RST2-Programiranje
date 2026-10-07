@@ -47,14 +47,14 @@ namespace ParallelAndAsync
             Console.WriteLine($"Gremo paralelno!");
                         
             sw = Stopwatch.StartNew();
-            var testWhereParallel = DataForParallel.Instance().AsParallel().Where(CommonFunctions.IsPrime);
+            var testWhereParallel = DataForParallel.Instance().AsParallel().Where(x => CommonFunctions.IsPrime(x)).Count();
             Console.WriteLine($"Čas vzporednega iskanja z Where: {sw.Elapsed.TotalSeconds:0.00}, " +
-                $"našli smo {testWhereParallel.Count()} praštevil."); // Hitro, ker se čas izpiše, preden se evaluira Count.
+                $"našli smo {testWhereParallel} praštevil."); // Hitro, ker se čas izpiše, preden se evaluira Count.
 
             sw = Stopwatch.StartNew();
-            int testWhereParallelCount = DataForParallel.Instance().AsParallel().Where(CommonFunctions.IsPrime).Count();
+            var testWhereParallelCount = DataForParallel.Instance().AsParallel().Where(CommonFunctions.IsPrime);
             Console.WriteLine($"Čas vzporednega iskanja z Where: {sw.Elapsed.TotalSeconds:0.00}, " +
-                $"našli smo {testWhereParallelCount} praštevil.");
+                $"našli smo {testWhereParallelCount.Count()} praštevil.");
 
             Thread.Sleep(1000);
 
