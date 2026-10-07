@@ -6,8 +6,18 @@ namespace Izpit_2023_02_10
     {
         public static void Main(string[] args)
         {
+            /*
+            int x = 2;
+            object y = x;
+            x += 1;
+            object z = (int)(object)(x + 1) + (int)y;
+            y = (int)z - x;
+            z = (int)y + 1;
+            Console.WriteLine(z);
+            */
+
             var numbers = new[] { 2, 4, 1, 3 };
-            int result = numbers.Aggregate(1, (acc, x) => acc * x, r => r);
+            int result = numbers.Aggregate(2, (acc, x) => acc * x, r => r);
             Console.WriteLine(result);
 
 
