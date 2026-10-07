@@ -1,4 +1,5 @@
 ﻿using CommonFunctions;
+using Uvod;
 
 namespace VrednostniInSklicniTipi
 {
@@ -79,11 +80,6 @@ namespace VrednostniInSklicniTipi
                         Console.WriteLine($"Stranica b = {rect_val.b}");
                     }
                     break;
-                case ValueAndReferenceTypes.BoxingAndUnboxing:
-                    {
-                        BoxingUnboxing.ExampleBoxing();
-                    }
-                    break;
                 case ValueAndReferenceTypes.RefKeyword:
                     {
                         int x = 1;
@@ -107,6 +103,19 @@ namespace VrednostniInSklicniTipi
                         Console.WriteLine($"Vrednost {nameof(lst)} po spremembi: {lst.WriteCollection()}");
                     }
                     break;
+                case ValueAndReferenceTypes.CountingPrimesWithRef:
+                    { // V tem primeru si ogledamo vračanje vrednosti z uporabo določila ref
+                        int upToNumber = 90;
+                        int numPrimes = MyStaticFunctions.CountPrimes(ref upToNumber, out int largest);
+                        Console.WriteLine($"Od 1 do {upToNumber} je {numPrimes} praštevil, največje pa je {largest}.");
+                        Console.WriteLine($"Vrednost parametra {nameof(upToNumber)} je {upToNumber}!");
+                    }
+                    break;
+                case ValueAndReferenceTypes.BoxingAndUnboxing:
+                    {
+                        BoxingUnboxing.ExampleBoxing();
+                    }
+                    break;
             }
             Console.Read();
         }
@@ -119,6 +128,7 @@ namespace VrednostniInSklicniTipi
             BoxingAndUnboxing = 4,
             RefKeyword = 5,
             RefKeywordForReferenceTypes = 6,
+            CountingPrimesWithRef = 7
         }
 
         public static void IncreaseRectangle(Rectangle_Class rect, int increaseBy)

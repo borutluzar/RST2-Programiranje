@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\0-CommonFunctions\0-CommonFunctions.csproj" />
+    <ProjectReference Include="..\1-Uvod\1-Uvod.csproj" />
   </ItemGroup>
 
 </Project>

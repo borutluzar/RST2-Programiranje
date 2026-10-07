@@ -18,18 +18,18 @@ namespace Uvod
         private const string DEBUG = "Deb>";
 
         /// <summary>
-        /// Counts all prime numbers up to n
+        /// Prešteje vsa praštevila, ki so manjša ali enaka n
         /// </summary>
-        /// <param name="n">An integer up to which we count primes</param>
-        /// <returns>Number of primes up to integer n</returns>
+        /// <param name="n">Naravno število, do katerega štejemo praštevila</param>
+        /// <returns>Število praštevil manjših ali enakih n</returns>
         public static int CountPrimes(int n)
         {
             int countPrimes = 0;
 
-            // For each i between 1 and n check if it is a prime number
+            // Za vsak i med 2 in n preverimo, če je praštevilo
             for (int i = 2; i <= n; i++)
             {
-                // Count number of divisors of the current number i
+                // Preštejemo število deliteljev i
                 int countDivisors = 0;
                 for (int j = 2; j <= Math.Sqrt(i); j++)
                 {
@@ -48,19 +48,19 @@ namespace Uvod
         }
 
         /// <summary>
-        /// Counts all prime numbers up to n
+        /// Prešteje vsa praštevila, ki so manjša ali enaka n
         /// </summary>
-        /// <param name="n">An integer up to which we count primes</param>
-        /// <returns>Number of primes up to integer n</returns>
+        /// <param name="n">Naravno število, do katerega štejemo praštevila</param>
+        /// <returns>Število praštevil manjših ali enakih n</returns>
         public static int CountPrimes(int n, out int largest)
         {
             int countPrimes = 0;
             largest = 0; // Nastavimo privzeto vrednost out parametra
 
-            // For each i between 1 and n check if it is a prime number
+            // Za vsak i med 2 in n preverimo, če je praštevilo
             for (int i = 2; i <= n; i++)
             {
-                // Count number of divisors of the current number i
+                // Preštejemo število deliteljev i
                 int countDivisors = 0;
                 for (int j = 2; j <= Math.Sqrt(i); j++)
                 {
@@ -82,20 +82,20 @@ namespace Uvod
         }
 
         /// <summary>
-        /// Counts all prime numbers up to n
+        /// Prešteje vsa praštevila, ki so manjša ali enaka n
         /// </summary>
-        /// <param name="n">An integer up to which we count primes, at the end</param>
-        /// <param name="largest">Number of primes up to integer n</param>
-        /// <returns>Number of primes up to integer n</returns>
+        /// <param name="n">Naravno število, do katerega štejemo praštevila</param>
+        /// <param name="largest">Največje praštevilo manjše ali enako n</param>
+        /// <returns>Število praštevil manjših ali enakih n</returns>
         public static int CountPrimes(ref int n, out int largest)
         {
             int countPrimes = 0;
             largest = 0; // Nastavimo privzeto vrednost out parametra
 
-            // For each i between 1 and n check if it is a prime number
+            // Za vsak i med 2 in n preverimo, če je praštevilo
             for (int i = 2; i <= n; i++)
             {
-                // Count number of divisors of the current number i
+                // Preštejemo število deliteljev i
                 int countDivisors = 0;
                 for (int j = 2; j <= Math.Sqrt(i); j++)
                 {
@@ -119,19 +119,19 @@ namespace Uvod
         }
 
         /// <summary>
-        /// Counts all prime numbers up to n
+        /// Prešteje vsa praštevila, ki so manjša ali enaka n
         /// </summary>
-        /// <param name="n">An integer up to which we count primes</param>
+        /// <param name="n">Naravno število, do katerega štejemo praštevila</param>
         /// <returns>Number of primes up to integer n and the largest among them</returns>
         public static (int, int) CountPrimesAndFindLargest(int n)
         {
             int countPrimes = 0;
             int max = 0;
 
-            // For each i between 1 and n check if it is a prime number
+            // Za vsak i med 2 in n preverimo, če je praštevilo
             for (int i = 2; i <= n; i++)
             {
-                // Count number of divisors of the current number i
+                // Preštejemo število deliteljev i
                 int countDivisors = 0;
                 for (int j = 2; j <= Math.Sqrt(i); j++)
                 {

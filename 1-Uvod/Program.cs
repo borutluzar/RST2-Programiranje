@@ -49,14 +49,6 @@ namespace Uvod
                         Console.WriteLine($"Od 1 do {upToNumber} je {numPrimes} praštevil, največje pa je {largest}.");
                     }
                     break;
-                case IntroductorySection.CountingPrimesWithRef:
-                    { // V tem primeru si ogledamo vračanje vrednosti z uporabo določila ref
-                        int upToNumber = 90;
-                        int numPrimes = MyStaticFunctions.CountPrimes(ref upToNumber, out int largest);
-                        Console.WriteLine($"Od 1 do {upToNumber} je {numPrimes} praštevil, največje pa je {largest}.");
-                        Console.WriteLine($"Vrednost parametra {nameof(upToNumber)} je {upToNumber}!");
-                    }
-                    break;
                 case IntroductorySection.CountingPrimesAndTuples:
                     { // V tem primeru si ogledamo vračanje vrednosti s pomočja strukture Tuple
                       // https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/value-tuples
@@ -231,16 +223,15 @@ namespace Uvod
             CountingPrimes = 2,
             PreparingOutputs = 3,
             CountingPrimesWithOut = 4,
-            CountingPrimesWithRef = 5,
-            CountingPrimesAndTuples = 6,
-            Enumerations = 7,
-            RandomLists = 8,
-            RandomListsWithoutOut = 9,
-            RandomListsAndYield = 10,
-            WritingInFile = 11,
-            ReadingFromFile = 12,
-            ReadingFromFileWithObject = 13,
-            RecallingObjects = 14,
+            CountingPrimesAndTuples = 5,
+            Enumerations = 6,
+            RandomLists = 7,
+            RandomListsWithoutOut = 8,
+            RandomListsAndYield = 9,
+            WritingInFile = 10,
+            ReadingFromFile = 11,
+            ReadingFromFileWithObject = 12,
+            RecallingObjects = 13,
             OtherExamples = 99,
         }
     }
