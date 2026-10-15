@@ -32,15 +32,13 @@ namespace VrednostniInSklicniTipi
                     break;
                 case ValueAndReferenceTypes.DefaultValue:
                     {
-                        // Spremenljivka vrednostnega tipa vedno ima neko vrednost
-                        // Če ji je ne predpišemo, dobi privzeto vrednost
-                        // Nastavimo jo z rezervirano besedo default
-                        int i = default; // Privzeta vrednost za celoštevilske tipe je 0
+                        // Lokalni spremenljivki moramo pred branjem prirediti vrednost.
+                        // Z default ji eksplicitno priredimo privzeto vrednost tipa.
+                        int i = default; // Privzeta vrednost tipa int je 0.
 
-                        // Pri sklicnih tipih se vrednost samodejno ne nastavi
-                        // Spremenljivke do takrat ne kažejo na nobeno referenco
-                        // in to označujemo z null, podobno to tudi nastavimo
-                        object j = null;
+                        // Privzeta vrednost sklicnega tipa je null.
+                        // Z vprašajem označimo, da spremenljivka sme vsebovati null.
+                        object? j = null;
                     }
                     break;
                 case ValueAndReferenceTypes.StructsAndClasses:

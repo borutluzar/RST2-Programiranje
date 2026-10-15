@@ -12,18 +12,17 @@ namespace ObjektniKoncepti
         {
             Properties = 1,
             Indexers = 2,
-            BoxingUnboxing = 3,
-            Inheritance = 4,
-            InheritanceMasksExample = 5,
-            InheritanceWithCasting = 6,
-            InheritanceWithCastingOnOverriden = 7,
-            InheritancePolymorphism = 8,
-            InheritanceVirtualMethod = 9,
-            Abstraction = 10,
-            Interfaces = 11,
-            InterfacesExampleMetadata = 12,
-            InterfacesImplicitExplicit = 13,
-            Extensions = 14
+            Inheritance = 3,
+            InheritanceMasksExample = 4,
+            InheritanceWithCasting = 5,
+            InheritanceWithCastingOnOverriden = 6,
+            InheritancePolymorphism = 7,
+            InheritanceVirtualMethod = 8,
+            Abstraction = 9,
+            Interfaces = 10,
+            InterfacesExampleMetadata = 11,
+            InterfacesImplicitExplicit = 12,
+            Extensions = 13
         }
 
         static void Main()
@@ -38,11 +37,6 @@ namespace ObjektniKoncepti
                 case ObjectsSections.Indexers:
                     {
                         Indexers.ExampleIndexers();
-                    }
-                    break;
-                case ObjectsSections.BoxingUnboxing:
-                    {
-                        BoxingUnboxing.ExampleBoxing();
                     }
                     break;
                 case ObjectsSections.Inheritance:

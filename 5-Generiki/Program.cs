@@ -1,5 +1,6 @@
 ﻿using CommonFunctions;
 using DesignPatterns.StrategyPart3;
+using System.Numerics;
 
 namespace Generics
 {
@@ -7,7 +8,7 @@ namespace Generics
     {
         Basics = 1,
         GenericClass = 2,
-        GenericMethod = 3,
+        GenericFunction = 3,
         GenericExample = 4
     }
 
@@ -17,7 +18,7 @@ namespace Generics
     /// pri čemer jim tipe podamo kot parametre (v kljukastih oklepajih).
     /// Arh, Q39
     /// </summary>
-    class Program
+    public class Program
     {
         static void Main()
         {
@@ -49,15 +50,15 @@ namespace Generics
                         Console.WriteLine($"ID artikla {nameof(sponka)} je tipa {sponka.ID.GetType()}");
                     }
                     break;
-                case GenericsSection.GenericMethod:
+                case GenericsSection.GenericFunction:
                     {
-                        // Podobno lahko ustvarimo generične metode.
-                        // Že ves čas na primer uporabljamo metodo
+                        // Podobno lahko ustvarimo generične funkcije.
+                        // Že ves čas na primer uporabljamo funkcijo
                         // ChooseSection iz razreda InterfaceFunctions
                         // Več primerov v Arh, Q40
                         var choice = InterfaceFunctions.ChooseSection<GenericsSection>();                        
                         
-                        // Ali pa razširitveno metodo WriteCollection
+                        // Ali pa razširitveno funkcijo WriteCollection
                         List<string> lstArticles = new List<string>() { "A", "B", "#", "D" };
                         var msg = lstArticles.WriteCollection();
                         Console.WriteLine(msg);
