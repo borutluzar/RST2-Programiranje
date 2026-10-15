@@ -25,7 +25,8 @@ namespace Uvod
             switch (InterfaceFunctions.ChooseSection<IntroductorySection>())
             {
                 case IntroductorySection.HelloWorld:
-                    { // V tem primeru si ogledamo preprosto metodo, ki naredi izpis v konzolo
+                    {   // V tem primeru si ogledamo preprosto funkcija,
+                        // ki naredi izpis v konzolo
                         HelloWorld();
                     }
                     break;
@@ -42,7 +43,7 @@ namespace Uvod
                     break;
                 case IntroductorySection.CountingPrimesWithOut:
                     { // V tem primeru si ogledamo vračanje vrednosti z uporabo določila out
-                        int upToNumber = 90;
+                        int upToNumber = 100;
                         int numPrimes = MyStaticFunctions.CountPrimes(upToNumber, out int largest);
                         // Če ne želimo izhodne vrednosti, napišemo podčrtaj
                         int numPrimes2 = MyStaticFunctions.CountPrimes(upToNumber, out _);
@@ -141,7 +142,7 @@ namespace Uvod
         }
 
         /// <summary>
-        /// Metoda, ki izpiše Hello World!
+        /// Funkcija, ki izpiše Hello World!
         /// </summary>
         public static void HelloWorld()
         {
@@ -160,7 +161,8 @@ namespace Uvod
             // Običajen izpis
             Console.WriteLine();
             Console.WriteLine("Običajen izpis z združevanjem:");
-            Console.WriteLine("\tŠtevilo praštevil med 1 in " + n + " je " + primes + ".");
+            string podatek = "\tŠtevilo praštevil med 1 in " + n + " je " + primes + ".";
+            Console.WriteLine(podatek);
             Console.WriteLine("ali s parametrizacijo:");
             Console.WriteLine("\tŠtevilo praštevil med 1 in {0} je {1}.", n, primes);
 
