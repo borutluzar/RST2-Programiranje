@@ -236,7 +236,7 @@ namespace Uvod
             // Ime datoteke lahko podamo relativno na pot izvajanja programa
             // ali pa absolutno, npr. C:/Temp/imeDatoteke.txt
             StreamWriter swData = new StreamWriter(fileName);
-            
+
             swData.WriteLine("Moje ime je Borut.");
             swData.Flush(); // Zapišemo trenuten buffer v datoteko
 

@@ -48,10 +48,10 @@
 
             // Če uporabimo napačno preoblikovanje, se ob izvajanju sproži napaka
             object refType3 = 3;
-            int l = (int)refType3;
+            //int l = (int)refType3;
             //int l = (long)refType2;
             //long l = (long)refType2; // Runtime exception - najprej moramo pretvoriti v int
-            //long l = (int)refType2;
+            long l = (int)refType2;
 
             Console.WriteLine($"4. valType={l}, refType={refType3}");
             Console.WriteLine();

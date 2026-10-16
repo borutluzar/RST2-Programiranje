@@ -28,6 +28,11 @@ namespace VrednostniInSklicniTipi
                         z = new List<int>() { 5, 6, 7 };
                         // z ima novo referenco, w-ju ostane stara
                         Console.WriteLine($"Velikost z: {z.Count}, w: {w.Count}");
+
+                        // Še en primer
+                        z = w;
+                        List<int> t = new List<int>() { 8, 9, 10};
+                        z = t;
                     }
                     break;
                 case ValueAndReferenceTypes.DefaultValue:
@@ -36,9 +41,43 @@ namespace VrednostniInSklicniTipi
                         // Z default ji eksplicitno priredimo privzeto vrednost tipa.
                         int i = default; // Privzeta vrednost tipa int je 0.
 
+                        int bl;
+                        //Console.WriteLine($"Vrednost j je {bl}"); - se ne prevede
+
                         // Privzeta vrednost sklicnega tipa je null.
                         // Z vprašajem označimo, da spremenljivka sme vsebovati null.
                         object? j = null;
+                    }
+                    break;
+                case ValueAndReferenceTypes.RefKeyword:
+                    {
+                        int x = 1;
+
+                        // Vrednost vrednostnega tipa lahko spremenimo v funkciji,
+                        // če uporabimo rezervirano besedo ref
+                        Console.WriteLine($"Vrednost {nameof(x)} pred spremembo: {x}");
+                        ChangeValueBy(ref x, 1);
+                        Console.WriteLine($"Vrednost {nameof(x)} po spremembi: {x}");
+                    }
+                    break;
+                case ValueAndReferenceTypes.RefKeywordForReferenceTypes:
+                    {
+                        List<int> lst = new() { 1, 2, 3 };
+
+                        Console.WriteLine($"Vrednost {nameof(lst)} pred spremembo: {lst.WriteCollection()}");
+                        ChangeList1(ref lst);
+                        //ChangeList2(lst);
+                        //ChangeList3(ref lst);
+                        //ChangeList4(lst);
+                        Console.WriteLine($"Vrednost {nameof(lst)} po spremembi: {lst.WriteCollection()}");
+                    }
+                    break;
+                case ValueAndReferenceTypes.CountingPrimesWithRef:
+                    { // V tem primeru si ogledamo vračanje vrednosti z uporabo določila ref
+                        int upToNumber = 90;
+                        int numPrimes = MyStaticFunctions.CountPrimes(ref upToNumber, out int largest);
+                        Console.WriteLine($"Od 1 do {upToNumber} je {numPrimes} praštevil, največje pa je {largest}.");
+                        Console.WriteLine($"Vrednost parametra {nameof(upToNumber)} je {upToNumber}!");
                     }
                     break;
                 case ValueAndReferenceTypes.StructsAndClasses:
@@ -78,37 +117,6 @@ namespace VrednostniInSklicniTipi
                         Console.WriteLine($"Stranica b = {rect_val.b}");
                     }
                     break;
-                case ValueAndReferenceTypes.RefKeyword:
-                    {
-                        int x = 1;
-
-                        // Vrednost vrednostnega tipa lahko spremenimo v funkciji,
-                        // če uporabimo rezervirano besedo ref
-                        Console.WriteLine($"Vrednost {nameof(x)} pred spremembo: {x}");
-                        ChangeValueBy(ref x, 1);
-                        Console.WriteLine($"Vrednost {nameof(x)} po spremembi: {x}");
-                    }
-                    break;
-                case ValueAndReferenceTypes.RefKeywordForReferenceTypes:
-                    {
-                        List<int> lst = new() { 1, 2, 3 };
-
-                        Console.WriteLine($"Vrednost {nameof(lst)} pred spremembo: {lst.WriteCollection()}");
-                        ChangeList1(ref lst);
-                        //ChangeList2(lst);
-                        //ChangeList3(ref lst);
-                        //ChangeList4(lst);
-                        Console.WriteLine($"Vrednost {nameof(lst)} po spremembi: {lst.WriteCollection()}");
-                    }
-                    break;
-                case ValueAndReferenceTypes.CountingPrimesWithRef:
-                    { // V tem primeru si ogledamo vračanje vrednosti z uporabo določila ref
-                        int upToNumber = 90;
-                        int numPrimes = MyStaticFunctions.CountPrimes(ref upToNumber, out int largest);
-                        Console.WriteLine($"Od 1 do {upToNumber} je {numPrimes} praštevil, največje pa je {largest}.");
-                        Console.WriteLine($"Vrednost parametra {nameof(upToNumber)} je {upToNumber}!");
-                    }
-                    break;
                 case ValueAndReferenceTypes.BoxingAndUnboxing:
                     {
                         BoxingUnboxing.ExampleBoxing();
@@ -122,11 +130,11 @@ namespace VrednostniInSklicniTipi
         {
             Basics = 1,
             DefaultValue = 2,
-            StructsAndClasses = 3,
-            BoxingAndUnboxing = 4,
-            RefKeyword = 5,
-            RefKeywordForReferenceTypes = 6,
-            CountingPrimesWithRef = 7
+            RefKeyword = 3,
+            RefKeywordForReferenceTypes = 4,
+            CountingPrimesWithRef = 5,
+            StructsAndClasses = 6,
+            BoxingAndUnboxing = 7        
         }
 
         public static void IncreaseRectangle(Rectangle_Class rect, int increaseBy)
@@ -149,7 +157,7 @@ namespace VrednostniInSklicniTipi
 
         private static void ChangeValueBy(ref int x, int change)
         {
-            x += change;            
+            x += change;
         }
 
         private static void ChangeList1(ref List<int> lst)
