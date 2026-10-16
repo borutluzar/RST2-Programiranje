@@ -36,6 +36,21 @@ namespace Uvod
         public bool ContainsSensitiveInfo { get; private set; }
     }
 
+    public class Janitor
+    {
+        public Janitor(string firstName)
+        {
+            FirstName = firstName;
+        }
+
+        public Janitor()
+        {
+            FirstName = "Borut";
+        }
+
+        public string FirstName;
+    }
+
     /// <summary>
     /// Object that carries properties of a student
     /// </summary>

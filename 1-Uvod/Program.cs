@@ -202,6 +202,10 @@ namespace Uvod
         static void CreateStudents()
         {
             // Kreiramo novo instanco
+            Janitor hisnik = new Janitor("Borut");
+
+            Student borut = new Student("Lužar", new DateTime(2000, 1, 1));
+
             Student marko = new Student("Marko", "Markantni", new DateTime(1980, 1, 1))
             {
                 Subjects = new System.Collections.Generic.List<Subject>()
