@@ -1,4 +1,5 @@
 ﻿using CommonFunctions;
+using DesignPatterns.DependencyInjectionExamples;
 using System;
 using System.Threading;
 
@@ -13,7 +14,12 @@ namespace DesignPatterns
             FactoryBad = 3,
             FactoryGood = 4,
             Builder = 5,
-            Strategy = 6
+            Strategy = 6,
+            DependencyInjection = 7,
+            DependencyInjectionNotifiers = 8,
+            DependencyInjectionContainer = 9,
+            DependencyInjectionLifetimes = 10,
+            DependencyInjectionErrors = 11
         }
 
         static void Main()
@@ -106,6 +112,36 @@ namespace DesignPatterns
                         // jo podaja strateški načrtovalski vzorec, 
                         // ustrezno implementiramo nove funkcionalnosti.
                         StrategyPart3.Part3Test.ShowPart3();
+                    }
+                    break;
+                case DesignPatternsSections.DependencyInjection:
+                    {
+                        // Nadaljujemo strateški vzorec: raziskovalec prejme jezikovno strategijo od zunaj.
+                        DependencyInjectionTests.ShowConstructorInjection();
+                    }
+                    break;
+                case DesignPatternsSections.DependencyInjectionNotifiers:
+                    {
+                        // Ročno sestavljanje storitve za prijave in zamenjava njenega obveščevalnika.
+                        DependencyInjectionTests.ShowNotifiers();
+                    }
+                    break;
+                case DesignPatternsSections.DependencyInjectionContainer:
+                    {
+                        // Registracija storitev in sestavljanje objektov z vsebnikom .NET.
+                        DependencyInjectionTests.ShowContainer();
+                    }
+                    break;
+                case DesignPatternsSections.DependencyInjectionLifetimes:
+                    {
+                        // Isti primer izvedemo z življenjskimi dobami Transient, Scoped in Singleton.
+                        DependencyInjectionTests.ShowLifetimes();
+                    }
+                    break;
+                case DesignPatternsSections.DependencyInjectionErrors:
+                    {
+                        // Pričakovani napaki prestrežemo
+                        DependencyInjectionTests.ShowErrors();
                     }
                     break;
             }

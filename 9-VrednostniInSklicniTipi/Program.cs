@@ -114,6 +114,26 @@ namespace VrednostniInSklicniTipi
                         BoxingUnboxing.ExampleBoxing();
                     }
                     break;
+                case ValueAndReferenceTypes.RecordsEquality:
+                    {
+                        Records.ExampleEquality();
+                    }
+                    break;
+                case ValueAndReferenceTypes.RecordsWith:
+                    {
+                        Records.ExampleWith();
+                    }
+                    break;
+                case ValueAndReferenceTypes.RecordStructs:
+                    {
+                        Records.ExampleStructs();
+                    }
+                    break;
+                case ValueAndReferenceTypes.RecordsShallowCopy:
+                    {
+                        Records.ExampleShallowCopy();
+                    }
+                    break;
             }
             Console.Read();
         }
@@ -126,7 +146,11 @@ namespace VrednostniInSklicniTipi
             BoxingAndUnboxing = 4,
             RefKeyword = 5,
             RefKeywordForReferenceTypes = 6,
-            CountingPrimesWithRef = 7
+            CountingPrimesWithRef = 7,
+            RecordsEquality = 8,
+            RecordsWith = 9,
+            RecordStructs = 10,
+            RecordsShallowCopy = 11
         }
 
         public static void IncreaseRectangle(Rectangle_Class rect, int increaseBy)
