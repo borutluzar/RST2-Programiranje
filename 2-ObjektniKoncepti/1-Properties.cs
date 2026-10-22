@@ -15,7 +15,7 @@ namespace ObjektniKoncepti
         public static void ExampleProperties()
         {
             // Ustvarimo novo instanco objekta
-            PropertiesExample pe = new PropertiesExample();
+            PropertiesExample pe = new PropertiesExample();            
 
             // Vrednost polja field lahko beremo in nastavljamo brez omejitev
             uint x = pe.field;  // branje
@@ -38,7 +38,7 @@ namespace ObjektniKoncepti
             Console.WriteLine();
             Console.WriteLine($"Vrednost AutoImplementedProperty={pe.AutoImplementedProperty}");
             Console.WriteLine();
-            pe.MethodExample();
+            pe.FunctionExample();
             Console.WriteLine($"Vrednost po izvedbi metode AutoImplementedProperty={pe.AutoImplementedProperty}");
 
 
@@ -102,6 +102,9 @@ namespace ObjektniKoncepti
             this.AutoImplementedProperty = auto;
         }
 
+        /// <summary>
+        /// Prazen konstruktor
+        /// </summary>
         public PropertiesExample()
         {
             //this.AutoImplementedProperty = 44;
@@ -114,7 +117,7 @@ namespace ObjektniKoncepti
             this.readOnlyExplicitField = 12;
         }
 
-        public void MethodExample()
+        public void FunctionExample()
         {
             this.AutoImplementedProperty = 56;
             //this.ReadOnlyAutoImplementedProperty = 67;
