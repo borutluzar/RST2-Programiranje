@@ -31,7 +31,7 @@ namespace LINQ
                         // (x, y) => (x + y, x - y)
                         Func<int, int, (int, int)> sum = (x, y) => (x + y, x - y);
                         Func<int, int, int, bool> isPitagorean = (x, y, z) => x * x + y * y == z * z;
-                        Func<double, int> roundUp = x => (int)Math.Round(x, 0, MidpointRounding.AwayFromZero);
+                        Func<double, int> roundUp = x => (int)Math.Round(x, 0, MidpointRounding.ToZero);
                         Func<double, int> roundDown = x => (int)Math.Round(x, 0);
                         double x = Math.PI;
                         var y = sum(4, 3);
