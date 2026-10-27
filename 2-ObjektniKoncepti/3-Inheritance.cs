@@ -7,7 +7,7 @@ namespace ObjektniKoncepti.Inheritance
     public static class Inheritance
     {
         public static void ExampleInheritance()
-        {
+        {            
             ParentClass parent = new ParentClass(Math.PI);
             parent.Property1 = (int)(2 * Math.PI); // Cast vzame prvi objekt z desne
 
@@ -54,7 +54,13 @@ namespace ObjektniKoncepti.Inheritance
             if (childAsParent2 is ChildClass)
             {
                 //childAsParent2.ChildMethod();
-                ((ChildClass)childAsParent2).ChildMethod();
+                ((ChildClass)childAsParent2).ChildFunction();
+            }
+
+            // oz. novejša izvedba
+            if (childAsParent2 is ChildClass child2)
+            {
+                child2.ChildFunction();
             }            
 
             // Instanca childAsParent se obnaša kot instanca razreda ParentClass,
@@ -114,10 +120,19 @@ namespace ObjektniKoncepti.Inheritance
             King king = new King();
             player.MyPieces.Add(king);
 
+            Knight knight = new Knight();
+            player.MyPieces.Add(knight);
+
             // Izpišimo figure iz seznama
             Console.WriteLine($"Figure igralca player so:");
             // Za vsako figuro fig se kliče njena metoda ToString
-            player.MyPieces.ForEach(fig => Console.WriteLine($"{fig}\n"));
+            //player.MyPieces.ForEach(fig => Console.WriteLine($"{fig}\n"));
+
+            foreach(ChessPiece fig in player.MyPieces)
+            {
+                Console.WriteLine($"Figura: {fig.ToString()}\n");
+            }
+
             Console.WriteLine();
         }
 
@@ -248,10 +263,11 @@ namespace ObjektniKoncepti.Inheritance
         /// </summary>
         public override double SquareRootField()
         {
+            // Nova logika
             return base.SquareRootField() * this.field2;
         }
 
-        public bool ChildMethod()
+        public bool ChildFunction()
         {
             Console.WriteLine("This method is defined only in the child class");
             return true;
@@ -309,6 +325,23 @@ namespace ObjektniKoncepti.Inheritance
             return base.ToString() + $"\nMoje ime je {this.GetType().Name}";
         }
     }
+
+    public class Knight : ChessPiece
+    {
+        private const double chessWeight = 2.7;
+
+        public Knight()
+        {
+            this.Weight = chessWeight;
+        }
+
+        //new public string ToString()
+        public override string ToString()
+        {
+            return base.ToString() + $"\nMoje ime je {this.GetType().Name}";
+        }
+    }
+
 
     /// <summary>
     /// Arh, Q22
