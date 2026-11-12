@@ -79,11 +79,19 @@ namespace ObjektniKoncepti.Interfaces
                 ex
             };
 
+            List<object> lstObjects2 = new List<object>()
+            {
+                app,
+                file,
+                ms,
+                ex
+            };
+
             // Ker imajo vsi objekti seznama na voljo enako metodo,
             // lahko zanje izvajamo program na enak način
             // (npr. izpišemo metapodatke),
             // pa čeprav gre za nesorodne instance s stališča dedovanja
-            foreach (IMetaData obj in lstObjects)
+            foreach (var obj in lstObjects)
             {
                 Console.WriteLine($"\nObject metadata: " +
                     $"- type: {obj.GetType()}" +
@@ -91,10 +99,11 @@ namespace ObjektniKoncepti.Interfaces
                     $"- date created: {obj.DateCreated}" +
                     $"- organization: {obj.Organization} \n");
 
-                if (obj is IDocumentMetaData)
+                if (obj is IDocumentMetaData dmd)
                 {
                     Console.WriteLine($"\nObject metadata: " +
-                        $"- title: {((IDocumentMetaData)obj).Title}");
+                        //$"- title: {((IDocumentMetaData)obj).Title}");
+                        $"- title: {dmd.Title}");
                 }
             }
         }
@@ -300,13 +309,15 @@ namespace ObjektniKoncepti.Interfaces
     /// Vmesnik z lastnostmi in metodami za razrede, 
     /// ki definirajo objekte, ki potrebujejo osnovne metapodatke
     /// </summary>
-    interface IMetaData
+    public interface IMetaData
     {
         string Author { get; set; }
 
         DateOnly DateCreated { get; set; }
 
         string Organization { get; set; }
+
+        //void DeleteData();
     }
 
     /// <summary>
@@ -329,6 +340,11 @@ namespace ObjektniKoncepti.Interfaces
         public string Author { get; set; }
         public DateOnly DateCreated { get; set; }
         public string Organization { get; set; }
+
+        public void DeleteData() 
+        {
+            throw new NotImplementedException();
+        }
     }
 
     /// <summary>

@@ -15,6 +15,7 @@ namespace ObjektniKoncepti.Abstraction
             //ChessPiece piece = new ChessPiece(fieldStart);
 
             ChessPiece rook = new Rook(fieldStart);
+            ChessPiece pawn = new Pawn(fieldStart);
             
             // Če označimo lastnost kot virtual, jo lahko prepišemo v podrazredu,
             // npr. tako, da umaknemo blok set
