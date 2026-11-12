@@ -12,7 +12,7 @@ namespace ObjektniKoncepti.Extensions
     {
         public static void ExampleExtensions()
         {
-            string filip = "téma";
+            string filip = "téma";            
             
             Console.WriteLine($"Filip vsebuje? {filip.ContainsVowels()}");
             Console.WriteLine($"Filip vsebuje? {ExtensionsClass.ContainsVowels(filip)}");

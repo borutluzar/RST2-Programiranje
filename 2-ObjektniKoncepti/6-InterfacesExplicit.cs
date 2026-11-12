@@ -16,10 +16,10 @@ namespace ObjektniKoncepti.InterfacesImplicitExplicit
             Console.WriteLine($"Trenutna pozicija figure rook je {rook.Position}");
 
 
-            IPiece rook2 = rook as IPiece;
+            IPiece rook_as_IPiece = rook;
             Console.WriteLine();
             Console.WriteLine("Eksplicitna implementacija metode Promote iz IPiece");
-            rook2.Promote(new Rook(rook.Position));
+            rook_as_IPiece.Promote(new Rook(rook.Position));
 
             Console.WriteLine();
             Console.WriteLine("Implementacija metode Promote iz razreda");
@@ -29,7 +29,7 @@ namespace ObjektniKoncepti.InterfacesImplicitExplicit
 
             Console.WriteLine();
             Console.WriteLine("Klic na objektu rook2: ");
-            rook2.Promote(new Rook(rook.Position));
+            rook_as_IPiece.Promote(new Rook(rook.Position));
 
             Console.WriteLine();
             Console.WriteLine("Klic na objektu tipa ICareerObject: ");
@@ -78,16 +78,17 @@ namespace ObjektniKoncepti.InterfacesImplicitExplicit
 
         /// <summary>
         /// Eksplicitna implementacija metode iz IPiece
-        /// </summary>
+        /// </summary>        
         void IPiece.Promote(ChessPiece toPiece)
         {
             Console.WriteLine($"(EKSPLICITNO iz IPiece) Jaz, figura kmet, se želim promovirati v figuro:\n {toPiece.GetType()}");
         }                
-
+        
         void ICareerObject.Promote(ChessPiece toPiece)
         {
             Console.WriteLine($"(EKSPLICITNO iz ICareerObject) Jaz, figura kmet, se želim promovirati v figuro:\n {toPiece.GetType()}");
         }
+        
 
         /// <summary>
         /// Implementacija metode z istim imenom v razredu

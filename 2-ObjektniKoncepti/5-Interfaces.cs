@@ -68,11 +68,11 @@ namespace ObjektniKoncepti.Interfaces
             Application app = new Application() { Organization = "FIŠ", Author = "Tone" };
             File file = new File() { Organization = "Apple", Author = "Janez" };
             Exhibition ex = new Exhibition() { Organization = "Galerija", Author = "Ivana" };
-            MastersThesis ms = new MastersThesis();            
+            MastersThesis ms = new MastersThesis();
 
             // Dodajmo jih v seznam, ki kot vrednosti dobi tip IMetaData
             List<IMetaData> lstObjects = new List<IMetaData>()
-            { 
+            {
                 app,
                 file,
                 ms,
@@ -106,6 +106,53 @@ namespace ObjektniKoncepti.Interfaces
                         $"- title: {dmd.Title}");
                 }
             }
+
+
+            // Delovanje funkcije Sort preko vmesnik IComparable<T>
+            /*
+            List<int> lstInt = new List<int>() { 7, 6, 5, 4, 3, 2, 1, 84 };
+            lstInt.Sort();
+            */
+
+            List<Bird> lstBirds = new List<Bird>()
+            {
+                new Bird(4, 12, "albatros"),
+                new Bird(3, 10, "galeb"),
+                new Bird(1, 12, "uharica"),
+                new Bird(2, 12, "škorec"),
+                new Bird(2, 12, "sinica"),
+                new Bird(1, 12, "kos")
+            };
+            lstBirds.Sort();
+
+            Console.WriteLine();
+        }
+    }
+
+    public class Bird : IComparable<Bird>
+    {
+        public Bird(int wingSpan, int beakLength, string name)
+        {
+            Name = name;
+            WingSpan = wingSpan;
+            BeakLength = beakLength;
+        }
+
+        public string Name { get; } = "";
+
+        public int WingSpan { get; }
+
+        public int BeakLength { get; }
+
+        public int CompareTo(Bird other)
+        {
+            //return -1 * this.Name.CompareTo(other.Name); 
+            return this.WingSpan.CompareTo(other.WingSpan);
+        }
+
+        public override string ToString()
+        {
+            return $"Name: {this.Name}, Wing span: {this.WingSpan}";
         }
     }
 
@@ -162,18 +209,18 @@ namespace ObjektniKoncepti.Interfaces
 
     public class GoPiece : IPiece
     {
-        public bool IsAlive 
-        { 
-            get => throw new NotImplementedException(); 
-            set => throw new NotImplementedException(); 
+        public bool IsAlive
+        {
+            get => throw new NotImplementedException();
+            set => throw new NotImplementedException();
         }
 
         public double ChessWeight => throw new NotImplementedException();
 
-        public BoardField Position 
-        { 
-            get => throw new NotImplementedException(); 
-            set => throw new NotImplementedException(); 
+        public BoardField Position
+        {
+            get => throw new NotImplementedException();
+            set => throw new NotImplementedException();
         }
 
         public void Move(BoardField field)
@@ -227,7 +274,7 @@ namespace ObjektniKoncepti.Interfaces
             {
                 return position;
             }
-            private set 
+            private set
             {
                 position = value;
             }
@@ -341,7 +388,7 @@ namespace ObjektniKoncepti.Interfaces
         public DateOnly DateCreated { get; set; }
         public string Organization { get; set; }
 
-        public void DeleteData() 
+        public void DeleteData()
         {
             throw new NotImplementedException();
         }
@@ -374,7 +421,7 @@ namespace ObjektniKoncepti.Interfaces
         public string Author { get; set; }
         public DateOnly DateCreated { get; set; }
         public string Organization { get; set; }
-        public List<string> Committee { get; set ; }
+        public List<string> Committee { get; set; }
 
         public void Present()
         {
