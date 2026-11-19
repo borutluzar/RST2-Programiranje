@@ -66,6 +66,15 @@ namespace LINQ
                             $"{property.GetInvocationList().Select(x => x.Method.Name).ToList().ToString<string>()}, " +
                             $"zadnja funkcija pa je {property.Method.Name}");
                         Console.WriteLine($"Za število {input} lastnost {(property(input) ? "drži" : "ne drži")}");
+
+                        // Lahko pa preverimo vse rezultate
+                        foreach(NumberProperty deleg in property.GetInvocationList())
+                        {
+                            Console.WriteLine($"Rezultat funkcije {deleg.Method.Name} " +
+                                $"za vrednost {input} je {deleg(input)}");
+                        }
+
+                        //property -= IsOdd;
                     }
                     break;
                 case DelegateSubsections.DelegatesAsParameters:
@@ -74,11 +83,15 @@ namespace LINQ
                         // funkcijam, da funkcije s tem naredimo bolj splošne.
 
                         List<int> lstInputs = new() { 3, 5, 7, 12, 13, 14, 18, 23, 25, 28, 43, 55, 56, 57, 58, 82, 85, 89 };
-                                                
+
 
                         // Pokličimo funkcijo CheckProperty za različne lastnosti
-                        var lstResults = CheckProperty(lstInputs, IsPrimeNumber);
-                        lstResults.ForEach(x => Console.WriteLine(x.ToString()));
+                        //var lstResults = CheckProperty(lstInputs, IsPrimeNumber);
+                        NumberProperty prop = IsPrimeNumber;
+                        prop += IsOdd;
+                        prop += IsDivisibleBy11;
+                        var lstResults = CheckMultiProperties(lstInputs, prop);                        
+                        lstResults.ForEach(x => Console.WriteLine(x.Item1 + ": " + x.Item2.ToString<bool>()));                        
                     }
                     break;
                 case DelegateSubsections.NetSimplification:
@@ -161,6 +174,12 @@ namespace LINQ
             return n % 2 == 1;
         }
 
+        public static bool IsOddWrong(string n)
+        {
+            Console.WriteLine("\nPoteka izvajanje funkcije IsOdd...");
+            return int.Parse(n) % 2 == 1;
+        }
+
         public static bool IsDivisibleBy11(int n)
         {
             Console.WriteLine("\nPoteka izvajanje funkcije IsDivisibleBy11...");
@@ -175,6 +194,20 @@ namespace LINQ
             foreach (int n in lstNumbers)
             {
                 lstChecked.Add((n, property(n)));
+            }
+            return lstChecked;
+        }
+
+        public static List<(int, List<bool>)> CheckMultiProperties(List<int> lstNumbers, NumberProperty property)
+        {
+            List<(int, List<bool>)> lstChecked = new();
+            foreach (int n in lstNumbers)
+            {
+                List<bool> lstResults = new();
+                foreach (NumberProperty del in property.GetInvocationList())
+                    lstResults.Add(del(n));
+
+                lstChecked.Add((n, lstResults));
             }
             return lstChecked;
         }

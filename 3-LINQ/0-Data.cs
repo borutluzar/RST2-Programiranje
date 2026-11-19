@@ -54,7 +54,7 @@ namespace LINQ
                     new Animal(){ ID=9, Species = "Orangutan",  HasTail = false,    NumberOfLegs = 2 },
                     new Animal(){ ID=10, Species = "Lev",       HasTail = true,     NumberOfLegs = 4 },
                     new Animal(){ ID=11, Species = "Tiger",     HasTail = true,     NumberOfLegs = 4 },
-                    new Animal(){ ID=12, Species = "Kača",     HasTail = true,     NumberOfLegs = 0 },
+                    new Animal(){ ID=12, Species = "Kača",     HasTail = false,     NumberOfLegs = 0 },
                 };
 
         public static List<Continent> continents = new List<Continent>()

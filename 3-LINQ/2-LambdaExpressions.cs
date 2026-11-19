@@ -19,8 +19,8 @@ namespace LINQ
         public static void LambdaExpressionExamples()
         {
             // Lambda izrazi so oblike
-            // (vhodni parametri) => ukaz   ali
-            // (vhodni parameter) => {zaporedje ukazov}
+            // (vhodni parametri) => izraz   ali
+            // (vhodni parameter) => {zaporedje izrazov}
             // Gre za skrajšan zapis funkcij. 
 
             switch (InterfaceFunctions.ChooseSection<LambdaSubsections>())
@@ -31,7 +31,7 @@ namespace LINQ
                         // (x, y) => (x + y, x - y)
                         Func<int, int, (int, int)> sum = (x, y) => (x + y, x - y);
                         Func<int, int, int, bool> isPitagorean = (x, y, z) => x * x + y * y == z * z;
-                        Func<double, int> roundUp = x => (int)Math.Round(x, 0, MidpointRounding.ToZero);
+                        Func<double, int> roundUp = x => (int)Math.Round(x, 0, MidpointRounding.AwayFromZero);
                         Func<double, int> roundDown = x => (int)Math.Round(x, 0);
                         double x = Math.PI;
                         var y = sum(4, 3);
@@ -52,7 +52,11 @@ namespace LINQ
                         int a = 11;
                         Func<int, int, (int, int)> sumWithOffset = (x, y) => (x + y + a, x - y + a);
                         var y = sumWithOffset(4, 3);
-                        Console.WriteLine($"Seštejmo in odštejmo 4 in 3 z odmikom: {y}");
+                        Console.WriteLine($"Seštejmo in odštejmo 4 in 3 z odmikom {a}: {y}");
+                        
+                        a = 5;
+                        y = sumWithOffset(4, 3);
+                        Console.WriteLine($"Seštejmo in odštejmo 4 in 3 z odmikom {a}: {y}");
                     }
                     break;
                 case LambdaSubsections.ThreeFunctionSyntaxes:

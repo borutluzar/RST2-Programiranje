@@ -60,7 +60,7 @@ namespace LINQ
                     {
                         // Elemente lahko uredimo - uporabimo spremenljivko animal
                         var queryOrdered = from animal in LINQDataSet.animals
-                                           orderby animal.NumberOfLegs descending
+                                           orderby animal.NumberOfLegs descending, animal.Species                                           
                                            select animal;
                         Console.WriteLine("\nSplošna urejena poizvedba");
                         queryOrdered.ReadEnumerable();
